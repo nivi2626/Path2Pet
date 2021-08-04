@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentCamera">
+
+    <fragment
+        android:id="@+id/fragmentCamera"
+        android:name="huji.post_pc.path2pet.FragmentCamera"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_fragmentCamera_to_fragmentMap"
+            app:destination="@id/fragmentMap" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentInitialDetails"
+        android:name="huji.post_pc.path2pet.FragmentInitialDetails"
+        android:label="fragment_initial_details"
+        tools:layout="@layout/fragment_initial_details" />
+    <fragment
+        android:id="@+id/fragmentMap"
+        android:name="huji.post_pc.path2pet.FragmentMap"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_fragmentMap_to_fragmentInitialDetails2"
+            app:destination="@id/fragmentInitialDetails" />
+        <action
+            android:id="@+id/action_fragmentMap_to_fragmentInitialDetails3"
+            app:destination="@id/fragmentInitialDetails" />
+    </fragment>
+</navigation>

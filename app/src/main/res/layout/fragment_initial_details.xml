@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentInitialDetails">
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#64BD73"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#64BD73"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/pet_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pet type: "
+        android:textColor="#64BD73"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RadioGroup
+        android:id="@+id/myRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/sound"
+        app:layout_constraintStart_toEndOf="@+id/pet_type_text"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/dog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dog"
+            android:textColor="#424141" />
+
+        <RadioButton
+            android:id="@+id/vibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cat" />
+
+        <!--        Todo - add more pet type (rabbit\parrot\...) -->
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:layout_marginLeft="90dp"
+        android:backgroundTint="#46A556"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myRadioGroup" />
+
+    <Button
+        android:id="@+id/male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:backgroundTint="#46A556"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/female"
+        app:layout_constraintTop_toBottomOf="@+id/myRadioGroup"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
