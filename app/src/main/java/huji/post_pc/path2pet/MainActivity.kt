@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         val foundPet = findViewById<Button>(R.id.found_pet)
         // lost pet
         lostPet.setOnClickListener(){
-            val intentLost = Intent(this, lostPetProcess::class.java)
+            val intentLost = Intent(this, LostPetProcess::class.java)
             startActivity(intentLost)
         }
         // found pet

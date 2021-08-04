@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.Navigation
 
 class FragmentInitialDetails : Fragment() {
     override fun onCreateView(
@@ -22,7 +21,7 @@ class FragmentInitialDetails : Fragment() {
 
         //set UI
         //TODO - if we already have the info - show it
-        (activity as lostPetProcess?)?.incrementProgressBar()
+//        (activity as LostPetProcess?)?.incrementProgressBar()
 
 //    // next listener
 //    nextButton.setOnClickListener {
