@@ -41,23 +41,18 @@ class FragmentInitialDetails : Fragment() {
             prevButtonOnClick(it)
         }
 
-//        femaleButton.isEnabled = true
         femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-//        maleButton.isEnabled = false
         maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-//        nextButton.isClickable = false
 
         // male&female listeners
         femaleButton.setOnClickListener(){
             maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
-//            maleButton.isEnabled = false
         }
 
         maleButton.setOnClickListener(){
             femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             maleButton.setBackgroundColor(Color.parseColor("#46A556"))
-//            femaleButton.isEnabled = false
         }
 
         return view
