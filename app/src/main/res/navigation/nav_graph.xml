@@ -61,5 +61,17 @@
         <action
             android:id="@+id/action_fragmentColorPattern_to_fragmentBreedSize"
             app:destination="@id/fragmentBreedSize" />
+        <action
+            android:id="@+id/action_fragmentColorPattern_to_fragmentcomments"
+            app:destination="@id/fragmentcomments" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentcomments"
+        android:name="huji.post_pc.path2pet.lostPet.Fragmentcomments"
+        android:label="fragment_fragmentcomments"
+        tools:layout="@layout/fragment_comments" >
+        <action
+            android:id="@+id/action_fragmentcomments_to_fragmentColorPattern"
+            app:destination="@id/fragmentColorPattern" />
     </fragment>
 </navigation>
