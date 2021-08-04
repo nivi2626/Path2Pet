@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:checkedButton="@+id/sound"
         app:layout_constraintStart_toEndOf="@+id/pet_type_text"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/next"
@@ -46,7 +46,6 @@
         android:text="Next"
         android:textColor="@color/white"
         android:textSize="20sp" />
-
 
     <Button
         android:id="@+id/previous"

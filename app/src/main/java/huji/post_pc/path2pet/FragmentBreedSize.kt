@@ -37,7 +37,7 @@ class FragmentBreedSize : Fragment() {
 
     private fun nextButtonOnClick(view:View) {
         onboardingViewModel.increaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
+        Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
     }
 
     private fun prevButtonOnClick(view:View) {
