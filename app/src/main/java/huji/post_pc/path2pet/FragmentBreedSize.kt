@@ -10,22 +10,17 @@ import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 
-class FragmentInitialDetails : Fragment() {
-
+class FragmentBreedSize : Fragment() {
     private val onboardingViewModel: LostPetViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_initial_details, container, false)
+        val view =  inflater.inflate(R.layout.fragment_breed_size, container, false)
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
-        val femaleButton: Button = view.findViewById(R.id.female)
-        val maleButton: Button = view.findViewById(R.id.male)
         val prevButton: Button = view.findViewById(R.id.previous)
-
-        // set UI
-        //TODO - if we already have the info - show it
 
         // next listener
         nextButton.setOnClickListener {
@@ -35,20 +30,6 @@ class FragmentInitialDetails : Fragment() {
         // prev listener
         prevButton.setOnClickListener {
             prevButtonOnClick(it)
-        }
-
-        femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-        maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-
-        // male&female listeners
-        femaleButton.setOnClickListener(){
-            maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
-        }
-
-        maleButton.setOnClickListener(){
-            femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            maleButton.setBackgroundColor(Color.parseColor("#46A556"))
         }
 
         return view
@@ -61,6 +42,6 @@ class FragmentInitialDetails : Fragment() {
 
     private fun prevButtonOnClick(view:View) {
         onboardingViewModel.decreaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentMap)
+        Navigation.findNavController(view).navigate(R.id.fragmentInitialDetails)
     }
 }

@@ -36,4 +36,6 @@ class FragmentCamera : Fragment() {
         onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentMap)
     }
+
+
 }

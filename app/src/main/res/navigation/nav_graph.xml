@@ -18,7 +18,14 @@
         android:id="@+id/fragmentInitialDetails"
         android:name="huji.post_pc.path2pet.FragmentInitialDetails"
         android:label="fragment_initial_details"
-        tools:layout="@layout/fragment_initial_details" />
+        tools:layout="@layout/fragment_initial_details" >
+        <action
+            android:id="@+id/action_fragmentInitialDetails_to_fragmentBreedSize"
+            app:destination="@id/fragmentBreedSize" />
+        <action
+            android:id="@+id/action_fragmentInitialDetails_to_fragmentMap"
+            app:destination="@id/fragmentMap" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentMap"
         android:name="huji.post_pc.path2pet.FragmentMap"
@@ -33,5 +40,26 @@
         <action
             android:id="@+id/action_fragmentMap_to_fragmentCamera"
             app:destination="@id/fragmentCamera" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentBreedSize"
+        android:name="huji.post_pc.path2pet.FragmentBreedSize"
+        android:label="fragment_breed_size"
+        tools:layout="@layout/fragment_breed_size" >
+        <action
+            android:id="@+id/action_fragmentBreedSize_to_fragmentInitialDetails"
+            app:destination="@id/fragmentInitialDetails" />
+        <action
+            android:id="@+id/action_fragmentBreedSize_to_fragmentColorPattern"
+            app:destination="@id/fragmentColorPattern" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentColorPattern"
+        android:name="huji.post_pc.path2pet.FragmentColorPattern"
+        android:label="fragment_color_pattern"
+        tools:layout="@layout/fragment_color_pattern" >
+        <action
+            android:id="@+id/action_fragmentColorPattern_to_fragmentBreedSize"
+            app:destination="@id/fragmentBreedSize" />
     </fragment>
 </navigation>

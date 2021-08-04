@@ -35,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pet type: "
-        android:textColor="#64BD73"
-        android:textSize="20dp"
+        android:textColor="#252525"
+        android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
 
         <RadioButton
             android:id="@+id/dog"
-            app:buttonTint="@color/black"
+            app:buttonTint="#252525"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dog"
@@ -59,7 +59,7 @@
 
         <RadioButton
             android:id="@+id/cat"
-            app:buttonTint="@color/black"
+            app:buttonTint="#252525"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cat" />
@@ -72,7 +72,7 @@
         android:id="@+id/female"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="Female"
         android:textSize="20dp"
         android:layout_marginLeft="20dp"
@@ -84,7 +84,7 @@
         android:id="@+id/male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         android:text="Male"
