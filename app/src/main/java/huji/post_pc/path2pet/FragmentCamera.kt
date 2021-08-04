@@ -26,7 +26,7 @@ class FragmentCamera : Fragment() {
             nextButtonOnClick(it)
         }
 
-        // prev listener
+        // prev or cancel listener
         // TODO - implement later
 
         return view

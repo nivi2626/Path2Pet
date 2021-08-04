@@ -20,7 +20,7 @@ class LostPetProcess : AppCompatActivity() {
         // set an observer for progress
         setLostPetProgressObserver()
 
-        // TODO - handle later
+        // TODO - was in Ron's project, don't know if we need it here
         // set an observer for lost pet process to be notified when user finished it
 //        setLostPetDoneObserver()
     }
@@ -39,7 +39,7 @@ class LostPetProcess : AppCompatActivity() {
     }
 
 
-    // TODO - handle later
+    // TODO - was in Ron's project, don't know if we need it here
 //    private fun setLostPetDoneObserver() {
 //        val lostPetDoneObserver = Observer<Boolean> {
 //
