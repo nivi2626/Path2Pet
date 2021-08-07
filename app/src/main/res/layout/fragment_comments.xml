@@ -12,7 +12,7 @@
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:backgroundTint="#64BD73"
-        android:text="Next"
+        android:text="next"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Comments: "
         android:textColor="#252525"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,10 +47,13 @@
         android:ems="10"
         android:textColor="#252525"
         android:inputType="textPersonName"
-        android:text="Are there any more details about your pet?"
+        android:hint="Are there any more details about your pet?"
+        android:text=""
         app:layout_constraintStart_toStartOf="@+id/comments_text"
         app:layout_constraintTop_toBottomOf="@+id/comments_text"
         />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

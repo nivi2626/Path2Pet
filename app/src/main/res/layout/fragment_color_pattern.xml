@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Choose color: "
         android:textColor="#252525"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,19 +26,32 @@
         android:layout_marginTop="50dp"
         android:text="Choose pattern: "
         android:textColor="#252525"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/color_text" />
 
     <!--    Todo - add scroll bar/images of pattern options-->
 
-    <RadioGroup
-        android:id="@+id/myRadioGroup"
+    <TextView
+        android:id="@+id/collar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@+id/sound"
-        app:layout_constraintStart_toEndOf="@+id/pet_type_text"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_marginTop="50dp"
+        android:text="Did the pet have a collar?"
+        android:textColor="#252525"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pattern_text" />
+
+    <Switch
+        android:id="@+id/collar_choose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        app:layout_constraintStart_toEndOf="@+id/collar"
+        app:layout_constraintTop_toBottomOf="@+id/pattern_text" />
 
     <Button
         android:id="@+id/next"
@@ -62,5 +75,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

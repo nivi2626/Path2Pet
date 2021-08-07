@@ -73,5 +73,25 @@
         <action
             android:id="@+id/action_fragmentcomments_to_fragmentColorPattern"
             app:destination="@id/fragmentColorPattern" />
+        <action
+            android:id="@+id/action_fragmentcomments_to_fragmentDetails"
+            app:destination="@id/fragmentDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentEnd"
+        android:name="huji.post_pc.path2pet.lostPet.FragmentEnd"
+        android:label="fragment_end"
+        tools:layout="@layout/fragment_end" />
+    <fragment
+        android:id="@+id/fragmentDetails"
+        android:name="huji.post_pc.path2pet.lostPet.fragmentDetails"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_fragmentDetails_to_fragmentcomments"
+            app:destination="@id/fragmentcomments" />
+        <action
+            android:id="@+id/action_fragmentDetails_to_fragmentEnd"
+            app:destination="@id/fragmentEnd" />
     </fragment>
 </navigation>

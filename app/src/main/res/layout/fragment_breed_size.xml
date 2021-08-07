@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Breed: "
         android:textColor="#252525"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:text="Size: "
         android:layout_marginTop="50dp"
         android:textColor="#252525"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/breed_text" />
 

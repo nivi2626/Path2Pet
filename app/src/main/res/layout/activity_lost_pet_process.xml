@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lost_pet_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:max="7"
+        android:max="6"
         android:min="0"
         android:progress="0" />
 
