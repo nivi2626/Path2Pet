@@ -1,5 +1,5 @@
 package huji.post_pc.path2pet
-
+import android.app.FragmentTransaction;
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 class FragmentMap : Fragment() {
 
@@ -20,6 +24,18 @@ class FragmentMap : Fragment() {
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
+
+        //google map
+        val mapFragment:SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(OnMapReadyCallback {
+            it.setOnMapClickListener { coordinate->
+                it.addMarker(
+
+                    MarkerOptions().position(coordinate)
+                )
+
+            }
+        })
 
         // next listener
         nextButton.setOnClickListener {
@@ -43,4 +59,5 @@ class FragmentMap : Fragment() {
         onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentCamera)
     }
+
 }

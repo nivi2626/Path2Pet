@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import huji.post_pc.path2pet.LostPetViewModel
-import huji.post_pc.path2pet.R
 
 class fragmentDetails : Fragment() {
     private val onboardingViewModel: LostPetViewModel by activityViewModels()

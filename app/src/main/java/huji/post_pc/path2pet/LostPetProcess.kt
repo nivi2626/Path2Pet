@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.activity.viewModels
 
 
 class LostPetProcess : AppCompatActivity() {
-
     private val lostPetViewModel: LostPetViewModel by viewModels()
     lateinit var progressBar:ProgressBar
 
