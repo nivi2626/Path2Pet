@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.lostPet
+package huji.post_pc.path2pet
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

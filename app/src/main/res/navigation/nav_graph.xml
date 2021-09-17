@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentcomments"
-        android:name="huji.post_pc.path2pet.lostPet.Fragmentcomments"
+        android:name="huji.post_pc.path2pet.Fragmentcomments"
         android:label="fragment_fragmentcomments"
         tools:layout="@layout/fragment_comments" >
         <action
@@ -79,12 +79,12 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentEnd"
-        android:name="huji.post_pc.path2pet.lostPet.FragmentEnd"
+        android:name="huji.post_pc.path2pet.FragmentEnd"
         android:label="fragment_end"
         tools:layout="@layout/fragment_end" />
     <fragment
         android:id="@+id/fragmentDetails"
-        android:name="huji.post_pc.path2pet.lostPet.fragmentDetails"
+        android:name="huji.post_pc.path2pet.fragmentDetails"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <action
