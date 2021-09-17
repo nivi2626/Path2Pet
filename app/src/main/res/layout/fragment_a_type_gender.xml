@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentInitialDetails">
+    tools:context=".Fragment_c_TypeGender">
 
     <Button
         android:id="@+id/next"
@@ -40,33 +40,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <RadioGroup
-        android:id="@+id/myRadioGroup"
+    <Button
+        android:id="@+id/dog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@+id/sound"
-        app:layout_constraintStart_toEndOf="@+id/pet_type_text"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="50dp"
+        android:text="Dog"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pet_type_text" />
 
-        <RadioButton
-            android:id="@+id/dog"
-            app:buttonTint="#252525"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dog"
-            android:textColor="#424141" />
+    <Button
+        android:id="@+id/cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:text="Cat"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/female"
+        app:layout_constraintTop_toBottomOf="@+id/pet_type_text"/>
 
-        <RadioButton
-            android:id="@+id/cat"
-            app:buttonTint="#252525"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cat" />
 
-        <!--        Todo - add more pet type (rabbit\parrot\...) -->
-
-    </RadioGroup>
+    <TextView
+        android:id="@+id/pet_gender_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pet gender: "
+        android:textColor="#252525"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dog"
+        android:layout_marginTop="20dp"
+        />
 
     <Button
         android:id="@+id/female"
@@ -78,7 +87,7 @@
         android:layout_marginLeft="20dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/pet_gender_text" />
 
     <Button
         android:id="@+id/male"
@@ -90,7 +99,7 @@
         android:text="Male"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/female"
-        app:layout_constraintTop_toBottomOf="@+id/myRadioGroup"/>
+        app:layout_constraintTop_toBottomOf="@+id/pet_gender_text"/>
 
 
     <!--        Todo - add photos of male and female signs -->
