@@ -16,6 +16,7 @@ import androidx.navigation.Navigation
 import pl.utkala.searchablespinner.SearchableSpinner
 
 private var DOG_BREED_ARRAY = arrayOf(
+    "Mixed Breed",
     "Affenpinscher",
     "Afghan Hound",
     "Airedale Terrier",
@@ -221,6 +222,7 @@ private var DOG_BREED_ARRAY = arrayOf(
     "Zuchon"
 )
 private var CAT_BREED_ARRAY = arrayOf(
+    "Mixed Breed",
     "Abyssinian",
     "Aegean",
     "American Bobtail",
