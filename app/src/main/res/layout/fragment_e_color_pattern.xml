@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentColorPattern">
+    tools:context=".Fragment_e_ColorPattern">
 
     <TextView
         android:id="@+id/color_text"
@@ -17,20 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    Todo - ass scroll bar of color options-->
+    <!--    Todo - add scroll bar of color options-->
 
-    <TextView
-        android:id="@+id/pattern_text"
+    <pl.utkala.searchablespinner.SearchableSpinner
+        android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Choose pattern: "
-        android:textColor="#252525"
-        android:textSize="25dp"
+
+        android:minHeight="32dp"
+        app:closeText="Dismiss"
+        app:dialogTitle="Color: "
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/color_text" />
-
-    <!--    Todo - add scroll bar/images of pattern options-->
 
     <TextView
         android:id="@+id/collar"
@@ -41,7 +40,7 @@
         android:textColor="#252525"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pattern_text" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Switch
         android:id="@+id/collar_choose"
@@ -51,7 +50,9 @@
         android:layout_marginTop="50dp"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/collar"
-        app:layout_constraintTop_toBottomOf="@+id/pattern_text" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+
 
     <Button
         android:id="@+id/next"

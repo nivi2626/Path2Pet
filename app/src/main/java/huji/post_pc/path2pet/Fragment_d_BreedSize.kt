@@ -361,7 +361,6 @@ class Fragment_d_BreedSize : Fragment() {
         val prevButton: Button = view.findViewById(R.id.previous)
         val searchableSpinner: SearchableSpinner = view.findViewById(R.id.spinner)
 
-
         // set UI
         // spinner text
         searchableSpinner.setDialogTitle("Choose Pet Breed: ")

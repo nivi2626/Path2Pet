@@ -55,9 +55,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentColorPattern"
-        android:name="huji.post_pc.path2pet.FragmentColorPattern"
+        android:name="huji.post_pc.path2pet.Fragment_e_ColorPattern"
         android:label="fragment_color_pattern"
-        tools:layout="@layout/fragment_color_pattern" >
+        tools:layout="@layout/fragment_e_color_pattern" >
         <action
             android:id="@+id/action_fragmentColorPattern_to_fragmentBreedSize"
             app:destination="@id/fragmentBreedSize" />
