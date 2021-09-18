@@ -7,11 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".Fragment_f_Comments">
 
+    <TextView
+        android:id="@+id/comments_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comments: "
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
+        android:textColor="#252525"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/comments"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="#252525"
+        android:inputType="textPersonName"
+        android:hint="Are there any more details about your pet?"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/comments_text"
+        app:layout_constraintTop_toBottomOf="@+id/comments_text"
+        />
+
     <Button
         android:id="@+id/next"
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:backgroundTint="#64BD73"
+        android:fontFamily="sans-serif-light"
         android:text="next"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -24,35 +50,12 @@
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:backgroundTint="#64BD73"
+        android:fontFamily="sans-serif-light"
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/comments_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Comments: "
-        android:textColor="#252525"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/comments"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:textColor="#252525"
-        android:inputType="textPersonName"
-        android:hint="Are there any more details about your pet?"
-        android:text=""
-        app:layout_constraintStart_toStartOf="@+id/comments_text"
-        app:layout_constraintTop_toBottomOf="@+id/comments_text"
-        />
-
 
 
 

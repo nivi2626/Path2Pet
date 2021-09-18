@@ -3,19 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_a_type_gender.xml" value="0.22" />
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_breed_size.xml" value="0.10507246376811594" />
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_c_type_gender.xml" value="0.1796875" />
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_color_pattern.xml" value="0.1" />
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_d_breed_size.xml" value="0.22" />
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_e_color_pattern.xml" value="0.14666666666666667" />
-        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_initial_details.xml" value="0.1" />
-      </map>
-    </option>
-  </component>
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/activity_lost_pet_process.xml" value="0.12318840579710146" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_a_photo.xml" value="0.1" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_b_map.xml" value="0.1796875" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_c_type_gender.xml" value="0.1796875" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_c_type_sex.xml" value="0.1" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_d_breed_size.xml" value="0.13385416666666666" />
         <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_map.xml" value="0.1" />
       </map>

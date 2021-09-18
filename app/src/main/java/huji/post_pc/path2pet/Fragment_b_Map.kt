@@ -113,12 +113,12 @@ class Fragment_b_Map : Fragment() {
 
     private fun nextButtonOnClick(view:View) {
         onboardingViewModel.increaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentInitialDetails)
+        Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
     }
 
     private fun prevButtonOnClick(view:View) {
         onboardingViewModel.decreaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentCamera)
+        Navigation.findNavController(view).navigate(R.id.fragmentPhoto)
     }
 
 }
