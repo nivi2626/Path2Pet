@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val lostPet = findViewById<Button>(R.id.lost_pet)
         val foundPet = findViewById<Button>(R.id.found_pet)
+        val feed = findViewById<Button>(R.id.feed)
 
         // lost pet
         lostPet.setOnClickListener(){
@@ -27,5 +28,13 @@ class MainActivity : AppCompatActivity() {
 //            val intentFound = Intent(this, lostPetProcess::class.java)
 //            startActivity(intentFound)
         }
+
+        // feed
+        feed.setOnClickListener()
+        {
+            val intentFeed = Intent(this, Feed::class.java)
+            startActivity(intentFeed)
+        }
+
     }
 }
