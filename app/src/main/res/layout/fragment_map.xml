@@ -31,7 +31,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-
     <Button
         android:id="@+id/previous"
         android:layout_width="150dp"
@@ -43,6 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- map -->
     <fragment
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
@@ -55,6 +55,8 @@
         tools:context="com.example.mapwithmarker.MapsMarkerActivity"
         />
 
+
+    <!-- map search bar -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/idSearchView"
         android:layout_width="match_parent"
@@ -66,5 +68,15 @@
         app:iconifiedByDefault="false"
         app:queryHint="Search Here" />
 
+
+<!--    <fragment android:id="@+id/autocomplete_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_marginTop="70dp"-->
+<!--        android:background="@color/white"-->
+<!--        android:noHistory="false"-->
+<!--        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
+<!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
