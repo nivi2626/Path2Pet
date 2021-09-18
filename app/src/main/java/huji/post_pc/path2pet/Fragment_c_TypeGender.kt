@@ -76,6 +76,14 @@ class Fragment_c_TypeGender : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_TYPE", petType)
+                    putString("PET_GENDER", petGender)
+                    apply()
+                }
+            }
             nextButtonOnClick(it)
         }
 
@@ -89,28 +97,12 @@ class Fragment_c_TypeGender : Fragment() {
             catButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             dogButton.setBackgroundColor(Color.parseColor("#46A556"))
             petType = "dog"
-
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_TYPE", petType)
-                    apply()
-                }
-            }
         }
 
         catButton.setOnClickListener(){
             dogButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             catButton.setBackgroundColor(Color.parseColor("#46A556"))
             petType = "cat"
-
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_TYPE", petType)
-                    apply()
-                }
-            }
         }
 
         // gender listeners
@@ -118,26 +110,12 @@ class Fragment_c_TypeGender : Fragment() {
             maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
             petGender = "female"
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_GENDER", petGender)
-                    apply()
-                }
-            }
         }
 
         maleButton.setOnClickListener(){
             femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             maleButton.setBackgroundColor(Color.parseColor("#46A556"))
             petGender = "male"
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_GENDER", petGender)
-                    apply()
-                }
-            }
         }
 
         return view

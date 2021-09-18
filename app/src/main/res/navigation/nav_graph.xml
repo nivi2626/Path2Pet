@@ -84,9 +84,9 @@
         tools:layout="@layout/fragment_end" />
     <fragment
         android:id="@+id/fragmentDetails"
-        android:name="huji.post_pc.path2pet.fragmentDetails"
+        android:name="huji.post_pc.path2pet.Fragment_g_Details"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_g_details" >
         <action
             android:id="@+id/action_fragmentDetails_to_fragmentcomments"
             app:destination="@id/fragmentcomments" />

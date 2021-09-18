@@ -421,6 +421,14 @@ class Fragment_d_BreedSize : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_SIZE", size)
+                    putString("PET_BREED", breed)
+                    apply()
+                }
+            }
             nextButtonOnClick(it)
         }
 
@@ -438,13 +446,6 @@ class Fragment_d_BreedSize : Fragment() {
             ) {
                 // Do what you want
                 breed = searchableSpinner.selectedItem.toString()
-                if (sp != null) {
-                    with(sp.edit())
-                    {
-                        putString("PET_BREED", breed)
-                        apply()
-                    }
-                }
             }
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
@@ -456,14 +457,6 @@ class Fragment_d_BreedSize : Fragment() {
             largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             smallButton.setBackgroundColor(Color.parseColor("#46A556"))
             size = "small"
-
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_SIZE", size)
-                    apply()
-                }
-            }
         }
 
         mediumButton.setOnClickListener(){
@@ -471,14 +464,6 @@ class Fragment_d_BreedSize : Fragment() {
             largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             mediumButton.setBackgroundColor(Color.parseColor("#46A556"))
             size = "medium"
-
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_SIZE", size)
-                    apply()
-                }
-            }
         }
 
         largeButton.setOnClickListener(){
@@ -486,14 +471,6 @@ class Fragment_d_BreedSize : Fragment() {
             mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             largeButton.setBackgroundColor(Color.parseColor("#46A556"))
             size = "large"
-
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putString("PET_SIZE", size)
-                    apply()
-                }
-            }
         }
 
         return view

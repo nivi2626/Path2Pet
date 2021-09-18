@@ -78,15 +78,8 @@ class Fragment_e_ColorPattern : Fragment() {
                 arg2: Int,
                 arg3: Long
             ) {
-                // Do what you want
+                // set color
                 color = searchableSpinner.selectedItem.toString()
-                if (sp != null) {
-                    with(sp.edit())
-                    {
-                        putString("PET_COLOR", color)
-                        apply()
-                    }
-                }
             }
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
@@ -95,17 +88,18 @@ class Fragment_e_ColorPattern : Fragment() {
         // set switch listener
         hasCollarSwitch.setOnCheckedChangeListener { _, isChecked ->
             hasCollar = isChecked
-            if (sp != null) {
-                with(sp.edit())
-                {
-                    putBoolean("PET_COLLAR", hasCollar)
-                    apply()
-                }
-            }
         }
 
         // next listener
         nextButton.setOnClickListener {
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putBoolean("PET_COLLAR", hasCollar)
+                    putString("PET_COLOR", color)
+                    apply()
+                }
+            }
             nextButtonOnClick(it)
         }
 
@@ -113,9 +107,6 @@ class Fragment_e_ColorPattern : Fragment() {
         prevButton.setOnClickListener {
             prevButtonOnClick(it)
         }
-
-
-
         return view
 
     }
