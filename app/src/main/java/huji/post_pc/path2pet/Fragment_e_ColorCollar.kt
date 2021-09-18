@@ -33,7 +33,7 @@ class Fragment_e_ColorPattern : Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_e_color_pattern, container, false)
+        val view = inflater.inflate(R.layout.fragment_e_color_collar, container, false)
         val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
         var color: String? = null
         var hasCollar: Boolean = false

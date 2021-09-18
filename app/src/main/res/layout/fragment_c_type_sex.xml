@@ -5,36 +5,15 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment_c_TypeGender">
-
-    <Button
-        android:id="@+id/next"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#64BD73"
-        android:text="Next"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <Button
-        android:id="@+id/previous"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#64BD73"
-        android:text="Back"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    tools:context=".Fragment_c_TypeAndSex">
 
     <TextView
         android:id="@+id/pet_type_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pet type: "
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
         android:textColor="#252525"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +48,9 @@
         android:id="@+id/pet_gender_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pet gender: "
+        android:text="Pet sex: "
+        android:layout_marginLeft="20dp"
+        android:fontFamily="sans-serif-light"
         android:textColor="#252525"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,6 +84,32 @@
 
 
     <!--        Todo - add photos of male and female signs -->
+
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#64BD73"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#64BD73"
+        android:text="Back"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -483,6 +483,6 @@ class Fragment_d_BreedSize : Fragment() {
 
     private fun prevButtonOnClick(view: View) {
         onboardingViewModel.decreaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentInitialDetails)
+        Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
     }
 }

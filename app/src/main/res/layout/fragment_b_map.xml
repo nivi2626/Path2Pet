@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentMap">
+    tools:context=".Fragment_b_Map">
 
     <TextView
         android:id="@+id/text"
@@ -25,6 +25,7 @@
         android:layout_height="70dp"
         android:backgroundTint="#64BD73"
         android:text="Next"
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,6 +38,7 @@
         android:layout_height="70dp"
         android:backgroundTint="#64BD73"
         android:text="Back"
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

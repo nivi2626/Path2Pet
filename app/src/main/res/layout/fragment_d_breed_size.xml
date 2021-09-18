@@ -8,58 +8,38 @@
     tools:context=".Fragment_d_BreedSize">
 
 
-    <pl.utkala.searchablespinner.SearchableSpinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:minHeight="32dp"
-        app:closeText="Dismiss"
-        app:dialogTitle="Breed List"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petBreedText" />
-
-    <Button
-        android:id="@+id/next"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#64BD73"
-        android:text="Next"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="TextContrastCheck" />
-
-
-    <Button
-        android:id="@+id/previous"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#64BD73"
-        android:text="Back"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
-
     <TextView
         android:id="@+id/petBreedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
         android:text="Pet Breed: "
+        android:textColor="#252525"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.utkala.searchablespinner.SearchableSpinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="32dp"
+        app:closeText="close"
+        app:dialogTitle="Breed List"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/petBreedText"
+        app:layout_constraintTop_toBottomOf="@+id/petBreedText" />
 
     <TextView
         android:id="@+id/petSizeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pet Size: "
+        android:textColor="#252525"
         android:textSize="25sp"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         app:layout_constraintTop_toBottomOf="@id/spinner"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,5 +81,32 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/Medium"
         app:layout_constraintTop_toBottomOf="@+id/petSizeText"/>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#64BD73"
+        android:text="Next"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#64BD73"
+        android:text="Back"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

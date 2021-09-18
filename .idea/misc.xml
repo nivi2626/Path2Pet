@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/activity_lost_pet_process.xml" value="0.12318840579710146" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_a_photo.xml" value="0.1" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_b_map.xml" value="0.1796875" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_c_type_gender.xml" value="0.1796875" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_c_type_sex.xml" value="0.1" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_d_breed_size.xml" value="0.13385416666666666" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_details.xml" value="0.1" />
+        <entry key="..\:/Users/Nivi/AndroidStudioProjects/Path2Pet/app/src/main/res/layout/fragment_map.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/feed.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/feed_item_list.xml" value="0.1" />
