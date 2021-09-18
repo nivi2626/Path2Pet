@@ -8,7 +8,7 @@ import java.io.Serializable
 class localLostDB internal constructor(context: Context) : Serializable {
     private var myContext = context
     private var sp: SharedPreferences =
-        context.getSharedPreferences("local_db_orders", Context.MODE_PRIVATE)
+        context.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
     var gson = Gson()
 
     fun initialize_db() {

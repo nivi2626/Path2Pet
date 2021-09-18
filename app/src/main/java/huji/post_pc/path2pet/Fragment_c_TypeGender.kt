@@ -1,5 +1,6 @@
 package huji.post_pc.path2pet
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.RadioGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 
@@ -17,7 +17,8 @@ class Fragment_c_TypeGender : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_a_type_gender, container, false)
+        val view = inflater.inflate(R.layout.fragment_c_type_gender, container, false)
+        val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -27,10 +28,51 @@ class Fragment_c_TypeGender : Fragment() {
         val femaleButton: Button = view.findViewById(R.id.female)
         val maleButton: Button = view.findViewById(R.id.male)
         var petType: String? = null
+        var petGender: String? = null
 
         // set UI
+        // type colors
+        dogButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+        catButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+
+        // gender colors
+        femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+        maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+
         // get data from sp
-        //TODO - if we already have the info - show it
+        if (sp != null) {
+            petType = sp.getString("PET_TYPE", null)
+            petGender = sp.getString("PET_GENDER", null)
+        }
+
+        // set data by sp
+        if (petType != null)
+        {
+            if (petType == "dog")
+            {
+                catButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                dogButton.setBackgroundColor(Color.parseColor("#46A556"))
+            }
+            else if (petType == "cat")
+            {
+                dogButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                catButton.setBackgroundColor(Color.parseColor("#46A556"))
+            }
+        }
+
+        if (petGender != null)
+        {
+            if (petGender == "male")
+            {
+                femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                maleButton.setBackgroundColor(Color.parseColor("#46A556"))
+            }
+            else if (petGender == "female")
+            {
+                maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
+            }
+        }
 
         // next listener
         nextButton.setOnClickListener {
@@ -42,37 +84,60 @@ class Fragment_c_TypeGender : Fragment() {
             prevButtonOnClick(it)
         }
 
-        // type colors
-        dogButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-        catButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-
-        // gender colors
-        femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-        maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-
-
         // type listeners
         dogButton.setOnClickListener(){
             catButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             dogButton.setBackgroundColor(Color.parseColor("#46A556"))
             petType = "dog"
+
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_TYPE", petType)
+                    apply()
+                }
+            }
         }
 
         catButton.setOnClickListener(){
             dogButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             catButton.setBackgroundColor(Color.parseColor("#46A556"))
             petType = "cat"
+
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_TYPE", petType)
+                    apply()
+                }
+            }
         }
 
         // gender listeners
         femaleButton.setOnClickListener(){
             maleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
+            petGender = "female"
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_GENDER", petGender)
+                    apply()
+                }
+            }
         }
 
         maleButton.setOnClickListener(){
             femaleButton.setBackgroundColor(Color.parseColor("#FF737E75"))
             maleButton.setBackgroundColor(Color.parseColor("#46A556"))
+            petGender = "male"
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_GENDER", petGender)
+                    apply()
+                }
+            }
         }
 
         return view
