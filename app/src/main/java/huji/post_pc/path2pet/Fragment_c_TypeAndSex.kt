@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 
+
 class Fragment_c_TypeGender : Fragment() {
+    val chosenColor : String = "#46A556"
+    val unChosenColor : String = "#FF737E75"
 
     private val onboardingViewModel: LostPetViewModel by activityViewModels()
 
@@ -32,12 +36,12 @@ class Fragment_c_TypeGender : Fragment() {
 
         // set UI
         // type colors
-        dogButton.setBackgroundColor(Color.parseColor("#909190"))
-        catButton.setBackgroundColor(Color.parseColor("#909190"))
+        dogButton.setBackgroundColor(Color.parseColor(unChosenColor))
+        catButton.setBackgroundColor(Color.parseColor(unChosenColor))
 
         // gender colors
-        femaleButton.setBackgroundColor(Color.parseColor("#909190"))
-        maleButton.setBackgroundColor(Color.parseColor("#909190"))
+        femaleButton.setBackgroundColor(Color.parseColor(unChosenColor))
+        maleButton.setBackgroundColor(Color.parseColor(unChosenColor))
 
         // get data from sp
         if (sp != null) {
@@ -50,13 +54,13 @@ class Fragment_c_TypeGender : Fragment() {
         {
             if (petType == "dog")
             {
-                catButton.setBackgroundColor(Color.parseColor("#909190"))
-                dogButton.setBackgroundColor(Color.parseColor("#46A556"))
+                catButton.setBackgroundColor(Color.parseColor(unChosenColor))
+                dogButton.setBackgroundColor(Color.parseColor(chosenColor))
             }
             else if (petType == "cat")
             {
-                dogButton.setBackgroundColor(Color.parseColor("#909190"))
-                catButton.setBackgroundColor(Color.parseColor("#46A556"))
+                dogButton.setBackgroundColor(Color.parseColor(unChosenColor))
+                catButton.setBackgroundColor(Color.parseColor(chosenColor))
             }
         }
 
@@ -64,13 +68,13 @@ class Fragment_c_TypeGender : Fragment() {
         {
             if (petGender == "male")
             {
-                femaleButton.setBackgroundColor(Color.parseColor("#909190"))
-                maleButton.setBackgroundColor(Color.parseColor("#46A556"))
+                femaleButton.setBackgroundColor(Color.parseColor(unChosenColor))
+                maleButton.setBackgroundColor(Color.parseColor(chosenColor))
             }
             else if (petGender == "female")
             {
-                maleButton.setBackgroundColor(Color.parseColor("#909190"))
-                femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
+                maleButton.setBackgroundColor(Color.parseColor(unChosenColor))
+                femaleButton.setBackgroundColor(Color.parseColor(chosenColor))
             }
         }
 
@@ -86,8 +90,8 @@ class Fragment_c_TypeGender : Fragment() {
 
         // type listeners
         dogButton.setOnClickListener(){
-            catButton.setBackgroundColor(Color.parseColor("#909190"))
-            dogButton.setBackgroundColor(Color.parseColor("#46A556"))
+            catButton.setBackgroundColor(Color.parseColor(unChosenColor))
+            dogButton.setBackgroundColor(Color.parseColor(chosenColor))
             petType = "dog"
 
             if (sp != null) {
@@ -100,8 +104,8 @@ class Fragment_c_TypeGender : Fragment() {
         }
 
         catButton.setOnClickListener(){
-            dogButton.setBackgroundColor(Color.parseColor("#909190"))
-            catButton.setBackgroundColor(Color.parseColor("#46A556"))
+            dogButton.setBackgroundColor(Color.parseColor(unChosenColor))
+            catButton.setBackgroundColor(Color.parseColor(chosenColor))
             petType = "cat"
 
             if (sp != null) {
@@ -115,8 +119,8 @@ class Fragment_c_TypeGender : Fragment() {
 
         // gender listeners
         femaleButton.setOnClickListener(){
-            maleButton.setBackgroundColor(Color.parseColor("#909190"))
-            femaleButton.setBackgroundColor(Color.parseColor("#46A556"))
+            maleButton.setBackgroundColor(Color.parseColor(unChosenColor))
+            femaleButton.setBackgroundColor(Color.parseColor(chosenColor))
             petGender = "female"
             if (sp != null) {
                 with(sp.edit())
@@ -128,8 +132,8 @@ class Fragment_c_TypeGender : Fragment() {
         }
 
         maleButton.setOnClickListener(){
-            femaleButton.setBackgroundColor(Color.parseColor("#909190"))
-            maleButton.setBackgroundColor(Color.parseColor("#46A556"))
+            femaleButton.setBackgroundColor(Color.parseColor(unChosenColor))
+            maleButton.setBackgroundColor(Color.parseColor(chosenColor))
             petGender = "male"
             if (sp != null) {
                 with(sp.edit())
