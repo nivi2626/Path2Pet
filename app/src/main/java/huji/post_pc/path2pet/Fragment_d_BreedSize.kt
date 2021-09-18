@@ -1,6 +1,7 @@
 package huji.post_pc.path2pet
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +10,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import pl.utkala.searchablespinner.SearchableSpinner
 
 private var DOG_BREED_ARRAY = arrayOf(
-    "Breed",
     "Affenpinscher",
     "Afghan Hound",
     "Airedale Terrier",
@@ -220,7 +221,6 @@ private var DOG_BREED_ARRAY = arrayOf(
     "Zuchon"
 )
 private var CAT_BREED_ARRAY = arrayOf(
-    "Breed",
     "Abyssinian",
     "Aegean",
     "American Bobtail",
@@ -346,24 +346,35 @@ class Fragment_d_BreedSize : Fragment() {
         val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
         var petType: String? = null
         var items : Array<String> = emptyArray()
+        var breed : String?= null
+        var size : String?= null
 
         // find views
+        val breedText : TextView = view.findViewById(R.id.petBreedText)
+        val sizeText : TextView = view.findViewById(R.id.petSizeText)
+        val smallButton: Button = view.findViewById(R.id.Small)
+        val mediumButton: Button = view.findViewById(R.id.Medium)
+        val largeButton: Button = view.findViewById(R.id.Large)
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
-        val spinner: Spinner = view.findViewById(R.id.spinner)
+        val searchableSpinner: SearchableSpinner = view.findViewById(R.id.spinner)
 
-        // next listener
-        nextButton.setOnClickListener {
-            nextButtonOnClick(it)
-        }
 
-        // prev listener
-        prevButton.setOnClickListener {
-            prevButtonOnClick(it)
-        }
+        // set UI
+        // spinner text
+        searchableSpinner.setDialogTitle("Choose Pet Breed: ")
+        searchableSpinner.setDismissText("Dismiss")
 
+        // button colors
+        smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+        mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+        largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+
+        // get data from sp
         if (sp != null) {
             petType = sp.getString("PET_TYPE", null)
+            breed = sp.getString("PET_BREED", null)
+            size = sp.getString("PET_SIZE", null)
         }
 
         // set data by sp
@@ -378,13 +389,46 @@ class Fragment_d_BreedSize : Fragment() {
                 items = CAT_BREED_ARRAY
             }
         }
+        searchableSpinner.adapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_dropdown_item, items)
 
-        val adapter = ArrayAdapter<String>(
-            view.context, android.R.layout.simple_spinner_dropdown_item, items
-        )
-        spinner.setAdapter(adapter)
+        if (breed != null)
+        {
+            searchableSpinner.setSelection(items.indexOf(breed))
+        }
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        if (size != null)
+        {
+            if (size == "small")
+            {
+                smallButton.setBackgroundColor(Color.parseColor("#46A556"))
+                mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            }
+            else if (size == "medium")
+            {
+                smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                mediumButton.setBackgroundColor(Color.parseColor("#46A556"))
+                largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            }
+            else
+            {
+                smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+                largeButton.setBackgroundColor(Color.parseColor("#46A556"))
+            }
+        }
+
+        // next listener
+        nextButton.setOnClickListener {
+            nextButtonOnClick(it)
+        }
+
+        // prev listener
+        prevButton.setOnClickListener {
+            prevButtonOnClick(it)
+        }
+
+        searchableSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 arg0: AdapterView<*>?,
                 arg1: View?,
@@ -392,11 +436,63 @@ class Fragment_d_BreedSize : Fragment() {
                 arg3: Long
             ) {
                 // Do what you want
-                val items = spinner.selectedItem.toString()
-
+                breed = searchableSpinner.selectedItem.toString()
+                if (sp != null) {
+                    with(sp.edit())
+                    {
+                        putString("PET_BREED", breed)
+                        apply()
+                    }
+                }
             }
 
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        }
+
+        // size listeners
+        smallButton.setOnClickListener(){
+            mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            smallButton.setBackgroundColor(Color.parseColor("#46A556"))
+            size = "small"
+
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_SIZE", size)
+                    apply()
+                }
+            }
+        }
+
+        mediumButton.setOnClickListener(){
+            smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            mediumButton.setBackgroundColor(Color.parseColor("#46A556"))
+            size = "medium"
+
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_SIZE", size)
+                    apply()
+                }
+            }
+        }
+
+        largeButton.setOnClickListener(){
+            smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+            largeButton.setBackgroundColor(Color.parseColor("#46A556"))
+            size = "large"
+
+            if (sp != null) {
+                with(sp.edit())
+                {
+                    putString("PET_SIZE", size)
+                    apply()
+                }
+            }
         }
 
         return view
