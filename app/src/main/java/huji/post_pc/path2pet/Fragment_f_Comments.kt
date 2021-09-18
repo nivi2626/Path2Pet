@@ -12,7 +12,7 @@ import huji.post_pc.path2pet.LostPetViewModel
 import huji.post_pc.path2pet.R
 
 
-class Fragmentcomments : Fragment() {
+class Fragment_f_Comments : Fragment() {
     private val onboardingViewModel: LostPetViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,6 +45,6 @@ class Fragmentcomments : Fragment() {
 
     private fun prevButtonOnClick(view: View) {
         onboardingViewModel.decreaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
+        Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
     }
 }

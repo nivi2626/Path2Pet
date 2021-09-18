@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentcomments"
-        android:name="huji.post_pc.path2pet.Fragmentcomments"
+        android:name="huji.post_pc.path2pet.Fragment_f_Comments"
         android:label="fragment_fragmentcomments"
         tools:layout="@layout/fragment_comments" >
         <action
