@@ -1,6 +1,4 @@
 package huji.post_pc.path2pet
-import android.Manifest
-import android.animation.ValueAnimator
 import android.location.Address
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,37 +18,12 @@ import com.google.android.gms.maps.model.LatLng
 
 import android.location.Geocoder
 import androidx.appcompat.widget.SearchView
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import java.lang.Exception
-import androidx.fragment.app.FragmentActivity
-import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.pm.PackageManager
-import android.location.Location
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-
-import com.google.android.libraries.places.api.Places
-
-import com.google.android.libraries.places.api.net.PlacesClient
-import java.util.*
-import androidx.core.content.ContextCompat.getSystemService
-
-import android.location.LocationManager
-import androidx.core.content.ContextCompat
 
 
-class FragmentMap : Fragment() {
+class Fragment_b_Map : Fragment() {
     private val onboardingViewModel: LostPetViewModel by activityViewModels()
     private lateinit var mMap: GoogleMap
     private lateinit var myContext: Context
@@ -59,7 +32,7 @@ class FragmentMap : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_map, container, false)
+        val view = inflater.inflate(R.layout.fragment_b_map, container, false)
         myContext = view.context
 
         // find views

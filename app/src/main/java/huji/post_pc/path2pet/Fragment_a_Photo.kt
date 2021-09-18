@@ -1,21 +1,21 @@
 package huji.post_pc.path2pet
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 
-class fragmentDetails : Fragment() {
+class Fragment_a_Photo : Fragment() {
+
     private val onboardingViewModel: LostPetViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -26,21 +26,16 @@ class fragmentDetails : Fragment() {
             nextButtonOnClick(it)
         }
 
-        // prev listener
-        prevButton.setOnClickListener {
-            prevButtonOnClick(it)
-        }
+        // prev or cancel listener
+        // TODO - implement later
 
         return view
     }
 
-    private fun nextButtonOnClick(view: View) {
+    private fun nextButtonOnClick(view:View) {
         onboardingViewModel.increaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentEnd)
+        Navigation.findNavController(view).navigate(R.id.fragmentMap)
     }
 
-    private fun prevButtonOnClick(view: View) {
-        onboardingViewModel.decreaseProgress()
-        Navigation.findNavController(view).navigate(R.id.fragmentcomments)
-    }
+
 }

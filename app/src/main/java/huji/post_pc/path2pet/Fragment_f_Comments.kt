@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import huji.post_pc.path2pet.LostPetViewModel
-import huji.post_pc.path2pet.R
 
 
 class Fragment_f_Comments : Fragment() {
@@ -17,7 +15,7 @@ class Fragment_f_Comments : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_comments, container, false)
+        val view = inflater.inflate(R.layout.fragment_f_comments, container, false)
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)

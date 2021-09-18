@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/fragmentCamera"
-        android:name="huji.post_pc.path2pet.FragmentCamera"
+        android:name="huji.post_pc.path2pet.Fragment_a_Photo"
         android:label="fragment_camera"
-        tools:layout="@layout/fragment_camera" >
+        tools:layout="@layout/fragment_a_photo" >
         <action
             android:id="@+id/action_fragmentCamera_to_fragmentMap"
             app:destination="@id/fragmentMap" />
@@ -28,9 +28,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentMap"
-        android:name="huji.post_pc.path2pet.FragmentMap"
+        android:name="huji.post_pc.path2pet.Fragment_b_Map"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" >
+        tools:layout="@layout/fragment_b_map" >
         <action
             android:id="@+id/action_fragmentMap_to_fragmentInitialDetails2"
             app:destination="@id/fragmentInitialDetails" />
@@ -57,7 +57,7 @@
         android:id="@+id/fragmentColorPattern"
         android:name="huji.post_pc.path2pet.Fragment_e_ColorPattern"
         android:label="fragment_color_pattern"
-        tools:layout="@layout/fragment_e_color_pattern" >
+        tools:layout="@layout/fragment_e_color_collar" >
         <action
             android:id="@+id/action_fragmentColorPattern_to_fragmentBreedSize"
             app:destination="@id/fragmentBreedSize" />
@@ -69,7 +69,7 @@
         android:id="@+id/fragmentcomments"
         android:name="huji.post_pc.path2pet.Fragment_f_Comments"
         android:label="fragment_fragmentcomments"
-        tools:layout="@layout/fragment_comments" >
+        tools:layout="@layout/fragment_f_comments" >
         <action
             android:id="@+id/action_fragmentcomments_to_fragmentColorPattern"
             app:destination="@id/fragmentColorPattern" />
@@ -79,14 +79,14 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentEnd"
-        android:name="huji.post_pc.path2pet.FragmentEnd"
+        android:name="huji.post_pc.path2pet.Fragment_h_End"
         android:label="fragment_end"
-        tools:layout="@layout/fragment_end" />
+        tools:layout="@layout/fragment_h_end" />
     <fragment
         android:id="@+id/fragmentDetails"
-        android:name="huji.post_pc.path2pet.fragmentDetails"
+        android:name="huji.post_pc.path2pet.Fragment_g_Details"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_g_details" >
         <action
             android:id="@+id/action_fragmentDetails_to_fragmentcomments"
             app:destination="@id/fragmentcomments" />
