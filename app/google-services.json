@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "247311291517",
+    "project_id": "path2pet-326314",
+    "storage_bucket": "path2pet-326314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247311291517:android:3cb83d947f4ff98e054d14",
+        "android_client_info": {
+          "package_name": "huji.post_pc.path2pet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247311291517-ran2e4b6u6tv8lkdnqljfe578arrdkp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAClvgYAP8suuZPMjHR2EbvHm5lspqsOdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247311291517-ran2e4b6u6tv8lkdnqljfe578arrdkp5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

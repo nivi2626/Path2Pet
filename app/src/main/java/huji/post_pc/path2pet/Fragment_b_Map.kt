@@ -55,7 +55,7 @@ class Fragment_b_Map : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 val searchInitLocation = searchView.query.toString()
-                var addressList: List<Address>? = null
+                var addressList: List<Address>?
                 if (searchInitLocation != null && searchInitLocation != "") {
                     val geocoder = Geocoder(view.context)
                     try {

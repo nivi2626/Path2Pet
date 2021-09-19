@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Pet
 {
+    public String id;
     public String petType;
     public String status;
     public String breed;
@@ -17,8 +18,9 @@ public class Pet
     public String color;
     public ArrayList<Integer> images;
 
-    public Pet(String status, String petType, String breed, String size, String color, LatLng latLng, Date date,
-               String comments, ArrayList<Integer> images) {
+    public Pet(String id, String status, String petType, String breed, String size, String color,
+               LatLng latLng, Date date, String comments, ArrayList<Integer> images) {
+        this.petType = id;
         this.petType = petType;
         this.status = status;
         this.breed = breed;

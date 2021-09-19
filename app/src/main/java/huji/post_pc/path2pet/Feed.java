@@ -38,6 +38,7 @@ public class Feed extends AppCompatActivity {
         adapter = new RecyclerAdapter(petList);
         recyclerView.setAdapter(adapter);
     }
+
     private void readAnimalList()
     {
         //todo here we should read the list from firebase
@@ -65,14 +66,11 @@ public class Feed extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (adapter.openPopUp !=null) {
-            Toast toast = Toast.makeText(getApplicationContext(), "openPopUp!",  Toast.LENGTH_SHORT);
             adapter.openPopUp.dismiss();
             adapter.openPopUp = null;
 
         } else
             {
-            Toast toast = Toast.makeText(getApplicationContext(), "no openPopUp",  Toast.LENGTH_SHORT);
-            toast.show();
             super.onBackPressed();
         }
 
