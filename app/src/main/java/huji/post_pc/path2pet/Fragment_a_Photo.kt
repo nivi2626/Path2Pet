@@ -54,11 +54,11 @@ class Fragment_a_Photo : Fragment() {
         dialogBuilder.setView(View.inflate(view?.context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
-        dialogBuilder.setMessage("Do you want to close this report ?\n(report data will be lost)")
+        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
-            .setPositiveButton("Proceed", DialogInterface.OnClickListener {
+            .setPositiveButton("Yes", DialogInterface.OnClickListener {
                     dialog, id ->
                 // clear sp
                 sp.edit().clear().apply()
@@ -67,7 +67,7 @@ class Fragment_a_Photo : Fragment() {
                 startActivity(intentMainActivity)
             })
             // negative button text and action
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+            .setNegativeButton("No", DialogInterface.OnClickListener {
                     dialog, id -> dialog.cancel()
             })
 
