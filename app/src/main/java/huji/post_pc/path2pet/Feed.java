@@ -1,6 +1,8 @@
 package huji.post_pc.path2pet;
 
 import android.os.Bundle;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 public class Feed extends AppCompatActivity {
     private List<Pet> petList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private RecyclerAdapter adapter = null;
 
     private Pet dog1 = new Pet("lost", "dog", "husky", "large",
             "blond",new LatLng(-22.0,33.9), new Date(), "bla", null);
@@ -32,7 +35,7 @@ public class Feed extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         readAnimalList();
-        RecyclerAdapter adapter = new RecyclerAdapter(petList);
+        adapter = new RecyclerAdapter(petList);
         recyclerView.setAdapter(adapter);
     }
     private void readAnimalList()
@@ -58,4 +61,22 @@ public class Feed extends AppCompatActivity {
         petList.add(dog2);
         petList.add(dog3);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (adapter.openPopUp !=null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "openPopUp!",  Toast.LENGTH_SHORT);
+            adapter.openPopUp.dismiss();
+            adapter.openPopUp = null;
+
+        } else
+            {
+            Toast toast = Toast.makeText(getApplicationContext(), "no openPopUp",  Toast.LENGTH_SHORT);
+            toast.show();
+            super.onBackPressed();
+        }
+
+    }
+
+
 }

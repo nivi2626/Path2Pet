@@ -31,6 +31,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.AnimalViewHolder> {
     private List<Pet> petList = null;
     private Context context;
+    public PopupWindow openPopUp = null;
 
     public RecyclerAdapter(List<Pet> petList) {
         if (this.petList == null) {
@@ -66,11 +67,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
 //        setAnimation(holder.itemView); // todo - maybe add animations
 
         // details listener - show popUp with
-        holder.detailsButton.setOnClickListener(v->
+        holder.detailsButton.setOnClickListener(v ->
         {
             // start popUp
             View popupView = LayoutInflater.from(context).inflate(R.layout.pet_details_popup, null);
             final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            openPopUp = popupWindow;
 
             // find views
             Button close_button = popupView.findViewById(R.id.close);
@@ -88,11 +90,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
             city.setText("Jerusalem");   // todo - replace the city with the google maps location
             date.setText(pet.getLastSeenDate().toString());
 
-            close_button.setOnClickListener(v1 -> popupWindow.dismiss());
+            close_button.setOnClickListener(v1 -> {
+                popupWindow.dismiss();
+                openPopUp = null;
+            });
 
             popupWindow.showAsDropDown(popupView, 0, 0);
-
-
         });
 
     }
@@ -135,4 +138,5 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
 
         }
     }
+
 }
