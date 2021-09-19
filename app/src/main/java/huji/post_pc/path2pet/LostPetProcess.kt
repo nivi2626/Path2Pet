@@ -52,7 +52,7 @@ class LostPetProcess : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    private fun exitDialog()
+    fun exitDialog()
     {
         val dialogBuilder = AlertDialog.Builder(this)
 
@@ -76,5 +76,4 @@ class LostPetProcess : AppCompatActivity() {
         // show alert dialog
         alert.show()
     }
-
 }

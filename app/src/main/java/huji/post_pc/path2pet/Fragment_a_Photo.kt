@@ -1,11 +1,15 @@
 package huji.post_pc.path2pet
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -32,11 +36,8 @@ class Fragment_a_Photo : Fragment() {
             if (lostPetActivityInstance != null)
             {
                 lostPetActivityInstance.progressBar.progress = 0
-                lostPetActivityInstance.sp.edit().clear().apply()
+                exitDialog(view.context, lostPetActivityInstance.sp)
             }
-
-            val intentMainActivity = Intent(view.context, MainActivity::class.java)
-            startActivity(intentMainActivity)
         }
         // TODO - implement later
 
@@ -45,6 +46,36 @@ class Fragment_a_Photo : Fragment() {
 
     private fun nextButtonOnClick(view:View) {
         Navigation.findNavController(view).navigate(R.id.fragmentMap)
+    }
+
+    fun exitDialog(context : Context, sp : SharedPreferences)
+    {
+        val dialogBuilder = AlertDialog.Builder(context)
+
+        // set message of alert dialog
+        dialogBuilder.setMessage("Do you want to close this report ?\n(report data will be lost)")
+            // if the dialog is cancelable
+            .setCancelable(false)
+            // positive button text and action
+            .setPositiveButton("Proceed", DialogInterface.OnClickListener {
+                    dialog, id ->
+                // clear sp
+                sp.edit().clear().apply()
+                // go back to main activity
+                val intentMainActivity = Intent(context, MainActivity::class.java)
+                startActivity(intentMainActivity)
+            })
+            // negative button text and action
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                    dialog, id -> dialog.cancel()
+            })
+
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle("Cancel Report")
+        // show alert dialog
+        alert.show()
     }
 
 
