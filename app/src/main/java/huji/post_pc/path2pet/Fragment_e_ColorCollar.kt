@@ -24,7 +24,6 @@ private var COLOR_ARRAY = arrayOf(
 )
 
 class Fragment_e_ColorPattern : Fragment() {
-    private val onboardingViewModel: LostPetViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +33,7 @@ class Fragment_e_ColorPattern : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_e_color_collar, container, false)
-        val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
         var color: String? = null
         var hasCollar: Boolean = false
 
@@ -50,9 +49,10 @@ class Fragment_e_ColorPattern : Fragment() {
         searchableSpinner.setDismissText("Dismiss")
 
         // get data from sp
-        if (sp != null) {
-            color = sp.getString("PET_COLOR", null)
-            hasCollar = sp.getBoolean("PET_COLLAR", false)
+        if (lostPetActivityInstance != null)
+        {
+            color = lostPetActivityInstance.sp.getString("PET_COLOR", null)
+            hasCollar = lostPetActivityInstance.sp.getBoolean("PET_COLLAR", false)
         }
 
         searchableSpinner.adapter = ArrayAdapter<String>(
@@ -92,19 +92,22 @@ class Fragment_e_ColorPattern : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            if (sp != null) {
-                with(sp.edit())
+            if (lostPetActivityInstance != null)
+            {
+                with(lostPetActivityInstance.sp.edit())
                 {
                     putBoolean("PET_COLLAR", hasCollar)
                     putString("PET_COLOR", color)
                     apply()
                 }
+                lostPetActivityInstance.progressBar.incrementProgressBy(1)
             }
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
             prevButtonOnClick(it)
         }
         return view
@@ -112,12 +115,10 @@ class Fragment_e_ColorPattern : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentcomments)
     }
 
     private fun prevButtonOnClick(view: View) {
-        onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
     }
 }

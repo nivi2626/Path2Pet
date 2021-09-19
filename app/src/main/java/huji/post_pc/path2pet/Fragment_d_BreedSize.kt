@@ -335,8 +335,6 @@ private var CAT_BREED_ARRAY = arrayOf(
 
 
 class Fragment_d_BreedSize : Fragment() {
-    private val onboardingViewModel: LostPetViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -345,7 +343,7 @@ class Fragment_d_BreedSize : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_d_breed_size, container, false)
-        val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
         var petType: String? = null
         var items : Array<String> = emptyArray()
         var breed : String?= null
@@ -372,10 +370,11 @@ class Fragment_d_BreedSize : Fragment() {
         largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
 
         // get data from sp
-        if (sp != null) {
-            petType = sp.getString("PET_TYPE", null)
-            breed = sp.getString("PET_BREED", null)
-            size = sp.getString("PET_SIZE", null)
+        if (lostPetActivityInstance != null)
+        {
+            petType = lostPetActivityInstance.sp.getString("PET_TYPE", null)
+            breed = lostPetActivityInstance.sp.getString("PET_BREED", null)
+            size = lostPetActivityInstance.sp.getString("PET_SIZE", null)
         }
 
         // set data by sp
@@ -421,19 +420,23 @@ class Fragment_d_BreedSize : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            if (sp != null) {
-                with(sp.edit())
+
+            if (lostPetActivityInstance != null)
+            {
+                with(lostPetActivityInstance.sp.edit())
                 {
                     putString("PET_SIZE", size)
                     putString("PET_BREED", breed)
                     apply()
                 }
+                lostPetActivityInstance.progressBar.incrementProgressBy(1)
             }
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
             prevButtonOnClick(it)
         }
 
@@ -477,12 +480,10 @@ class Fragment_d_BreedSize : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
     }
 
     private fun prevButtonOnClick(view: View) {
-        onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
     }
 }

@@ -17,12 +17,10 @@ class Fragment_c_TypeGender : Fragment() {
     val chosenColor : String = "#46A556"
     val unChosenColor : String = "#FF737E75"
 
-    private val onboardingViewModel: LostPetViewModel by activityViewModels()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_c_type_sex, container, false)
-        val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -44,9 +42,10 @@ class Fragment_c_TypeGender : Fragment() {
         maleButton.setBackgroundColor(Color.parseColor(unChosenColor))
 
         // get data from sp
-        if (sp != null) {
-            petType = sp.getString("PET_TYPE", null)
-            petGender = sp.getString("PET_GENDER", null)
+        if (lostPetActivityInstance != null)
+        {
+            petType = lostPetActivityInstance.sp.getString("PET_TYPE", null)
+            petGender = lostPetActivityInstance.sp.getString("PET_GENDER", null)
         }
 
         // set data by sp
@@ -80,19 +79,22 @@ class Fragment_c_TypeGender : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            if (sp != null) {
-                with(sp.edit())
+            if (lostPetActivityInstance != null)
+            {
+                with(lostPetActivityInstance.sp.edit())
                 {
                     putString("PET_TYPE", petType)
                     putString("PET_GENDER", petGender)
                     apply()
                 }
+                lostPetActivityInstance.progressBar.incrementProgressBy(1)
             }
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
             prevButtonOnClick(it)
         }
 
@@ -126,12 +128,10 @@ class Fragment_c_TypeGender : Fragment() {
     }
 
     private fun nextButtonOnClick(view:View) {
-        onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
     }
 
     private fun prevButtonOnClick(view:View) {
-        onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentMap)
     }
 }

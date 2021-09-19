@@ -10,12 +10,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 
 class Fragment_g_Details : Fragment() {
-    private val onboardingViewModel: LostPetViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_g_details, container, false)
+        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -23,11 +23,13 @@ class Fragment_g_Details : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
             prevButtonOnClick(it)
         }
 
@@ -35,12 +37,10 @@ class Fragment_g_Details : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentEnd)
     }
 
     private fun prevButtonOnClick(view: View) {
-        onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentcomments)
     }
 }

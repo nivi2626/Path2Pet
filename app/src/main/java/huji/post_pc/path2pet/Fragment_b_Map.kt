@@ -24,7 +24,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 
 
 class Fragment_b_Map : Fragment() {
-    private val onboardingViewModel: LostPetViewModel by activityViewModels()
     private lateinit var mMap: GoogleMap
     private lateinit var myContext: Context
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -34,6 +33,7 @@ class Fragment_b_Map : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_b_map, container, false)
         myContext = view.context
+        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -56,7 +56,7 @@ class Fragment_b_Map : Fragment() {
             override fun onQueryTextSubmit(s: String): Boolean {
                 val searchInitLocation = searchView.query.toString()
                 var addressList: List<Address>? = null
-                if (searchInitLocation != null && searchInitLocation != "") {
+                if (searchInitLocation != "") {
                     val geocoder = Geocoder(view.context)
                     try {
                         addressList = geocoder.getFromLocationName(searchInitLocation, 1)
@@ -69,7 +69,7 @@ class Fragment_b_Map : Fragment() {
                         return false
                     }
                     val address: Address = addressList!![0]
-                    val latLng = LatLng(address.getLatitude(), address.getLongitude())
+                    val latLng = LatLng(address.latitude, address.longitude)
                     mMap.addMarker(MarkerOptions().position(latLng).title(searchInitLocation))
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
                 }
@@ -101,23 +101,23 @@ class Fragment_b_Map : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
             prevButtonOnClick(it)
         }
         return view
     }
 
     private fun nextButtonOnClick(view:View) {
-        onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
     }
 
     private fun prevButtonOnClick(view:View) {
-        onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentPhoto)
     }
 
