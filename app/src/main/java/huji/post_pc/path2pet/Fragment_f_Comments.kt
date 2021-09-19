@@ -13,12 +13,10 @@ import androidx.navigation.Navigation
 
 
 class Fragment_f_Comments : Fragment() {
-    private val onboardingViewModel: LostPetViewModel by activityViewModels()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_f_comments, container, false)
-        val sp = this.activity?.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
         var userComments : String? = ""
 
         // find views
@@ -27,8 +25,9 @@ class Fragment_f_Comments : Fragment() {
         val userCommentsText: EditText = view.findViewById(R.id.comments)
 
         // get data from sp
-        if (sp != null) {
-            userComments = sp.getString("COMMENTS", "")
+        if (lostPetActivityInstance != null)
+        {
+            userComments = lostPetActivityInstance.sp.getString("COMMENTS", "")
         }
 
         // set data by sp
@@ -43,18 +42,21 @@ class Fragment_f_Comments : Fragment() {
         // next listener
         nextButton.setOnClickListener {
             userComments = userCommentsText.text.toString()
-            if (sp != null) {
-                with(sp.edit())
+            if (lostPetActivityInstance!=null)
+            {
+                with(lostPetActivityInstance.sp.edit())
                 {
                     putString("COMMENTS", userComments)
                     apply()
                 }
+                lostPetActivityInstance.progressBar.incrementProgressBy(1)
             }
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
+            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
             prevButtonOnClick(it)
         }
 
@@ -63,12 +65,10 @@ class Fragment_f_Comments : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        onboardingViewModel.increaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentDetails)
     }
 
     private fun prevButtonOnClick(view: View) {
-        onboardingViewModel.decreaseProgress()
         Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
     }
 }
