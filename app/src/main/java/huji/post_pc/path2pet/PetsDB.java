@@ -53,7 +53,7 @@ public class PetsDB {
         return allPets.size();
     }
 
-    public void addDoctor(Pet newPet) {
+    public void addPet(Pet newPet) {
         allPets.add(newPet);
         uploadToFireStore(newPet);
     }
@@ -64,12 +64,14 @@ public class PetsDB {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        int a = 0;
 //                        Toast.makeText(context, successMsg, Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        String a = e.getMessage();
 //                        Toast.makeText(context, failureMsg, Toast.LENGTH_LONG).show();
                     }
                 });

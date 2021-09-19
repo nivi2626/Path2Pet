@@ -3,10 +3,12 @@ package huji.post_pc.path2pet
 import android.Manifest
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -52,28 +54,35 @@ class LostPetProcess : AppCompatActivity() {
 //        super.onBackPressed()
     }
 
-    fun exitDialog()
+    fun exitDialog(context : Context)
     {
-        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
-        dialogBuilder.setMessage("Do you want to close this report ?\n(report data will be lost)")
+        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
-            .setPositiveButton("Proceed", DialogInterface.OnClickListener {
-                    dialog, id -> finish()
+            .setPositiveButton("Yes", DialogInterface.OnClickListener {
+                    dialog, id ->
+                // clear sp
+                sp.edit().clear().apply()
+                // go back to main activity
+                val intentMainActivity = Intent(context, HomeScreen::class.java)
+                startActivity(intentMainActivity)
             })
             // negative button text and action
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+            .setNegativeButton("No", DialogInterface.OnClickListener {
                     dialog, id -> dialog.cancel()
             })
 
         // create dialog box
         val alert = dialogBuilder.create()
         // set title for alert dialog box
-        alert.setTitle("AlertDialogExample")
+        alert.setTitle("Cancel Report")
         // show alert dialog
         alert.show()
     }
+
 }

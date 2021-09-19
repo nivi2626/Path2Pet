@@ -1,6 +1,5 @@
 package huji.post_pc.path2pet
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import pl.utkala.searchablespinner.SearchableSpinner
 
@@ -335,11 +333,8 @@ private var CAT_BREED_ARRAY = arrayOf(
 
 
 class Fragment_d_BreedSize : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_d_breed_size, container, false)
@@ -350,8 +345,6 @@ class Fragment_d_BreedSize : Fragment() {
         var size : String?= null
 
         // find views
-        val breedText : TextView = view.findViewById(R.id.petBreedText)
-        val sizeText : TextView = view.findViewById(R.id.petSizeText)
         val smallButton: Button = view.findViewById(R.id.Small)
         val mediumButton: Button = view.findViewById(R.id.Medium)
         val largeButton: Button = view.findViewById(R.id.Large)
@@ -365,68 +358,60 @@ class Fragment_d_BreedSize : Fragment() {
         searchableSpinner.setDismissText("Dismiss")
 
         // button colors
-        smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-        mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-        largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
+        smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+        mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+        largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
 
         // get data from sp
-        if (lostPetActivityInstance != null)
-        {
-            petType = lostPetActivityInstance.sp.getString("PET_TYPE", null)
-            breed = lostPetActivityInstance.sp.getString("PET_BREED", null)
-            size = lostPetActivityInstance.sp.getString("PET_SIZE", null)
-        }
+        petType = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_TYPE, null)
+        breed = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
+        size = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, null)
 
         // set data by sp
-        if (petType != null)
-        {
-            if (petType == "dog")
+        if (petType != null) {
+            if (petType == AppPath2Pet.TYPE_DOG)
             {
                 items = DOG_BREED_ARRAY
             }
-            else if (petType == "cat")
+            else if (petType == AppPath2Pet.TYPE_CAT)
             {
                 items = CAT_BREED_ARRAY
             }
         }
+
         searchableSpinner.adapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_dropdown_item, items)
 
-        if (breed != null)
-        {
+        if (breed != null) {
             searchableSpinner.setSelection(items.indexOf(breed))
         }
 
-        if (size != null)
-        {
-            if (size == "small")
-            {
-                smallButton.setBackgroundColor(Color.parseColor("#46A556"))
-                mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-                largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            }
-            else if (size == "medium")
-            {
-                smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-                mediumButton.setBackgroundColor(Color.parseColor("#46A556"))
-                largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            }
-            else
-            {
-                smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-                mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-                largeButton.setBackgroundColor(Color.parseColor("#46A556"))
+        if (size != null) {
+            when (size) {
+                AppPath2Pet.SIZE_SMALL -> {
+                    smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
+                    mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+                    largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+                }
+                AppPath2Pet.SIZE_MEDIUM -> {
+                    smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+                    mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
+                    largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+                }
+                else -> {
+                    smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+                    mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+                    largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
+                }
             }
         }
 
         // next listener
         nextButton.setOnClickListener {
-
-            if (lostPetActivityInstance != null)
-            {
+            if (lostPetActivityInstance != null) {
                 with(lostPetActivityInstance.sp.edit())
                 {
-                    putString("PET_SIZE", size)
-                    putString("PET_BREED", breed)
+                    putString(AppPath2Pet.SP_SIZE, size)
+                    putString(AppPath2Pet.SP_BREED, breed)
                     apply()
                 }
                 lostPetActivityInstance.progressBar.incrementProgressBy(1)
@@ -456,26 +441,25 @@ class Fragment_d_BreedSize : Fragment() {
 
         // size listeners
         smallButton.setOnClickListener(){
-            mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            smallButton.setBackgroundColor(Color.parseColor("#46A556"))
-            size = "small"
+            mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+            largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+            smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
+            size = AppPath2Pet.SIZE_SMALL
         }
 
         mediumButton.setOnClickListener(){
-            smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            largeButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            mediumButton.setBackgroundColor(Color.parseColor("#46A556"))
-            size = "medium"
+            smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+            largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+            mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
+            size = AppPath2Pet.SIZE_MEDIUM
         }
 
         largeButton.setOnClickListener(){
-            smallButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            mediumButton.setBackgroundColor(Color.parseColor("#FF737E75"))
-            largeButton.setBackgroundColor(Color.parseColor("#46A556"))
-            size = "large"
+            smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+            mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
+            largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
+            size = AppPath2Pet.SIZE_LARGE
         }
-
         return view
     }
 

@@ -25,14 +25,12 @@ class Fragment_f_Comments : Fragment() {
         val userCommentsText: EditText = view.findViewById(R.id.comments)
 
         // get data from sp
-        if (lostPetActivityInstance != null)
-        {
-            userComments = lostPetActivityInstance.sp.getString("COMMENTS", "")
+        if (lostPetActivityInstance != null) {
+            userComments = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COMMENTS, "")
         }
 
         // set data by sp
-        if (userComments!=null)
-        {
+        if (userComments!=null) {
             if (userComments.isNotEmpty())
             {
                 userCommentsText.setText(userComments)
@@ -46,7 +44,7 @@ class Fragment_f_Comments : Fragment() {
             {
                 with(lostPetActivityInstance.sp.edit())
                 {
-                    putString("COMMENTS", userComments)
+                    putString(AppPath2Pet.SP_COMMENTS, userComments)
                     apply()
                 }
                 lostPetActivityInstance.progressBar.incrementProgressBy(1)

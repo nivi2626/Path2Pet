@@ -21,6 +21,14 @@ class Fragment_g_Details : Fragment() {
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
 
+        // get data from sp
+        if (lostPetActivityInstance != null) {
+            val details = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_DETAILS, "")
+        }
+        // todo - set UI with details from SP
+        // todo - save new details to SP
+
+
         // next listener
         nextButton.setOnClickListener {
             lostPetActivityInstance?.progressBar?.incrementProgressBy(1)

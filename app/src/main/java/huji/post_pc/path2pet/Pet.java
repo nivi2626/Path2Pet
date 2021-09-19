@@ -1,16 +1,17 @@
 package huji.post_pc.path2pet;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Pet
-{
+public class Pet implements Serializable {
     public String id;
     public String petType;
+    public String sex;
     public String status;
     public String breed;
-    public String size;
+    public String size ;
     public LatLng latLng;
     public Date reportDate;
     public Date lastSeenDate;
@@ -20,7 +21,7 @@ public class Pet
 
     public Pet(String id, String status, String petType, String breed, String size, String color,
                LatLng latLng, Date date, String comments, ArrayList<Integer> images) {
-        this.petType = id;
+        this.id = id;
         this.petType = petType;
         this.status = status;
         this.breed = breed;
@@ -36,6 +37,10 @@ public class Pet
         if (images!=null){
             this.images = images;
         }
+    }
+
+    public Pet(){
+        // fireStore need default constructor
     }
 
     public String getStatus() {
@@ -70,12 +75,16 @@ public class Pet
         return color;
     }
 
-    public Integer getFirstImage() {
-        if (images.size()>0){
-            return images.get(0);
-        }
-        return null;
+    public ArrayList<Integer> getImages() {
+        return images;
     }
+
+//    public Integer getFirstImage() {
+//        if (images.size()>0){
+//            return images.get(0);
+//        }
+//        return null;
+//    }
 
     public void setLastSeenDate(Date lastSeenDate) {
         this.lastSeenDate = lastSeenDate;

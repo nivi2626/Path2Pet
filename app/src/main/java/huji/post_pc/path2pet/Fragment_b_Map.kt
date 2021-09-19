@@ -51,6 +51,8 @@ class Fragment_b_Map : Fragment() {
           }
         })
 
+        //TODO - add location to SP (key = AppPath2Pet.SP_LOCATION)
+
         // search view query
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {

@@ -8,8 +8,11 @@ public class AppPath2Pet extends Application {
     private static AppPath2Pet appInstance = null;
     private static PetsDB petsDB = null;
 
-    // constants
+    // constants:
+    // fireStore
     final static String COLLECTION = "Pets";
+
+    // sp keys
     final static String SP_PHOTO = "Photos";
     final static String SP_LOCATION = "Location";
     final static String SP_TYPE = "Type";
@@ -20,6 +23,20 @@ public class AppPath2Pet extends Application {
     final static String SP_COLLAR = "Collar";
     final static String SP_COMMENTS = "Comments";
     final static String SP_DETAILS = "Details";
+
+    // pet data
+    final static String TYPE_DOG = "dog";
+    final static String TYPE_CAT = "cat";
+    final static String SIZE_SMALL = "small";
+    final static String SIZE_MEDIUM = "medium";
+    final static String SIZE_LARGE = "large";
+    final static String SEX_FEMALE = "female";
+    final static String SEX_MALE = "MALE";
+
+
+    // others
+    final static String CHOSEN_COLOR =  "#46A556";
+    final static String NOT_CHOSEN_COLOR = "#909190";
 
 
     @Override

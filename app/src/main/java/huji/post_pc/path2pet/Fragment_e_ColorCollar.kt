@@ -48,8 +48,8 @@ class Fragment_e_ColorPattern : Fragment() {
         // if there are saved details - get data from sp
         if (lostPetActivityInstance != null)
         {
-            color = lostPetActivityInstance.sp.getString("PET_COLOR", null)
-            hasCollar = lostPetActivityInstance.sp.getBoolean("PET_COLLAR", false)
+            color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLOR, null)
+            hasCollar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
         }
 
         searchableSpinner.adapter = ArrayAdapter<String>(
@@ -92,8 +92,8 @@ class Fragment_e_ColorPattern : Fragment() {
             {
                 with(lostPetActivityInstance.sp.edit())
                 {
-                    putBoolean("PET_COLLAR", hasCollar)
-                    putString("PET_COLOR", color)
+                    putBoolean(AppPath2Pet.SP_COLLAR, hasCollar)
+                    putString(AppPath2Pet.SP_COLOR, color)
                     apply()
                 }
                 lostPetActivityInstance.progressBar.incrementProgressBy(1)
