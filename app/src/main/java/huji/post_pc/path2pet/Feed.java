@@ -21,11 +21,11 @@ public class Feed extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter = null;
 
-    private Pet dog1 = new Pet("lost", "dog", "husky", "large",
+    private Pet dog1 = new Pet("1", "lost", "dog", "husky", "large",
             "blond",new LatLng(-22.0,33.9), new Date(), "bla", null);
-    private Pet dog2 = new Pet("lost", "cat", "german", "small",
+    private Pet dog2 = new Pet("2","lost", "cat", "german", "small",
             "white", new LatLng(-125.0,63.9), new Date(), "seems tied", null);
-    private Pet dog3 = new Pet("found", "dog", "mixed", "medium",
+    private Pet dog3 = new Pet("3", "found", "dog", "mixed", "medium",
             "black", new LatLng(-122.0,23.9), new Date(), null, null);
 
     @Override
@@ -68,7 +68,6 @@ public class Feed extends AppCompatActivity {
         if (adapter.openPopUp !=null) {
             adapter.openPopUp.dismiss();
             adapter.openPopUp = null;
-
         } else
             {
             super.onBackPressed();
