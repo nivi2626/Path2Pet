@@ -9,21 +9,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import android.os.Environment
+import java.io.File
+
 
 class Fragment_a_Photo : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    lateinit var photoContext: Context
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
+        photoContext = view.context
         val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
+        val galleryButton: Button = view.findViewById(R.id.gallery_button)
+
+
+        // gallery listener
+        galleryButton.setOnClickListener {
+
+            // TODO - trying to handle permissions - move it all to function
+
+
+            // TODO - trying to handle permissions - move it all to function
+        }
+
 
         // next listener
         nextButton.setOnClickListener {
@@ -32,9 +58,8 @@ class Fragment_a_Photo : Fragment() {
         }
 
         // prev or cancel listener
-        prevButton.setOnClickListener{
-            if (lostPetActivityInstance != null)
-            {
+        prevButton.setOnClickListener {
+            if (lostPetActivityInstance != null) {
                 lostPetActivityInstance.progressBar.progress = 0
                 exitDialog(view.context, lostPetActivityInstance.sp)
             }
@@ -44,12 +69,11 @@ class Fragment_a_Photo : Fragment() {
         return view
     }
 
-    private fun nextButtonOnClick(view:View) {
+    private fun nextButtonOnClick(view: View) {
         Navigation.findNavController(view).navigate(R.id.fragmentMap)
     }
 
-    fun exitDialog(context : Context, sp : SharedPreferences)
-    {
+    fun exitDialog(context: Context, sp: SharedPreferences) {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setView(View.inflate(view?.context, R.layout.alert_dialog, null))
 
@@ -58,8 +82,7 @@ class Fragment_a_Photo : Fragment() {
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
-            .setPositiveButton("Yes", DialogInterface.OnClickListener {
-                    dialog, id ->
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
                 // clear sp
                 sp.edit().clear().apply()
                 // go back to main activity
@@ -67,8 +90,8 @@ class Fragment_a_Photo : Fragment() {
                 startActivity(intentMainActivity)
             })
             // negative button text and action
-            .setNegativeButton("No", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
+            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
             })
 
         // create dialog box
@@ -77,6 +100,12 @@ class Fragment_a_Photo : Fragment() {
         alert.setTitle("Cancel Report")
         // show alert dialog
         alert.show()
+    }
+
+
+    // TODO - continue here
+    private fun getGalleryPath(): File? {
+        return context?.getExternalFilesDir()
     }
 
 

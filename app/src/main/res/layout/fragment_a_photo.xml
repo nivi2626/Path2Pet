@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/gallery_button"
         android:layout_width="200dp"
         android:layout_height="90dp"
         android:backgroundTint="#46A556"
