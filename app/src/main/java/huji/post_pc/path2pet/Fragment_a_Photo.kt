@@ -51,6 +51,7 @@ class Fragment_a_Photo : Fragment() {
     fun exitDialog(context : Context, sp : SharedPreferences)
     {
         val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setView(View.inflate(view?.context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
         dialogBuilder.setMessage("Do you want to close this report ?\n(report data will be lost)")
