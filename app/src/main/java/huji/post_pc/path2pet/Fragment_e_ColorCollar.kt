@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Switch
+import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import pl.utkala.searchablespinner.SearchableSpinner
@@ -25,15 +26,11 @@ private var COLOR_ARRAY = arrayOf(
 
 class Fragment_e_ColorPattern : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_e_color_collar, container, false)
         val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
+
         var color: String? = null
         var hasCollar: Boolean = false
 
@@ -48,7 +45,7 @@ class Fragment_e_ColorPattern : Fragment() {
         searchableSpinner.setDialogTitle("Choose Pet Breed: ")
         searchableSpinner.setDismissText("Dismiss")
 
-        // get data from sp
+        // if there are saved details - get data from sp
         if (lostPetActivityInstance != null)
         {
             color = lostPetActivityInstance.sp.getString("PET_COLOR", null)
@@ -61,13 +58,12 @@ class Fragment_e_ColorPattern : Fragment() {
             COLOR_ARRAY
         )
 
-        if (color != null)
-        {
+        // set UI
+        if (color != null) {
             searchableSpinner.setSelection(COLOR_ARRAY.indexOf(color))
         }
 
-        if (hasCollar)
-        {
+        if (hasCollar) {
             hasCollarSwitch.isChecked = true
         }
 

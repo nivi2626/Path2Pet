@@ -63,7 +63,7 @@ class Fragment_a_Photo : Fragment() {
                 // clear sp
                 sp.edit().clear().apply()
                 // go back to main activity
-                val intentMainActivity = Intent(context, MainActivity::class.java)
+                val intentMainActivity = Intent(context, HomeScreen::class.java)
                 startActivity(intentMainActivity)
             })
             // negative button text and action

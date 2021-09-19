@@ -10,7 +10,16 @@ public class AppPath2Pet extends Application {
 
     // constants
     final static String COLLECTION = "Pets";
-    // todo - here?
+    final static String SP_PHOTO = "Photos";
+    final static String SP_LOCATION = "Location";
+    final static String SP_TYPE = "Type";
+    final static String SP_SEX = "Sex";
+    final static String SP_BREED = "Breed";
+    final static String SP_SIZE = "Size";
+    final static String SP_COLOR = "Color";
+    final static String SP_COLLAR = "Collar";
+    final static String SP_COMMENTS = "Comments";
+    final static String SP_DETAILS = "Details";
 
 
     @Override

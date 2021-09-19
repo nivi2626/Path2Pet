@@ -49,7 +49,7 @@ class LostPetProcess : AppCompatActivity() {
 
     // TODO - change to either backPress or clicking "Prev"
     override fun onBackPressed() {
-        super.onBackPressed()
+//        super.onBackPressed()
     }
 
     fun exitDialog()
