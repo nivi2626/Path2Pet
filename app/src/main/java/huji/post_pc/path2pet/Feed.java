@@ -1,6 +1,8 @@
 package huji.post_pc.path2pet;
 
 import android.os.Bundle;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,12 +14,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
 public class Feed extends AppCompatActivity {
-    private Animal dog1 = new Animal("lost", "dog1", "husky", "L", new LatLng(-122.0,23.9), new Date(), "bla", R.drawable.download);
-    private Animal dog2 = new Animal("lost", "dog2", "german", "L", new LatLng(-122.0,23.9), new Date(), "bla", R.drawable.download);
-    private Animal dog3 = new Animal("found", "dog3", "lab", "L", new LatLng(-122.0,23.9), new Date(), "bla", R.drawable.download);
-    private List<Animal> animalList = new ArrayList<>();
+    private List<Pet> petList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private RecyclerAdapter adapter = null;
+
+    private Pet dog1 = new Pet("lost", "dog", "husky", "large",
+            "blond",new LatLng(-22.0,33.9), new Date(), "bla", null);
+    private Pet dog2 = new Pet("lost", "cat", "german", "small",
+            "white", new LatLng(-125.0,63.9), new Date(), "seems tied", null);
+    private Pet dog3 = new Pet("found", "dog", "mixed", "medium",
+            "black", new LatLng(-122.0,23.9), new Date(), null, null);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,30 +35,48 @@ public class Feed extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         readAnimalList();
-        RecyclerAdapter adapter = new RecyclerAdapter(animalList);
+        adapter = new RecyclerAdapter(petList);
         recyclerView.setAdapter(adapter);
     }
     private void readAnimalList()
     {
-        //todo here we should read the list from fire base
+        //todo here we should read the list from firebase
         //we should have 1 list with all animals
         //one list for lost
         //one list for found
         //creating all in one read from firebase
-        animalList.add(dog1);
-        animalList.add(dog2);
-        animalList.add(dog3);
-        animalList.add(dog1);
-        animalList.add(dog2);
-        animalList.add(dog3);
-        animalList.add(dog1);
-        animalList.add(dog2);
-        animalList.add(dog3);
-        animalList.add(dog1);
-        animalList.add(dog2);
-        animalList.add(dog3);
-        animalList.add(dog1);
-        animalList.add(dog2);
-        animalList.add(dog3);
+        petList.add(dog1);
+        petList.add(dog2);
+        petList.add(dog3);
+        petList.add(dog1);
+        petList.add(dog2);
+        petList.add(dog3);
+        petList.add(dog1);
+        petList.add(dog2);
+        petList.add(dog3);
+        petList.add(dog1);
+        petList.add(dog2);
+        petList.add(dog3);
+        petList.add(dog1);
+        petList.add(dog2);
+        petList.add(dog3);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (adapter.openPopUp !=null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "openPopUp!",  Toast.LENGTH_SHORT);
+            adapter.openPopUp.dismiss();
+            adapter.openPopUp = null;
+
+        } else
+            {
+            Toast toast = Toast.makeText(getApplicationContext(), "no openPopUp",  Toast.LENGTH_SHORT);
+            toast.show();
+            super.onBackPressed();
+        }
+
+    }
+
+
 }
