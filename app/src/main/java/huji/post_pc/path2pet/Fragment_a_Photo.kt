@@ -102,11 +102,4 @@ class Fragment_a_Photo : Fragment() {
         alert.show()
     }
 
-
-    // TODO - continue here
-    private fun getGalleryPath(): File? {
-        return context?.getExternalFilesDir()
-    }
-
-
 }
