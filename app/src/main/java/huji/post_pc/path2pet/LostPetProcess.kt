@@ -52,6 +52,9 @@ class LostPetProcess : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         progressBar.incrementProgressBy(-1)
+        if (progressBar.progress == 0){
+            sp.edit().clear().apply()
+        }
     }
 
     fun exitDialog(context : Context)
