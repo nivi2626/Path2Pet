@@ -87,8 +87,7 @@ class Fragment_a_Photo : Fragment() {
 
         // prev listener
         prevButton.setOnClickListener{
-            lostPetActivityInstance!!.progressBar.progress = 0
-            lostPetActivityInstance.exitDialog(view.context)
+            lostPetActivityInstance!!.exitDialog(view.context)
 //            lostPetActivityInstance.onBackPressed()
     }
         // TODO - implement later - get photo and save it
