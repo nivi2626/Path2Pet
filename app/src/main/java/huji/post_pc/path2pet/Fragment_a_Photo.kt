@@ -99,35 +99,6 @@ class Fragment_a_Photo : Fragment() {
         Navigation.findNavController(view).navigate(R.id.fragmentMap)
     }
 
-    fun exitDialog(context: Context, sp: SharedPreferences) {
-        val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setView(View.inflate(view?.context, R.layout.alert_dialog, null))
-
-        // set message of alert dialog
-        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
-            // if the dialog is cancelable
-            .setCancelable(false)
-            // positive button text and action
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
-                // clear sp
-                sp.edit().clear().apply()
-                // go back to main activity
-                val intentMainActivity = Intent(context, MainActivity::class.java)
-                startActivity(intentMainActivity)
-            })
-            // negative button text and action
-            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
-                dialog.cancel()
-            })
-
-        // create dialog box
-        val alert = dialogBuilder.create()
-        // set title for alert dialog box
-        alert.setTitle("Cancel Report")
-        // show alert dialog
-        alert.show()
-    }
-
 
     // TODO - commented temp, uncomment if multiple photos fails
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
