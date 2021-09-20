@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".LostPetProcess">
 
-    <TextView
+    <ImageView
         android:id="@+id/title"
         android:layout_width="415dp"
         android:layout_height="50dp"
-        android:textSize="40sp"
-        android:textColor="@color/white"
-        android:background="#64BD73"
+        android:src="@drawable/logo"
         android:fontFamily="sans-serif-light"
-        android:text="Path2Pet"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
