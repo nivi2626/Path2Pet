@@ -1,11 +1,16 @@
 package huji.post_pc.path2pet
 
+import android.Manifest
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.nfc.Tag
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,9 +26,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
+import android.util.Log
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.io.File
 
+private const val TAG = "MyActivity"
 
 class Fragment_a_Photo : Fragment() {
 
@@ -31,6 +41,8 @@ class Fragment_a_Photo : Fragment() {
     lateinit var imgView: ImageView
     private val pickImage = 100
     private var imageUri: Uri? = null
+    val REQUEST_CODE = 200
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,14 +65,14 @@ class Fragment_a_Photo : Fragment() {
         galleryButton.setOnClickListener {
 
             // TODO - trying to handle permissions - move it all to function
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage)
+            var answer : Boolean  = askForPermissions()
+            if (answer)
+            {
+//                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+//                startActivityForResult(gallery, pickImage)
+                openGalleryForImages()
 
-//            val gallery = Intent()
-//            gallery.type = "image/*"
-//            gallery.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//            gallery.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(gallery, pickImage)
+            }
 
             // TODO - trying to handle permissions - move it all to function
         }
@@ -117,12 +129,107 @@ class Fragment_a_Photo : Fragment() {
         alert.show()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imageUri = data?.data
-            imgView.setImageURI(imageUri)
+    // commented temp, uncomment if multiple photos fails
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == RESULT_OK && requestCode == pickImage) {
+//            imageUri = data?.data
+//            imgView.setImageURI(imageUri)
+//        }
+//    }
+
+    // ask permissions code
+
+    fun isPermissionsAllowed(): Boolean {
+        return if (ContextCompat.checkSelfPermission(photoContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            false
+        } else true
+    }
+
+    fun askForPermissions(): Boolean {
+        if (!isPermissionsAllowed()) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(photoContext as Activity,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showPermissionDeniedDialog()
+            } else {
+                ActivityCompat.requestPermissions(photoContext as Activity,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),REQUEST_CODE)
+            }
+            return false
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission is granted, you can perform your operation here
+                } else {
+                    // permission is denied, you can ask for permission again, if you want
+                    //  askForPermissions()
+                }
+                return
+            }
         }
     }
+
+    private fun showPermissionDeniedDialog() {
+        AlertDialog.Builder(photoContext)
+            .setTitle("Permission Denied")
+            .setMessage("Permission is denied, Please allow permissions from App Settings.")
+            .setPositiveButton("App Settings",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    // send to app settings if permission is denied permanently
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    val uri = Uri.fromParts("package", photoContext.packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
+                })
+            .setNegativeButton("Cancel",null)
+            .show()
+    }
+
+
+    // multiple photos code
+
+    private fun openGalleryForImages() {
+
+        // For latest versions API LEVEL 19+
+        var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    // override onActivityForResult
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+
+            // if multiple images are selected
+            if (data?.clipData != null) {
+                var count = data.clipData?.itemCount
+
+                if (count != null) {
+                    for (i in 0..count - 1) {
+                        var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+                        Log.d(TAG, "multiple photos")
+                        //     iv_image.setImageURI(imageUri) Here you can assign your Image URI to the ImageViews
+                    }
+                }
+
+            } else if (data?.data != null) {
+                // if single image is selected
+                var imageUri: Uri = data.data!!
+                Log.d(TAG, "single photo")
+                //   iv_image.setImageURI(imageUri) Here you can assign the picked image uri to your imageview
+
+            }
+        }
+    }
+
 
 }
