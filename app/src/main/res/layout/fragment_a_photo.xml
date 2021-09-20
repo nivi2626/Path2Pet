@@ -76,6 +76,7 @@
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/imageSlider"
+        android:visibility="invisible"
         android:layout_width="320dp"
         android:layout_height="320dp"
         app:sliderIndicatorGravity="center_horizontal|bottom"
