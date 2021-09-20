@@ -1,12 +1,17 @@
 package huji.post_pc.path2pet
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -25,7 +30,7 @@ class LostPetProcess : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lost_pet_process)
         sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
-        progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        progressBar = findViewById(R.id.progressBar)
 
 
 //        // location
@@ -76,4 +81,28 @@ class LostPetProcess : AppCompatActivity() {
         // show alert dialog
         alert.show()
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 200){
+
+            // if multiple images are selected
+            if (data?.clipData != null) {
+                val count = data.clipData!!.itemCount
+
+                for (i in 0 until count) {
+                    var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+//                         iv_image.setImageURI(imageUri) Here you can assign your Image URI to the ImageViews
+                }
+
+            }
+            // if single image is selected
+            else if (data?.data != null) {
+                var imageUri: Uri = data.data!!
+                //   iv_image.setImageURI(imageUri) Here you can assign the picked image uri to your imageview
+            }
+        }
+    }
+
 }

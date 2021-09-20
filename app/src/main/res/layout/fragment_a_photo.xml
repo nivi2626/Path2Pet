@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/petImageView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scaleType="centerInside"
@@ -61,5 +61,31 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/place_holder"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/place_holder"
+        app:layout_constraintBottom_toBottomOf="@+id/petImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/imageSlider"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorSelectedColor="#5A5A5A"
+        app:sliderIndicatorUnselectedColor="#FFF"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/petImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

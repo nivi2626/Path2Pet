@@ -83,4 +83,7 @@ dependencies {
     // recycle viewer animations
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
 
+    // photos recycler
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

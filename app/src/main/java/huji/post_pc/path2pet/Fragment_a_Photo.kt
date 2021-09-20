@@ -7,36 +7,26 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import android.os.Environment
-import android.provider.MediaStore
-import android.widget.ImageView
-import java.io.File
-
+import androidx.appcompat.app.AppCompatActivity
+import com.smarteist.autoimageslider.SliderView
 
 class Fragment_a_Photo : Fragment() {
-
     lateinit var photoContext: Context
     lateinit var imgView: ImageView
     private val pickImage = 100
     private var imageUri: Uri? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
         photoContext = view.context
@@ -46,25 +36,27 @@ class Fragment_a_Photo : Fragment() {
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
         val galleryButton: Button = view.findViewById(R.id.gallery_button)
+        val placeHolder: ImageView = view.findViewById(R.id.place_holder)
         imgView = view.findViewById(R.id.petImageView)
 
+        placeHolder.visibility = View.VISIBLE
 
         // gallery listener
         galleryButton.setOnClickListener {
-
-            // TODO - trying to handle permissions - move it all to function
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage)
-
-//            val gallery = Intent()
-//            gallery.type = "image/*"
-//            gallery.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//            gallery.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(gallery, pickImage)
-
-            // TODO - trying to handle permissions - move it all to function
+//            placeHolder.visibility = View.INVISIBLE
+            var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            startActivityForResult(intent, 200);
         }
 
+        // show photos
+        val imageSlider = view.findViewById<SliderView>(R.id.imageSlider)
+        val imageList: ArrayList<String> = ArrayList()
+        imageList.add("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg")
+        imageList.add("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg")
+        setImageInSlider(imageList, imageSlider)
 
         // next listener
         nextButton.setOnClickListener {
@@ -123,6 +115,12 @@ class Fragment_a_Photo : Fragment() {
             imageUri = data?.data
             imgView.setImageURI(imageUri)
         }
+    }
+
+    private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
+        val adapter = Fragment_a_photosAdapter()
+        adapter.renewItems(images)
+        imageSlider.setSliderAdapter(adapter)
     }
 
 }
