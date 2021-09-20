@@ -68,8 +68,9 @@ class Fragment_a_Photo : Fragment() {
             var answer : Boolean  = askForPermissions()
             if (answer)
             {
-//                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-//                startActivityForResult(gallery, pickImage)
+                // TODO - commented temp, uncomment if multiple photos fails
+                //  val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                // startActivityForResult(gallery, pickImage)
                 openGalleryForImages()
 
             }
@@ -129,7 +130,8 @@ class Fragment_a_Photo : Fragment() {
         alert.show()
     }
 
-    // commented temp, uncomment if multiple photos fails
+
+    // TODO - commented temp, uncomment if multiple photos fails
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
 //        if (resultCode == RESULT_OK && requestCode == pickImage) {
