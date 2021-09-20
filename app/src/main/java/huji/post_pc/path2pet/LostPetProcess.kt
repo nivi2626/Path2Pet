@@ -80,9 +80,8 @@ class LostPetProcess : AppCompatActivity() {
     }
 
     // handle fragment A photo opening
-
     public fun photo_open(){
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
@@ -121,7 +120,6 @@ class LostPetProcess : AppCompatActivity() {
             val imageSlider: SliderView = findViewById(R.id.imageSlider)
             imageSlider.setSliderAdapter(adapter)
             imageSlider.visibility = View.VISIBLE
-//            setImageInSlider(bitmapImages, imageSlider)
         }
     }
 
