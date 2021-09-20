@@ -39,11 +39,11 @@ class Fragment_b_Map : Fragment() {
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
         val searchView: SearchView = view.findViewById(R.id.idSearchView)
-//        val autocompleteFragment = childFragmentManager.fragments[1] as AutocompleteSupportFragment
 
         //google map
         val mapFragment:SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(OnMapReadyCallback {
+            // todo - make map go to your current location
             mMap = it
             it.setOnMapClickListener { coordinate->
                 it.clear()
@@ -79,13 +79,24 @@ class Fragment_b_Map : Fragment() {
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-
                 return false
 
             }
         })
 
-//        // places suggestions
+        // next listener
+        nextButton.setOnClickListener {
+            lostPetActivityInstance!!.progressBar.incrementProgressBy(1)
+            nextButtonOnClick(it)
+        }
+
+        // prev listener
+        prevButton.setOnClickListener {
+            lostPetActivityInstance!!.onBackPressed()
+        }
+
+//        // todo - places suggestions
+//        val autocompleteFragment = childFragmentManager.fragments[1] as AutocompleteSupportFragment
 //        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
 //        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
 //            override fun onPlaceSelected(place: Place) {
@@ -100,16 +111,7 @@ class Fragment_b_Map : Fragment() {
 //            }
 //        })
 
-        // next listener
-        nextButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
-            nextButtonOnClick(it)
-        }
 
-        // prev listener
-        prevButton.setOnClickListener {
-            lostPetActivityInstance!!.onBackPressed()
-        }
         return view
     }
 
