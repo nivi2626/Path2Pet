@@ -14,7 +14,6 @@ import androidx.navigation.Navigation
 
 
 class Fragment_c_TypeGender : Fragment() {
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_c_type_sex, container, false)

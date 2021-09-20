@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/title"
         android:layout_width="415dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:src="@drawable/logo"
         android:fontFamily="sans-serif-light"
         android:textAlignment="center"

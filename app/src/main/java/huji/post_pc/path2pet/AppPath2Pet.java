@@ -35,7 +35,7 @@ public class AppPath2Pet extends Application {
 
 
     // others
-    final static String CHOSEN_COLOR =  "#46A556";
+    final static String CHOSEN_COLOR = "#67CD8B";
     final static String NOT_CHOSEN_COLOR = "#909190";
 
 

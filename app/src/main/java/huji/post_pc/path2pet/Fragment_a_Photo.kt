@@ -2,16 +2,12 @@ package huji.post_pc.path2pet
 
 import android.Manifest
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.nfc.Tag
-import android.os.Build
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,12 +17,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import android.provider.Settings
-import android.util.Log
-import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-private const val TAG = "MyActivity"
 
 class Fragment_a_Photo : Fragment() {
     lateinit var photoContext: Context
@@ -50,7 +43,7 @@ class Fragment_a_Photo : Fragment() {
 
             var answer : Boolean  = askForPermissions()
             if (answer) {
-                lostPetActivityInstance!!.photo_open()
+                lostPetActivityInstance!!.openPhoto()
             }
         }
 
@@ -88,7 +81,7 @@ class Fragment_a_Photo : Fragment() {
                 // clear sp
                 sp.edit().clear().apply()
                 // go back to main activity
-                val intentMainActivity = Intent(context, MainActivity::class.java)
+                val intentMainActivity = Intent(context, HomeScreen::class.java)
                 startActivity(intentMainActivity)
             })
             // negative button text and action

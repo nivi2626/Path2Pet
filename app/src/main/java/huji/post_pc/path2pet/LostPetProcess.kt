@@ -29,24 +29,6 @@ class LostPetProcess : AppCompatActivity() {
         sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
         progressBar = findViewById(R.id.progressBar)
 
-
-//        // location
-//        val requestPermissionLauncher =
-//            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-//                if (isGranted) {
-//                    // Permission is granted. Continue the action or workflow in your
-//                    // app.
-//                }
-//                else
-//                {
-//                    // // request permission (ActivityCompat#requestPermissions)
-//                    // Explain to the user that the feature is unavailable because the
-//                    // features requires a permission that the user has denied. At the
-//                    // same time, respect the user's decision. Don't link to system
-//                    // settings in an effort to convince the user to change their
-//                    // decision.
-//                }
-//            }
     }
 
     override fun onBackPressed() {
@@ -86,7 +68,7 @@ class LostPetProcess : AppCompatActivity() {
     }
 
     // handle fragment A photo opening
-    public fun photo_open(){
+    fun openPhoto(){
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.addCategory(Intent.CATEGORY_OPENABLE)

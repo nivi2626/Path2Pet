@@ -23,7 +23,6 @@ import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-// todo - add DB class.............
 
 /**
  * Adapter for feed
@@ -64,8 +63,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
 
         // todo - set image
 
-//        setAnimation(holder.itemView); // todo - maybe add animations
-
         // details listener - show popUp with
         holder.detailsButton.setOnClickListener(v ->
         {
@@ -99,12 +96,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
         });
 
     }
-
-//    private void setAnimation(View viewToAnimate) {
-//        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-//        anim.setDuration(40);
-//        viewToAnimate.startAnimation(anim);
-//    }
 
 
     @Override
