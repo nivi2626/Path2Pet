@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:fontFamily="sans-serif-light"
-        android:text="Thank you for reporting about the lost pet!\nwe will do our best to find it's owners!"
+        android:text="Thank you for reporting about your lost pet!\nwe will do our best to find it!"
         android:textColor="#252525"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
