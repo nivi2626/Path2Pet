@@ -1,4 +1,6 @@
 package huji.post_pc.path2pet
+import android.Manifest
+import android.app.Activity
 import android.location.Address
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,7 +22,18 @@ import android.location.Geocoder
 import androidx.appcompat.widget.SearchView
 import java.lang.Exception
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+
 
 
 class Fragment_b_Map : Fragment() {
@@ -40,6 +53,21 @@ class Fragment_b_Map : Fragment() {
         val prevButton: Button = view.findViewById(R.id.previous)
         val searchView: SearchView = view.findViewById(R.id.idSearchView)
 
+        // TODO - try to ask permissions
+        if (ContextCompat.checkSelfPermission(myContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION) !==
+            PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(lostPetActivityInstance!!,
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                ActivityCompat.requestPermissions(lostPetActivityInstance,
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+            } else {
+                ActivityCompat.requestPermissions(lostPetActivityInstance,
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+            }
+        }
+        // TODO - end of try to ask permissions
+
         //google map
         val mapFragment:SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(OnMapReadyCallback {
@@ -48,7 +76,8 @@ class Fragment_b_Map : Fragment() {
             it.setOnMapClickListener { coordinate->
                 it.clear()
                 it.addMarker(MarkerOptions().position(coordinate))
-          }
+            }
+
         })
 
         //TODO - add location to SP (key = AppPath2Pet.SP_LOCATION)
@@ -117,5 +146,26 @@ class Fragment_b_Map : Fragment() {
 
     private fun nextButtonOnClick(view:View) {
         Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
+    }
+
+    // ask permissions code
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        when (requestCode) {
+            1 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
+                    if ((ContextCompat.checkSelfPermission(myContext,
+                            Manifest.permission.ACCESS_FINE_LOCATION) ===
+                                PackageManager.PERMISSION_GRANTED)) {
+                        Toast.makeText(myContext, "Permission Granted", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(myContext, "Permission Denied", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+        }
     }
 }
