@@ -28,6 +28,7 @@ class LostPetProcess : AppCompatActivity() {
         setContentView(R.layout.activity_lost_pet_process)
         sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
         progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.progress = 1
 
 
 //        // location
