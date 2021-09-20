@@ -333,16 +333,18 @@ private var CAT_BREED_ARRAY = arrayOf(
 
 
 class Fragment_d_BreedSize : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_d_breed_size, container, false)
         val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
         var petType: String? = null
-        var items : Array<String> = emptyArray()
-        var breed : String?= null
-        var size : String?= null
+        var items: Array<String> = emptyArray()
+        var breed: String? = null
+        var size: String? = null
 
         // find views
         val smallButton: Button = view.findViewById(R.id.Small)
@@ -369,17 +371,15 @@ class Fragment_d_BreedSize : Fragment() {
 
         // set data by sp
         if (petType != null) {
-            if (petType == AppPath2Pet.TYPE_DOG)
-            {
+            if (petType == AppPath2Pet.TYPE_DOG) {
                 items = DOG_BREED_ARRAY
-            }
-            else if (petType == AppPath2Pet.TYPE_CAT)
-            {
+            } else if (petType == AppPath2Pet.TYPE_CAT) {
                 items = CAT_BREED_ARRAY
             }
         }
 
-        searchableSpinner.adapter = ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_dropdown_item, items)
+        searchableSpinner.adapter =
+            ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_dropdown_item, items)
 
         if (breed != null) {
             searchableSpinner.setSelection(items.indexOf(breed))
@@ -405,26 +405,6 @@ class Fragment_d_BreedSize : Fragment() {
             }
         }
 
-        // next listener
-        nextButton.setOnClickListener {
-            if (lostPetActivityInstance != null) {
-                with(lostPetActivityInstance.sp.edit())
-                {
-                    putString(AppPath2Pet.SP_SIZE, size)
-                    putString(AppPath2Pet.SP_BREED, breed)
-                    apply()
-                }
-                lostPetActivityInstance.progressBar.incrementProgressBy(1)
-            }
-            nextButtonOnClick(it)
-        }
-
-        // prev listener
-        prevButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
-            prevButtonOnClick(it)
-        }
-
         searchableSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 arg0: AdapterView<*>?,
@@ -440,25 +420,41 @@ class Fragment_d_BreedSize : Fragment() {
         }
 
         // size listeners
-        smallButton.setOnClickListener(){
+        smallButton.setOnClickListener() {
             mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             size = AppPath2Pet.SIZE_SMALL
         }
 
-        mediumButton.setOnClickListener(){
+        mediumButton.setOnClickListener() {
             smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             size = AppPath2Pet.SIZE_MEDIUM
         }
 
-        largeButton.setOnClickListener(){
+        largeButton.setOnClickListener() {
             smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             size = AppPath2Pet.SIZE_LARGE
+        }
+
+        // next listener
+        nextButton.setOnClickListener {
+            with(lostPetActivityInstance.sp.edit()) {
+                putString(AppPath2Pet.SP_SIZE, size)
+                putString(AppPath2Pet.SP_BREED, breed)
+                apply()
+            }
+            lostPetActivityInstance.progressBar.incrementProgressBy(1)
+            nextButtonOnClick(it)
+        }
+
+        // prev listener
+        prevButton.setOnClickListener {
+            lostPetActivityInstance.onBackPressed()
         }
         return view
     }
@@ -467,7 +463,4 @@ class Fragment_d_BreedSize : Fragment() {
         Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
     }
 
-    private fun prevButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
-    }
 }

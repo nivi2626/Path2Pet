@@ -27,20 +27,17 @@ class Fragment_a_Photo : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
+            lostPetActivityInstance!!.progressBar.incrementProgressBy(1)
             nextButtonOnClick(it)
         }
 
-        // prev or cancel listener
+        // prev listener
         prevButton.setOnClickListener{
-            if (lostPetActivityInstance != null)
-            {
-                lostPetActivityInstance.progressBar.progress = 0
-                lostPetActivityInstance.exitDialog(view.context)
-            }
-        }
-        // TODO - implement later
-
+            lostPetActivityInstance!!.progressBar.progress = 0
+            lostPetActivityInstance.exitDialog(view.context)
+//            lostPetActivityInstance.onBackPressed()
+    }
+        // TODO - implement later - get photo and save it
         return view
     }
 

@@ -103,8 +103,7 @@ class Fragment_e_ColorPattern : Fragment() {
 
         // prev listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
-            prevButtonOnClick(it)
+            lostPetActivityInstance!!.onBackPressed()
         }
         return view
 
@@ -114,7 +113,4 @@ class Fragment_e_ColorPattern : Fragment() {
         Navigation.findNavController(view).navigate(R.id.fragmentcomments)
     }
 
-    private fun prevButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
-    }
 }

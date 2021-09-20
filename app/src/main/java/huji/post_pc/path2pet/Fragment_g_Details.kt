@@ -37,8 +37,7 @@ class Fragment_g_Details : Fragment() {
 
         // prev listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
-            prevButtonOnClick(it)
+            lostPetActivityInstance!!.onBackPressed()
         }
 
         return view
@@ -48,7 +47,4 @@ class Fragment_g_Details : Fragment() {
         Navigation.findNavController(view).navigate(R.id.fragmentEnd)
     }
 
-    private fun prevButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentcomments)
-    }
 }

@@ -49,9 +49,9 @@ class LostPetProcess : AppCompatActivity() {
 //            }
     }
 
-    // TODO - change to either backPress or clicking "Prev"
     override fun onBackPressed() {
-//        super.onBackPressed()
+        super.onBackPressed()
+        progressBar.incrementProgressBy(-1)
     }
 
     fun exitDialog(context : Context)
@@ -60,7 +60,7 @@ class LostPetProcess : AppCompatActivity() {
         dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
-        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
+        dialogBuilder.setMessage("Are you sure you want to leave?\nReport data will be lost")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
@@ -69,8 +69,7 @@ class LostPetProcess : AppCompatActivity() {
                 // clear sp
                 sp.edit().clear().apply()
                 // go back to main activity
-                val intentMainActivity = Intent(context, HomeScreen::class.java)
-                startActivity(intentMainActivity)
+                onBackPressed()
             })
             // negative button text and action
             .setNegativeButton("No", DialogInterface.OnClickListener {
@@ -79,9 +78,7 @@ class LostPetProcess : AppCompatActivity() {
 
         // create dialog box
         val alert = dialogBuilder.create()
-        // set title for alert dialog box
         alert.setTitle("Cancel Report")
-        // show alert dialog
         alert.show()
     }
 

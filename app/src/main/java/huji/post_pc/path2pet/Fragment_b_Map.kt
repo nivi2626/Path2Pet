@@ -100,7 +100,6 @@ class Fragment_b_Map : Fragment() {
 //            }
 //        })
 
-
         // next listener
         nextButton.setOnClickListener {
             lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
@@ -109,8 +108,7 @@ class Fragment_b_Map : Fragment() {
 
         // prev listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
-            prevButtonOnClick(it)
+            lostPetActivityInstance!!.onBackPressed()
         }
         return view
     }
@@ -118,9 +116,4 @@ class Fragment_b_Map : Fragment() {
     private fun nextButtonOnClick(view:View) {
         Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
     }
-
-    private fun prevButtonOnClick(view:View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentPhoto)
-    }
-
 }

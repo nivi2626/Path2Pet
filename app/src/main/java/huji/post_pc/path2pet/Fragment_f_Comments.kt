@@ -25,9 +25,7 @@ class Fragment_f_Comments : Fragment() {
         val userCommentsText: EditText = view.findViewById(R.id.comments)
 
         // get data from sp
-        if (lostPetActivityInstance != null) {
-            userComments = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COMMENTS, "")
-        }
+        userComments = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_COMMENTS, "")
 
         // set data by sp
         if (userComments!=null) {
@@ -54,8 +52,7 @@ class Fragment_f_Comments : Fragment() {
 
         // prev listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
-            prevButtonOnClick(it)
+            lostPetActivityInstance.onBackPressed()
         }
 
         return view
@@ -66,7 +63,4 @@ class Fragment_f_Comments : Fragment() {
         Navigation.findNavController(view).navigate(R.id.fragmentDetails)
     }
 
-    private fun prevButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
-    }
 }

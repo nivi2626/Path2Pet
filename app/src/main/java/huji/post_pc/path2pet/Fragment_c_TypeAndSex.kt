@@ -40,23 +40,18 @@ class Fragment_c_TypeGender : Fragment() {
         maleButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
 
         // get data from sp
-        if (lostPetActivityInstance != null)
-        {
-            petType = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, null)
-            petGender = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, null)
-        }
+        petType = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_TYPE, null)
+        petGender = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, null)
 
         // set data by sp
         if (petType != null)
         {
-            if (petType == AppPath2Pet.TYPE_CAT)
+            if (petType == AppPath2Pet.TYPE_DOG)
             {
-                catButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                 dogButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             }
             else if (petType == AppPath2Pet.TYPE_CAT)
             {
-                dogButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                 catButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             }
         }
@@ -65,35 +60,12 @@ class Fragment_c_TypeGender : Fragment() {
         {
             if (petGender == AppPath2Pet.SEX_MALE)
             {
-                femaleButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                 maleButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             }
             else if (petGender == AppPath2Pet.SEX_FEMALE)
             {
-                maleButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                 femaleButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             }
-        }
-
-        // next listener
-        nextButton.setOnClickListener {
-            if (lostPetActivityInstance != null)
-            {
-                with(lostPetActivityInstance.sp.edit())
-                {
-                    putString(AppPath2Pet.SP_TYPE, petType)
-                    putString(AppPath2Pet.SP_SEX, petGender)
-                    apply()
-                }
-                lostPetActivityInstance.progressBar.incrementProgressBy(1)
-            }
-            nextButtonOnClick(it)
-        }
-
-        // prev listener
-        prevButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(-1)
-            prevButtonOnClick(it)
         }
 
         // type listeners
@@ -121,14 +93,29 @@ class Fragment_c_TypeGender : Fragment() {
             maleButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             petGender = AppPath2Pet.SEX_MALE
         }
+
+        // next listener
+        nextButton.setOnClickListener {
+            with(lostPetActivityInstance.sp.edit()) {
+                putString(AppPath2Pet.SP_TYPE, petType)
+                putString(AppPath2Pet.SP_SEX, petGender)
+                apply()
+            }
+            lostPetActivityInstance.progressBar.incrementProgressBy(1)
+            nextButtonOnClick(it)
+        }
+
+        // prev listener
+        prevButton.setOnClickListener {
+            lostPetActivityInstance.onBackPressed()
+
+        }
         return view
+
     }
 
     private fun nextButtonOnClick(view:View) {
         Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
     }
 
-    private fun prevButtonOnClick(view:View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentMap)
-    }
 }
