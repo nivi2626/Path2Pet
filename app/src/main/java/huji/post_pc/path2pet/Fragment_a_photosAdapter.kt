@@ -1,18 +1,17 @@
 package huji.post_pc.path2pet
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.smarteist.autoimageslider.SliderViewAdapter
-import com.squareup.picasso.Picasso
-import java.util.*
 
 
 class Fragment_a_photosAdapter() :
     SliderViewAdapter<Fragment_a_photosAdapter.VH>() {
-    private lateinit var bitMapImages: MutableList<Bitmap>
+    private lateinit var imagesList: MutableList<Uri>
 
     override fun onCreateViewHolder(parent: ViewGroup): VH {
         val inflate: View = LayoutInflater.from(parent.context).inflate(R.layout.image_holder, null)
@@ -21,25 +20,28 @@ class Fragment_a_photosAdapter() :
 
     override fun onBindViewHolder(viewHolder: VH, position: Int) {
         // load image into view
-        val bitmap = bitMapImages[position]
+        val image = imagesList[position]
         val imageView: ImageView = viewHolder.imageView
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageURI(image)
     }
 
     override fun getCount(): Int {
-        return bitMapImages.size
+        return imagesList.size
     }
 
 
-    fun renewItems(sliderItems: MutableList<Bitmap>) {
-        bitMapImages = sliderItems
+    fun renewItems(sliderItems: MutableList<Uri>) {
+        imagesList = sliderItems
+//        notifyDataSetChanged()
+    }
+
+    fun addItem(sliderItem: Uri) {
+        imagesList.add(sliderItem)
         notifyDataSetChanged()
     }
 
-    fun addItem(sliderItem: Bitmap) {
-        bitMapImages.add(sliderItem)
-        notifyDataSetChanged()
-    }
+
+
 
     inner class VH(itemView: View) : ViewHolder(itemView) {
         var imageView: ImageView = itemView.findViewById(R.id.image)

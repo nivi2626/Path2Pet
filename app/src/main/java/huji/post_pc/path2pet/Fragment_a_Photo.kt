@@ -8,119 +8,155 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import com.smarteist.autoimageslider.SliderView
+import java.util.*
 
 
 class Fragment_a_Photo : Fragment() {
+    lateinit var lostPetActivityInstance: LostPetProcess
     lateinit var photoContext: Context
+    lateinit var thisView: View
+    private lateinit var adapter: Fragment_a_photosAdapter
+    lateinit var uriImages: MutableList<Uri>
+
+
     val REQUEST_CODE = 200
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
-        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
-        photoContext = view.context
+        this.lostPetActivityInstance = activity as LostPetProcess
+        this.thisView = view
+        this.photoContext = view.context
+        this.adapter = Fragment_a_photosAdapter()
+        this.uriImages =  mutableListOf<Uri>()
+
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
         val galleryButton: Button = view.findViewById(R.id.gallery_button)
+        val imageSlider: SliderView = view.findViewById(R.id.imageSlider)
+        val placeHolder: ImageView = view.findViewById(R.id.place_holder)
+
+        // set UI
+        val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
+        if (photos != null) {
+            imageSlider.visibility = View.VISIBLE
+            placeHolder.visibility = View.INVISIBLE
+            this.uriImages = string2UriList(photos)
+            showPhotos(this.uriImages)
+        }
+        else {
+            imageSlider.visibility = View.INVISIBLE
+            placeHolder.visibility = View.VISIBLE
+        }
 
         // gallery listener
         galleryButton.setOnClickListener {
-
-            var answer : Boolean  = askForPermissions()
-            if (answer) {
-                lostPetActivityInstance!!.openPhoto()
+            if (askForPermissions()) {
+                openPhoto()
+            }
+            if (this.uriImages.size > 0) {
+                imageSlider.visibility = View.VISIBLE
+                placeHolder.visibility = View.INVISIBLE
             }
         }
 
         // next listener
         nextButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
+            val strImages:String = uriList2string(uriImages)
+            with(lostPetActivityInstance.sp.edit()) {
+                putString(AppPath2Pet.SP_PHOTOS, strImages)
+                apply()
+            }
             nextButtonOnClick(it)
         }
 
         // prev or cancel listener
         prevButton.setOnClickListener {
-            if (lostPetActivityInstance != null) {
-                lostPetActivityInstance.progressBar.progress = 0
-                exitDialog(view.context, lostPetActivityInstance.sp)
-            }
+            lostPetActivityInstance.progressBar.progress = 0
+            lostPetActivityInstance.exitDialog(view.context, lostPetActivityInstance.sp)
         }
-
         return view
     }
 
-    private fun nextButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentMap)
+
+    private fun uriList2string(images: MutableList<Uri>): String {
+        var newStr = ""
+        for (image in images) {
+            newStr = newStr + AppPath2Pet.URI_IMAGES_DELIMITER + image.toString()
+        }
+        return newStr
     }
 
-    fun exitDialog(context: Context, sp: SharedPreferences) {
-        val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setView(View.inflate(view?.context, R.layout.alert_dialog, null))
-
-        // set message of alert dialog
-        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
-            // if the dialog is cancelable
-            .setCancelable(false)
-            // positive button text and action
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
-                // clear sp
-                sp.edit().clear().apply()
-                // go back to main activity
-                val intentMainActivity = Intent(context, HomeScreen::class.java)
-                startActivity(intentMainActivity)
-            })
-            // negative button text and action
-            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
-                dialog.cancel()
-            })
-
-        // create dialog box
-        val alert = dialogBuilder.create()
-        // set title for alert dialog box
-        alert.setTitle("Cancel Report")
-        // show alert dialog
-        alert.show()
+    private fun string2UriList(images:String): MutableList<Uri> {
+        val stringList = images.split(AppPath2Pet.URI_IMAGES_DELIMITER).toTypedArray()
+        val uriList = mutableListOf<Uri>()
+        for (image in stringList) {
+            if (image != ""){
+                uriList.add(Uri.parse(image))
+            }
+        }
+        return uriList
     }
 
-    // permissions
+
+    // handle permissions
     private fun isPermissionsAllowed(): Boolean {
-        return ContextCompat.checkSelfPermission(photoContext, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(
+            photoContext,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun askForPermissions(): Boolean {
         if (!isPermissionsAllowed()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(photoContext as Activity,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    photoContext as Activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )) {
                 showPermissionDeniedDialog()
             } else {
-                ActivityCompat.requestPermissions(photoContext as Activity,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),REQUEST_CODE)
+                ActivityCompat.requestPermissions(
+                    photoContext as Activity,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE
+                )
             }
             return false
         }
         return true
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             REQUEST_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission is granted, you can perform your operation here
-                }
-                else {
+                } else {
                     // permission is denied, you can ask for permission again, if you want
                     //  askForPermissions()
                 }
@@ -142,10 +178,64 @@ class Fragment_a_Photo : Fragment() {
                     intent.data = uri
                     startActivity(intent)
                 })
-            .setNegativeButton("Cancel",null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
+
+    // handle photos
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 200){
+            // if multiple images are selected
+            if (data?.clipData != null) {
+                val count = data.clipData!!.itemCount
+
+                for (i in 0 until count) {
+                    var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+                    uriImages.add(imageUri)
+//                    bitmapImages.add(MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri))
+                }
+            }
+            // if single image is selected
+            else if (data?.data != null) {
+                var imageUri: Uri = data.data!!
+                uriImages.add(imageUri)
+            }
+        }
+        else {
+            Log.i(
+                "onActivityResult: ",
+                "requestCode=$requestCode, resultCode=$resultCode, data$data"
+            )
+        }
+        showPhotos(uriImages)
+    }
+
+    // handle fragment A photo opening
+    private fun openPhoto(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        startActivityForResult(intent, 200);
+    }
+
+    private fun showPhotos(uriImages: MutableList<Uri>) {
+
+        if (uriImages.size > 0) {
+            val imageSlider: SliderView = thisView.findViewById(R.id.imageSlider)
+            this.adapter.renewItems(uriImages)
+            imageSlider.setSliderAdapter(adapter)
+        }
+    }
+
+
+    // next button
+    private fun nextButtonOnClick(view: View) {
+        lostPetActivityInstance.progressBar.incrementProgressBy(1)
+        Navigation.findNavController(view).navigate(R.id.fragmentMap)
+    }
 
 
 }

@@ -13,7 +13,7 @@ public class AppPath2Pet extends Application {
     final static String COLLECTION = "Pets";
 
     // sp keys
-    final static String SP_PHOTO = "Photos";
+    final static String SP_PHOTOS = "Photos";
     final static String SP_LOCATION = "Location";
     final static String SP_TYPE = "Type";
     final static String SP_SEX = "Sex";
@@ -37,6 +37,7 @@ public class AppPath2Pet extends Application {
     // others
     final static String CHOSEN_COLOR = "#67CD8B";
     final static String NOT_CHOSEN_COLOR = "#909190";
+    final static String URI_IMAGES_DELIMITER = "#####";
 
 
     @Override
