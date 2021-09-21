@@ -2,133 +2,152 @@ package huji.post_pc.path2pet
 
 import android.Manifest
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
-import android.os.Environment
-import android.provider.MediaStore
-import android.provider.Settings
-import android.util.Log
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.io.File
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import com.smarteist.autoimageslider.SliderView
+import java.util.*
 
-private const val TAG = "MyActivity"
 
 class Fragment_a_Photo : Fragment() {
-
+    lateinit var lostPetActivityInstance: LostPetProcess
     lateinit var photoContext: Context
-    lateinit var imgView: ImageView
-    private val pickImage = 100
-    private var imageUri: Uri? = null
+    lateinit var thisView: View
+    private lateinit var adapter: Fragment_a_photosAdapter
+    lateinit var uriImages: MutableList<Uri>
+
+
     val REQUEST_CODE = 200
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
-        photoContext = view.context
-        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
+        this.lostPetActivityInstance = activity as LostPetProcess
+        this.thisView = view
+        this.photoContext = view.context
+        this.adapter = Fragment_a_photosAdapter()
+        this.uriImages =  mutableListOf<Uri>()
+
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
         val galleryButton: Button = view.findViewById(R.id.gallery_button)
-        imgView = view.findViewById(R.id.petImageView)
+        val imageSlider: SliderView = view.findViewById(R.id.imageSlider)
+        val placeHolder: ImageView = view.findViewById(R.id.place_holder)
 
+        // set UI
+        val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
+        if (photos != null) {
+            imageSlider.visibility = View.VISIBLE
+            placeHolder.visibility = View.INVISIBLE
+            this.uriImages = string2UriList(photos)
+            showPhotos(this.uriImages)
+        }
+        else {
+            imageSlider.visibility = View.INVISIBLE
+            placeHolder.visibility = View.VISIBLE
+        }
 
         // gallery listener
         galleryButton.setOnClickListener {
-
-            // TODO - trying to handle permissions - move it all to function
-            var answer : Boolean  = askForPermissions()
-            if (answer)
-            {
-                // TODO - commented temp, uncomment if multiple photos fails
-                //  val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-                // startActivityForResult(gallery, pickImage)
-                openGalleryForImages()
-
+            if (askForPermissions()) {
+                openPhoto()
             }
-
-            // TODO - trying to handle permissions - move it all to function
         }
-
 
         // next listener
         nextButton.setOnClickListener {
-            lostPetActivityInstance!!.progressBar.incrementProgressBy(1)
+            val strImages:String = uriList2string(uriImages)
+            with(lostPetActivityInstance.sp.edit()) {
+                putString(AppPath2Pet.SP_PHOTOS, strImages)
+                apply()
+            }
             nextButtonOnClick(it)
         }
 
-        // prev listener
-        prevButton.setOnClickListener{
-            lostPetActivityInstance!!.exitDialog(view.context)
-//            lostPetActivityInstance.onBackPressed()
-    }
-        // TODO - implement later - get photo and save it
+        // prev or cancel listener
+        prevButton.setOnClickListener {
+            lostPetActivityInstance.progressBar.progress = 0
+            lostPetActivityInstance.exitDialog(view.context, lostPetActivityInstance.sp)
+        }
         return view
     }
 
-    private fun nextButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentMap)
+
+    private fun uriList2string(images: MutableList<Uri>): String {
+        var newStr = ""
+        for (image in images) {
+            newStr = newStr + AppPath2Pet.URI_IMAGES_DELIMITER + image.toString()
+        }
+        return newStr
+    }
+
+    private fun string2UriList(images:String): MutableList<Uri> {
+        val stringList = images.split(AppPath2Pet.URI_IMAGES_DELIMITER).toTypedArray()
+        val uriList = mutableListOf<Uri>()
+        for (image in stringList) {
+            if (image != ""){
+                uriList.add(Uri.parse(image))
+            }
+        }
+        return uriList
     }
 
 
-    // TODO - commented temp, uncomment if multiple photos fails
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == RESULT_OK && requestCode == pickImage) {
-//            imageUri = data?.data
-//            imgView.setImageURI(imageUri)
-//        }
-//    }
-
-    // ask permissions code
-
-    fun isPermissionsAllowed(): Boolean {
-        return if (ContextCompat.checkSelfPermission(photoContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            false
-        } else true
+    // handle permissions
+    private fun isPermissionsAllowed(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            photoContext,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun askForPermissions(): Boolean {
+    private fun askForPermissions(): Boolean {
         if (!isPermissionsAllowed()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(photoContext as Activity,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    photoContext as Activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )) {
                 showPermissionDeniedDialog()
             } else {
-                ActivityCompat.requestPermissions(photoContext as Activity,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),REQUEST_CODE)
+                ActivityCompat.requestPermissions(
+                    photoContext as Activity,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE
+                )
             }
             return false
         }
         return true
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             REQUEST_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -155,50 +174,65 @@ class Fragment_a_Photo : Fragment() {
                     intent.data = uri
                     startActivity(intent)
                 })
-            .setNegativeButton("Cancel",null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
 
-    // multiple photos code
+    // handle photos
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 200){
+            // if multiple images are selected
+            if (data?.clipData != null) {
+                val count = data.clipData!!.itemCount
 
-    private fun openGalleryForImages() {
+                for (i in 0 until count) {
+                    var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+                    uriImages.add(imageUri)
+//                    bitmapImages.add(MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri))
+                }
+            }
+            // if single image is selected
+            else if (data?.data != null) {
+                var imageUri: Uri = data.data!!
+                uriImages.add(imageUri)
+            }
+        }
+        else {
+            Log.i(
+                "onActivityResult: ",
+                "requestCode=$requestCode, resultCode=$resultCode, data$data"
+            )
+        }
+        showPhotos(uriImages)
+    }
 
-        // For latest versions API LEVEL 19+
-        var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+    // handle fragment A photo opening
+    private fun openPhoto(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, 200);
     }
 
-    // override onActivityForResult
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
-
-            // if multiple images are selected
-            if (data?.clipData != null) {
-                var count = data.clipData?.itemCount
-
-                if (count != null) {
-                    for (i in 0..count - 1) {
-                        var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
-                        Log.d(TAG, "multiple photos")
-                        //     iv_image.setImageURI(imageUri) Here you can assign your Image URI to the ImageViews
-                    }
-                }
-
-            } else if (data?.data != null) {
-                // if single image is selected
-                var imageUri: Uri = data.data!!
-                Log.d(TAG, "single photo")
-                //   iv_image.setImageURI(imageUri) Here you can assign the picked image uri to your imageview
-
-            }
+    private fun showPhotos(uriImages: MutableList<Uri>) {
+        if (uriImages.size > 0) {
+            val imageSlider: SliderView = thisView.findViewById(R.id.imageSlider)
+            val placeHolder: ImageView = thisView.findViewById(R.id.place_holder)
+            imageSlider.visibility = View.VISIBLE
+            placeHolder.visibility = View.INVISIBLE
+            this.adapter.renewItems(uriImages)
+            imageSlider.setSliderAdapter(adapter)
         }
+    }
+
+
+    // next button
+    private fun nextButtonOnClick(view: View) {
+        lostPetActivityInstance.progressBar.incrementProgressBy(1)
+        Navigation.findNavController(view).navigate(R.id.fragmentMap)
     }
 
 

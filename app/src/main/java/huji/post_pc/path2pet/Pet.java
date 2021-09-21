@@ -79,13 +79,6 @@ public class Pet implements Serializable {
         return images;
     }
 
-//    public Integer getFirstImage() {
-//        if (images.size()>0){
-//            return images.get(0);
-//        }
-//        return null;
-//    }
-
     public void setLastSeenDate(Date lastSeenDate) {
         this.lastSeenDate = lastSeenDate;
     }

@@ -333,18 +333,15 @@ private var CAT_BREED_ARRAY = arrayOf(
 
 
 class Fragment_d_BreedSize : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private lateinit var lostPetActivityInstance: LostPetProcess
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_d_breed_size, container, false)
-        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
-        var petType: String? = null
+        lostPetActivityInstance = activity as LostPetProcess
         var items: Array<String> = emptyArray()
-        var breed: String? = null
-        var size: String? = null
 
         // find views
         val smallButton: Button = view.findViewById(R.id.Small)
@@ -365,15 +362,16 @@ class Fragment_d_BreedSize : Fragment() {
         largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
 
         // get data from sp
-        petType = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_TYPE, null)
-        breed = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
-        size = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, null)
+        val petType: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, null)
+        var breed: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
+        var size: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, null)
 
         // set data by sp
         if (petType != null) {
             if (petType == AppPath2Pet.TYPE_DOG) {
                 items = DOG_BREED_ARRAY
-            } else if (petType == AppPath2Pet.TYPE_CAT) {
+            }
+            else if (petType == AppPath2Pet.TYPE_CAT) {
                 items = CAT_BREED_ARRAY
             }
         }
@@ -448,7 +446,6 @@ class Fragment_d_BreedSize : Fragment() {
                 putString(AppPath2Pet.SP_BREED, breed)
                 apply()
             }
-            lostPetActivityInstance.progressBar.incrementProgressBy(1)
             nextButtonOnClick(it)
         }
 
@@ -460,6 +457,7 @@ class Fragment_d_BreedSize : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
+        lostPetActivityInstance.progressBar.incrementProgressBy(1)
         Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
     }
 

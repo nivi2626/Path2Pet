@@ -1,88 +1,68 @@
 package huji.post_pc.path2pet
 
-import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import com.smarteist.autoimageslider.SliderView
 
 
 class LostPetProcess : AppCompatActivity() {
-    lateinit var progressBar: ProgressBar
     lateinit var sp : SharedPreferences
+    lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        sp.edit().clear().apply()
         setContentView(R.layout.activity_lost_pet_process)
-        sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
-        progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        progressBar.progress = 1
 
-
-//        // location
-//        val requestPermissionLauncher =
-//            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-//                if (isGranted) {
-//                    // Permission is granted. Continue the action or workflow in your
-//                    // app.
-//                }
-//                else
-//                {
-//                    // // request permission (ActivityCompat#requestPermissions)
-//                    // Explain to the user that the feature is unavailable because the
-//                    // features requires a permission that the user has denied. At the
-//                    // same time, respect the user's decision. Don't link to system
-//                    // settings in an effort to convince the user to change their
-//                    // decision.
-//                }
-//            }
+        // find views
+        progressBar = findViewById(R.id.progressBar)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         progressBar.incrementProgressBy(-1)
-        if (progressBar.progress == 0){
+        if (progressBar.progress < 0){
             sp.edit().clear().apply()
         }
     }
 
-    fun exitDialog(context : Context)
-    {
+    fun exitDialog(context: Context, sp: SharedPreferences) {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
-        dialogBuilder.setMessage("Are you sure you want to leave?\nReport data will be lost")
+        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
-            .setPositiveButton("Yes", DialogInterface.OnClickListener {
-                    dialog, id ->
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
                 // clear sp
                 sp.edit().clear().apply()
                 // go back to main activity
-                onBackPressed()
+                val intentMainActivity = Intent(context, HomeScreen::class.java)
+                startActivity(intentMainActivity)
             })
             // negative button text and action
-            .setNegativeButton("No", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
+            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
             })
 
         // create dialog box
         val alert = dialogBuilder.create()
+        // set title for alert dialog box
         alert.setTitle("Cancel Report")
+        // show alert dialog
         alert.show()
     }
 

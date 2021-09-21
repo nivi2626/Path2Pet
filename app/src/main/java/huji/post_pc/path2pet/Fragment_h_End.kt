@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 
@@ -18,7 +17,7 @@ class Fragment_h_End : Fragment() {
         val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
 
         // get data from SP
-        val photos = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_PHOTO, "")
+        val photos = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_PHOTOS, "")
         val location = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LOCATION, "")
         val type = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, "")
         val sex = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, "")
