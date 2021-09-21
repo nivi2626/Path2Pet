@@ -75,10 +75,6 @@ class Fragment_a_Photo : Fragment() {
             if (askForPermissions()) {
                 openPhoto()
             }
-            if (this.uriImages.size > 0) {
-                imageSlider.visibility = View.VISIBLE
-                placeHolder.visibility = View.INVISIBLE
-            }
         }
 
         // next listener
@@ -222,9 +218,11 @@ class Fragment_a_Photo : Fragment() {
     }
 
     private fun showPhotos(uriImages: MutableList<Uri>) {
-
         if (uriImages.size > 0) {
             val imageSlider: SliderView = thisView.findViewById(R.id.imageSlider)
+            val placeHolder: ImageView = thisView.findViewById(R.id.place_holder)
+            imageSlider.visibility = View.VISIBLE
+            placeHolder.visibility = View.INVISIBLE
             this.adapter.renewItems(uriImages)
             imageSlider.setSliderAdapter(adapter)
         }

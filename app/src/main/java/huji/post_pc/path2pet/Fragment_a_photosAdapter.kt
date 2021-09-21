@@ -32,7 +32,7 @@ class Fragment_a_photosAdapter() :
 
     fun renewItems(sliderItems: MutableList<Uri>) {
         imagesList = sliderItems
-//        notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     fun addItem(sliderItem: Uri) {

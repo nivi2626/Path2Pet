@@ -22,6 +22,7 @@ class LostPetProcess : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        sp.edit().clear().apply()
         setContentView(R.layout.activity_lost_pet_process)
 
         // find views
