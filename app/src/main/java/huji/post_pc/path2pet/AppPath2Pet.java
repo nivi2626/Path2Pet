@@ -14,7 +14,8 @@ public class AppPath2Pet extends Application {
 
     // sp keys
     final static String SP_PHOTO = "Photos";
-    final static String SP_LOCATION = "Location";
+    final static String SP_LATITUDE = "Latitude";
+    final static String SP_LONGITUDE = "Longitude";
     final static String SP_TYPE = "Type";
     final static String SP_SEX = "Sex";
     final static String SP_BREED = "Breed";

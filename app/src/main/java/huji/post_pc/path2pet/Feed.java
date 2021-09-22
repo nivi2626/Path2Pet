@@ -22,11 +22,11 @@ public class Feed extends AppCompatActivity {
     private RecyclerAdapter adapter = null;
 
     private Pet dog1 = new Pet("1", "lost", "dog", "husky", "large",
-            "blond",new LatLng(-22.0,33.9), new Date(), "bla", null);
+            "blond","32.109333", "34.855499", new Date(), "bla", null);
     private Pet dog2 = new Pet("2","lost", "cat", "german", "small",
-            "white", new LatLng(-125.0,63.9), new Date(), "seems tied", null);
+            "white", "34.855499", "32.109333", new Date(), "seems tired", null);
     private Pet dog3 = new Pet("3", "found", "dog", "mixed", "medium",
-            "black", new LatLng(-122.0,23.9), new Date(), null, null);
+            "black", "34.855499", "34.855499", new Date(), null, null);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

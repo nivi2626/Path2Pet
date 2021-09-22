@@ -1,6 +1,5 @@
 package huji.post_pc.path2pet
 import android.Manifest
-import android.app.Activity
 import android.location.Address
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -22,20 +20,10 @@ import android.location.Geocoder
 import androidx.appcompat.widget.SearchView
 import java.lang.Exception
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
-import android.os.Looper
-import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import com.google.android.gms.location.*
 
 
@@ -73,6 +61,11 @@ class Fragment_b_Map : Fragment() {
         val view = inflater.inflate(R.layout.fragment_b_map, container, false)
         myContext = view.context
         lostPetActivityInstance = activity as LostPetProcess
+        // initial latlng for Tel Aviv
+        var latLng : LatLng = LatLng(32.109333, 34.855499)
+        var latitude: String = "32.109333"
+        var longitude : String = "34.855499"
+
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -80,6 +73,10 @@ class Fragment_b_Map : Fragment() {
         var searchView: SearchView = view.findViewById(R.id.idSearchView)
         val geocoder : Geocoder
 
+        // upload data from sp
+        latitude = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LATITUDE, latitude).toString()
+        longitude = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LONGITUDE, longitude).toString()
+        latLng = LatLng(latitude.toDouble(), longitude.toDouble())
 
 //        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(myContext)
 //        checkLocationPermission()
@@ -89,7 +86,7 @@ class Fragment_b_Map : Fragment() {
         if (ContextCompat.checkSelfPermission(myContext,
                 Manifest.permission.ACCESS_COARSE_LOCATION) !==
             PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(lostPetActivityInstance!!,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(lostPetActivityInstance,
                     Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 ActivityCompat.requestPermissions(lostPetActivityInstance,
                     arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
@@ -108,8 +105,7 @@ class Fragment_b_Map : Fragment() {
             // todo - make map go to your current location
             mMap = it
 
-            val point = CameraUpdateFactory.newLatLng(LatLng(32.109333, 34.855499))
-            val latLng = LatLng(32.109333, 34.855499)
+            val point = CameraUpdateFactory.newLatLng(latLng)
             val home = mMap.addMarker(MarkerOptions().position(latLng).title("Home"))
             home.tag = -1
             // moves camera to coordinates
@@ -120,6 +116,7 @@ class Fragment_b_Map : Fragment() {
             it.setOnMapClickListener { coordinate->
                 it.clear()
                 it.addMarker(MarkerOptions().position(coordinate))
+                latLng = LatLng(coordinate.latitude, coordinate.longitude)
             }
 
         })
@@ -144,7 +141,7 @@ class Fragment_b_Map : Fragment() {
                         return false
                     }
                     val address: Address = addressList!![0]
-                    val latLng = LatLng(address.latitude, address.longitude)
+                    latLng = LatLng(address.latitude, address.longitude)
                     mMap.clear()
                     mMap.addMarker(MarkerOptions().position(latLng).title(searchInitLocation))
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
@@ -161,6 +158,11 @@ class Fragment_b_Map : Fragment() {
         // next listener
         nextButton.setOnClickListener {
             lostPetActivityInstance.progressBar.incrementProgressBy(1)
+            with(lostPetActivityInstance.sp.edit()) {
+                putString(AppPath2Pet.SP_LATITUDE, latLng.latitude.toString())
+                putString(AppPath2Pet.SP_LONGITUDE, latLng.longitude.toString())
+                apply()
+            }
             nextButtonOnClick(it)
         }
 
