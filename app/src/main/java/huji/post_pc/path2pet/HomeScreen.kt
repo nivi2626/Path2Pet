@@ -41,4 +41,8 @@ class HomeScreen : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+        return
+    }
 }

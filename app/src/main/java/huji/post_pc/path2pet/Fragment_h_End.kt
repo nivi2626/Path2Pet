@@ -1,11 +1,13 @@
 package huji.post_pc.path2pet
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import java.util.*
 
 
@@ -17,6 +19,9 @@ class Fragment_h_End : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_h_end, container, false)
         val lostPetActivityInstance: LostPetProcess = activity as LostPetProcess
+
+        // find views
+        val feedButton : Button = view.findViewById(R.id.feed)
 
         // get data from SP
         val latitude = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LATITUDE, "")
@@ -79,6 +84,13 @@ class Fragment_h_End : Fragment() {
             apply()
         }
         lostPetActivityInstance.sp.edit().clear().apply()
+
+        // move to feed
+        feedButton.setOnClickListener {
+            val intentFeed = Intent(view.context, Feed::class.java)
+            startActivity(intentFeed)
+        }
+
         return view
 
     }

@@ -28,15 +28,21 @@ class LostPetProcess : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         if (progressBar.progress < 7)
         {
+            super.onBackPressed()
             progressBar.incrementProgressBy(-1)
             if (progressBar.progress < 0){
                 sp.edit().clear().apply()
             }
         }
-        return
+        else
+        {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intentHomeScreen = Intent(this, HomeScreen::class.java)
+            startActivity(intentHomeScreen)
+            return
+        }
     }
 
     fun exitDialog(context: Context, sp: SharedPreferences) {
