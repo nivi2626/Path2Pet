@@ -18,7 +18,8 @@ class Fragment_h_End : Fragment() {
         val lostPetActivityInstance: LostPetProcess = activity as LostPetProcess
 
         // get data from SP
-        val location = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LOCATION, "")
+        val latitude = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LATITUDE, "")
+        val longitude = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LONGITUDE, "")
         val type = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, "")
         val sex = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, "")
         val breed = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, "")
@@ -38,7 +39,8 @@ class Fragment_h_End : Fragment() {
 
         //create a new Pet object
         val id = UUID.randomUUID().toString()
-        val pet = Pet(id, "Lost", type, breed, size, color, null, Date(), comments, uriImages)
+
+        var pet = Pet(id, "Lost", type, breed, size, color, latitude, longitude, Date(), comments,null)
         AppPath2Pet.getPetsDB().addPet(pet)
         lostPetActivityInstance.sp.edit().clear().apply()
         return view
