@@ -30,7 +30,6 @@ class Fragment_h_End : Fragment() {
         val details = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_DETAILS, "")
 
         val id = UUID.randomUUID().toString()
-        // todo - parse location and photos from SP
 
         var pet = Pet(id, "Lost", type, breed, size, color, latitude, longitude, Date(), comments,null)
         AppPath2Pet.getPetsDB().addPet(pet)

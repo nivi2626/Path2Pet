@@ -60,7 +60,7 @@ public class Feed extends AppCompatActivity {
 
             Button close = popupView.findViewById(R.id.close);
             CheckBox dogFlag = popupView.findViewById(R.id.dogFilter);
-            dogFlag.setChecked(TypeFilterFlag=="dog");
+            dogFlag.setChecked(TypeFilterFlag == "dog");
             CheckBox catFlag = popupView.findViewById(R.id.catFilter);
             catFlag.setChecked(TypeFilterFlag == "cat");
             CheckBox lostFlag = popupView.findViewById(R.id.lostFilter);
@@ -125,7 +125,7 @@ public class Feed extends AppCompatActivity {
 
     private void checkFiltering()
     {
-        if(TypeFilterFlag== "dog")
+        if(TypeFilterFlag == "dog")
         {
             petList = filterByDog(petList);
         }
