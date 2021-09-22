@@ -59,7 +59,7 @@ class Fragment_h_End : Fragment() {
             email,
             phone,
             Date(),
-            null
+            uriImages
         )
         AppPath2Pet.getPetsDB().addPet(pet)
         lostPetActivityInstance.sp.edit().clear().apply()
