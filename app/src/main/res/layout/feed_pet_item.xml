@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="225dp"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     android:background="@android:color/white"
     android:elevation="3dp"
     android:padding="5dp">
@@ -74,7 +74,6 @@
         android:text="last seen:"
         android:textSize="20dp"
         android:fontFamily="sans-serif-light"
-
         app:layout_constraintTop_toBottomOf="@+id/city"
         app:layout_constraintStart_toEndOf="@+id/image" />
 

@@ -31,14 +31,6 @@ public class Feed extends AppCompatActivity {
     private RecyclerAdapter adapter = null;
     String TypeFilterFlag = null;
     String StatusFilterFlag = null;
-
-    private Pet dog1 = new Pet("1", "lost", "dog", "husky", "large",
-            "blond",new LatLng(-22.0,33.9), new Date(), "bla", null);
-    private Pet dog2 = new Pet("2","lost", "cat", "german", "small",
-            "white", new LatLng(-125.0,63.9), new Date(), "seems tied", null);
-    private Pet dog3 = new Pet("3", "found", "dog", "mixed", "medium",
-            "black", new LatLng(-122.0,23.9), new Date(), null, null);
-    private Context context;
     public PopupWindow openPopUp = null;
 
     @Override
@@ -47,10 +39,9 @@ public class Feed extends AppCompatActivity {
         setContentView(R.layout.feed);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        readAnimalList();
         adapter = new RecyclerAdapter(petList);
         recyclerView.setAdapter(adapter);
-        this.context = recyclerView.getContext();
+        readAnimalList();
         ImageButton filter = findViewById(R.id.filter);
 
         filter.setOnClickListener(v ->{
@@ -101,31 +92,13 @@ public class Feed extends AppCompatActivity {
 
     private void readAnimalList()
     {
-        //todo here we should read the list from firebase
-        //we should have 1 list with all animals
-        //one list for lost
-        //one list for found
-        //creating all in one read from firebase
-        petList.add(dog1);
-        petList.add(dog2);
-        petList.add(dog3);
-        petList.add(dog1);
-        petList.add(dog2);
-        petList.add(dog3);
-        petList.add(dog1);
-        petList.add(dog2);
-        petList.add(dog3);
-        petList.add(dog1);
-        petList.add(dog2);
-        petList.add(dog3);
-        petList.add(dog1);
-        petList.add(dog2);
-        petList.add(dog3);
+        List<Pet> pets = AppPath2Pet.getPetsDB().getAllPets();
+        adapter.setPetList(pets);
     }
 
     private void checkFiltering()
     {
-        if(TypeFilterFlag== "dog")
+        if(TypeFilterFlag == "dog")
         {
             petList = filterByDog(petList);
         }

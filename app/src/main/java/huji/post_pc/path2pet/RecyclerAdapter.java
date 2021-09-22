@@ -52,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
 
         // set pet UI
         holder.status.setText(pet.getStatus());
-        holder.petType.setText(pet.petType);
+        holder.petType.setText(pet.getPetType());
         holder.city.setText("Jerusalem");   // todo - add a city (according to tha location)
         holder.date.setText(pet.getLastSeenDate().toString());
 
@@ -101,6 +101,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
     @Override
     public int getItemCount() {
         return petList.size();
+    }
+
+    public void setPetList(List<Pet> petList) {
+        this.petList = petList;
     }
 
     /**

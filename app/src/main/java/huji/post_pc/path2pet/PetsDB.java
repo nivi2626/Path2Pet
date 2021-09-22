@@ -140,6 +140,10 @@ public class PetsDB {
                     });
         }
 
-
+    public ArrayList<Pet> getAllPets() {
+        return allPets;
     }
+}
+
+
 
