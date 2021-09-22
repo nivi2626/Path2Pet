@@ -78,5 +78,4 @@ class LostPetProcess : AppCompatActivity() {
         }
         return uriList
     }
-
 }

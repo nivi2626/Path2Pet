@@ -1,6 +1,5 @@
 package huji.post_pc.path2pet;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,119 +7,167 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class Feed extends AppCompatActivity {
     private ArrayList<Pet> petList = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView = null;
     private RecyclerAdapter adapter = null;
-    String TypeFilterFlag = null;
-    String StatusFilterFlag = null;
-    public PopupWindow openPopUp = null;
+    private PopupWindow popupWindow = null;
+    private List<String> statusList = new ArrayList();
+    private List<String> typeList = new ArrayList();
+    private List<String> colorList = new ArrayList();
+    private List<String> sizeList = new ArrayList();
+    private List<String> sexList = new ArrayList();
+    private List<String> collarList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.feed);
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecyclerAdapter(petList);
-        recyclerView.setAdapter(adapter);
-        readAnimalList();
+        updatePetsList();
+        setContentView(R.layout.feed);
+
+        // find views
         ImageButton filter = findViewById(R.id.filter);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        // set recycle viewer
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
 
         filter.setOnClickListener(v ->{
+            // set popup window
             View popupView = LayoutInflater.from(Feed.this).inflate(R.layout.filter_popup, null);
-            PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-            openPopUp = popupWindow;
+            this.popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
-            Button close = popupView.findViewById(R.id.close);
-            CheckBox dogFlag = popupView.findViewById(R.id.dogFilter);
-            dogFlag.setChecked(TypeFilterFlag == "dog");
-            CheckBox catFlag = popupView.findViewById(R.id.catFilter);
-            catFlag.setChecked(TypeFilterFlag == "cat");
-            CheckBox lostFlag = popupView.findViewById(R.id.lostFilter);
-            lostFlag.setChecked(StatusFilterFlag == "lost");
-            CheckBox foundFilter = popupView.findViewById(R.id.foundFilter);
-            foundFilter.setChecked(StatusFilterFlag == "found");
-            readAnimalList();
-            close.setOnClickListener(v1-> {
-                if (dogFlag.isChecked() && !catFlag.isChecked()) {
-                    TypeFilterFlag = "dog";
-                }
-                if(!dogFlag.isChecked() && catFlag.isChecked()){
-                        TypeFilterFlag = "cat";
+            // find popup views
+            Button apply = popupView.findViewById(R.id.apply);
+            CheckBox lost = popupView.findViewById(R.id.lostFilter);
+            CheckBox found = popupView.findViewById(R.id.foundFilter);
+            CheckBox dog = popupView.findViewById(R.id.dogFilter);
+            CheckBox cat = popupView.findViewById(R.id.catFilter);
+            CheckBox black = popupView.findViewById(R.id.black);
+            CheckBox brown = popupView.findViewById(R.id.brown);
+            CheckBox blond = popupView.findViewById(R.id.blonde);
+            CheckBox ginger = popupView.findViewById(R.id.ginger);
+            CheckBox white = popupView.findViewById(R.id.white);
+            CheckBox small = popupView.findViewById(R.id.small);
+            CheckBox medium = popupView.findViewById(R.id.medium);
+            CheckBox large = popupView.findViewById(R.id.large);
+            CheckBox female = popupView.findViewById(R.id.female);
+            CheckBox male = popupView.findViewById(R.id.male);
+            CheckBox withCollar = popupView.findViewById(R.id.with_collar);
+            CheckBox withoutCollar = popupView.findViewById(R.id.without_collar);
+
+            // set UI
+            for (CheckBox i: Arrays.asList(lost, found)) {
+                i.setChecked(statusList.contains(i.getText().toString()));
+            }
+            for (CheckBox i: Arrays.asList(cat, dog)) {
+                i.setChecked(typeList.contains(i.getText().toString()));
+            }
+            for (CheckBox i: Arrays.asList(black, brown, white, ginger, blond)) {
+                i.setChecked(colorList.contains(i.getText().toString()));
+            }
+            for (CheckBox i: Arrays.asList(small, medium, large)) {
+                i.setChecked(sizeList.contains(i.getText().toString()));
+            }
+            for (CheckBox i: Arrays.asList(female, male)) {
+                i.setChecked(sexList.contains(i.getText().toString()));
+            }
+            for (CheckBox i: Arrays.asList(withCollar, withoutCollar)) {
+                i.setChecked(collarList.contains(i.getText().toString()));
+            }
+
+            apply.setOnClickListener(v1-> {
+                statusList = new ArrayList();
+                for (CheckBox i: Arrays.asList(lost, found)) {
+                    if (i.isChecked()) {
+                        statusList.add(i.getText().toString());
                     }
-                if (lostFlag.isChecked() && !foundFilter.isChecked()) {
-                    StatusFilterFlag = "lost";
                 }
-                if(!lostFlag.isChecked() && foundFilter.isChecked()){
-                        StatusFilterFlag = "found";
+
+                typeList = new ArrayList();
+                for (CheckBox i: Arrays.asList(dog, cat)) {
+                    if (i.isChecked()) {
+                        typeList.add(i.getText().toString());
+                    }
                 }
-                if(!dogFlag.isChecked() && !catFlag.isChecked())
-                {
-                    TypeFilterFlag = null;
+                colorList = new ArrayList();
+                for (CheckBox i: Arrays.asList(black, brown, blond, ginger, white)) {
+                    if (i.isChecked()) {
+                        colorList.add(i.getText().toString());
+                    }
                 }
-                if (!lostFlag.isChecked() && !foundFilter.isChecked())
-                {
-                    StatusFilterFlag = null;
+
+                sizeList = new ArrayList();
+                for (CheckBox i: Arrays.asList(small, medium, large)) {
+                    if (i.isChecked()) {
+                        sizeList.add(i.getText().toString());
+                    }
                 }
-                checkFiltering();
+
+                sexList = new ArrayList();
+                for (CheckBox i: Arrays.asList(female, male)) {
+                    if (i.isChecked()) {
+                        sexList.add(i.getText().toString());
+                    }
+                }
+
+                collarList = new ArrayList();
+                for (CheckBox i: Arrays.asList(withCollar, withoutCollar)) {
+                    if (i.isChecked()) {
+                        collarList.add(i.getText().toString());
+                    }
+                }
+                doFiltering(statusList, typeList, colorList, sizeList, sexList, collarList);
                 popupWindow.dismiss();
-                openPopUp = null;
             });
+
             popupWindow.showAsDropDown(popupView, 0, 0);
-
         });
-
     }
 
-    private void readAnimalList()
-    {
-        List<Pet> pets = AppPath2Pet.getPetsDB().getAllPets();
-        adapter.setPetList(pets);
+    private void updatePetsList() {
+        this.petList = AppPath2Pet.getPetsDB().getAllPets();
+        this.adapter.setPetList(this.petList);
     }
 
-    private void checkFiltering()
-    {
-        if(TypeFilterFlag == "dog")
-        {
-            petList = filterByDog(petList);
+    private void doFiltering(List<String> statusList, List<String> typeList, List<String> colorList,
+                             List<String> sizeList, List<String> sexList, List<String> collarList) {
+        ArrayList<Pet> filtered = this.petList;
+        if (!statusList.isEmpty()) {
+            filtered = filterByStatus(statusList, filtered);
         }
-        else{
-            if(TypeFilterFlag == "cat")
-            {
-                petList = filterByCat(petList);
-            }
+        if (!typeList.isEmpty()) {
+            filtered = filterByType(typeList, filtered);
         }
-        if(StatusFilterFlag == "lost")
-        {
-            petList = filterByLost(petList);
+        if (!colorList.isEmpty()) {
+            filtered = filterByColor(colorList, filtered);
         }
-        else
-        {
-            if(StatusFilterFlag == "found")
-            {
-                petList = filterByFound(petList);
-            }
+        if (!sizeList.isEmpty()) {
+            filtered = filterBySize(sizeList, filtered);
         }
-        adapter = new RecyclerAdapter(petList);
-        recyclerView.setAdapter(adapter);
+        if (!sexList.isEmpty()) {
+            filtered = filterBySex(sexList, filtered);
+        }
+//        if (!collarList.isEmpty()) {
+//            filtered = filterByCollar(collarList, filtered);
+//        }
+
+        // set items in adapter
+        adapter.setPetList(filtered);
     }
 
 
@@ -130,51 +177,67 @@ public class Feed extends AppCompatActivity {
         if (adapter.openPopUp !=null) {
             adapter.openPopUp.dismiss();
             adapter.openPopUp = null;
-        } else
-            {
+        }
+        else {
             super.onBackPressed();
         }
-
     }
 
-    private ArrayList<Pet> filterByLost(ArrayList<Pet> petList)
-    {
+    private ArrayList<Pet> filterByStatus(List<String> statusList, ArrayList<Pet> pets) {
         ArrayList<Pet> filtered = new ArrayList<>();
-        for( Pet p: petList){
-            if(p.status.equals("lost")){
+        for( Pet p: pets){
+            if (statusList.contains(p.status)){
                 filtered.add(p);
             }
         }
         return filtered;
     }
 
-    private ArrayList<Pet> filterByFound(ArrayList<Pet> petList)
-    {
+    private ArrayList<Pet> filterByType(List<String> typesList, ArrayList<Pet> pets) {
         ArrayList<Pet> filtered = new ArrayList<>();
-        for( Pet p: petList){
-            if(p.status.equals("found")){
+        for( Pet p: pets){
+            if (typesList.contains(p.petType)){
                 filtered.add(p);
             }
         }
         return filtered;
     }
 
-    private ArrayList<Pet> filterByDog(ArrayList<Pet> petList)
-    {
+    // todo - uncomment when Pet have a collar attribute
+//    private ArrayList<Pet> filterByCollar(List<String> collarList, ArrayList<Pet> pets) {
+//        ArrayList<Pet> filtered = new ArrayList<>();
+//        for(Pet p: pets){
+//            if (collarList.isEmpty() || collarList.contains(p.collar)){
+//                filtered.add(p);
+//            }
+//        }
+//        return filtered;
+//    }
+
+    private ArrayList<Pet> filterBySex(List<String> sexList, ArrayList<Pet> pets) {
         ArrayList<Pet> filtered = new ArrayList<>();
-        for( Pet p: petList){
-            if(p.petType.equals("dog")){
+        for( Pet p: pets){
+            if (sexList.contains(p.sex)){
                 filtered.add(p);
             }
         }
         return filtered;
     }
 
-    private ArrayList<Pet> filterByCat(ArrayList<Pet> petList)
-    {
+    private ArrayList<Pet> filterBySize(List<String> sizeList, ArrayList<Pet> pets) {
         ArrayList<Pet> filtered = new ArrayList<>();
-        for( Pet p: petList){
-            if(p.petType.equals("cat")){
+        for( Pet p: pets){
+            if (sizeList.contains(p.size)){
+                filtered.add(p);
+            }
+        }
+        return filtered;
+    }
+
+    private ArrayList<Pet> filterByColor(List<String> colorList, ArrayList<Pet> pets) {
+        ArrayList<Pet> filtered = new ArrayList<>();
+        for( Pet p: pets){
+            if (colorList.contains(p.color)){
                 filtered.add(p);
             }
         }

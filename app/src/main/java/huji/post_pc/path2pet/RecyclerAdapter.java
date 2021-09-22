@@ -19,6 +19,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -54,12 +57,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
         holder.status.setText(pet.getStatus());
         holder.petType.setText(pet.getPetType());
         holder.city.setText("Jerusalem");   // todo - add a city (according to tha location)
-        holder.date.setText(pet.getLastSeenDate().toString());
+
+        DateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
+        String strDate = "";
+        if (pet.getLastSeenDate() != null) {
+            strDate = dateFormat.format(pet.getLastSeenDate());
+        }
+        holder.date.setText(strDate);
 
         String petBreed = pet.getBreed();
-        if (petBreed.equals("mixed")) {   //todo - constants
-            holder.breed.setText(String.format("%s %s", pet.getBreed(), pet.getColor()));
-        }
+        holder.breed.setText(String.format("%s %s", pet.getBreed(), pet.getColor()));
 
         // todo - set image
 
@@ -105,6 +112,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
 
     public void setPetList(List<Pet> petList) {
         this.petList = petList;
+        notifyDataSetChanged();
     }
 
     /**
