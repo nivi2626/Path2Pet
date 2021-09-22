@@ -26,13 +26,13 @@ public class AppPath2Pet extends Application {
     final static String SP_DETAILS = "Details";
 
     // pet data
-    final static String TYPE_DOG = "dog";
-    final static String TYPE_CAT = "cat";
-    final static String SIZE_SMALL = "small";
-    final static String SIZE_MEDIUM = "medium";
-    final static String SIZE_LARGE = "large";
-    final static String SEX_FEMALE = "female";
-    final static String SEX_MALE = "MALE";
+    final static String TYPE_DOG = "Dog";
+    final static String TYPE_CAT = "Cat";
+    final static String SIZE_SMALL = "Small";
+    final static String SIZE_MEDIUM = "Medium";
+    final static String SIZE_LARGE = "Large";
+    final static String SEX_FEMALE = "Female";
+    final static String SEX_MALE = "Male";
 
 
     // others
@@ -44,9 +44,9 @@ public class AppPath2Pet extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseApp.initializeApp(this);
         appInstance = this;
         petsDB = new PetsDB();
-        FirebaseApp.initializeApp(this);
     }
 
     public static PetsDB getPetsDB() {

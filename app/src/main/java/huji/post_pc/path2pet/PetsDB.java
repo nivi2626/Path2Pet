@@ -1,20 +1,14 @@
 package huji.post_pc.path2pet;
 
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -23,7 +17,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -36,8 +29,7 @@ public class PetsDB {
         this.allPets = new ArrayList<>();
         fireStore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
-
-        initialize();
+        initializePetList();
     }
 
     Pet getPetByPosition(int position) {
@@ -45,7 +37,7 @@ public class PetsDB {
     }
 
 
-    private void initialize() {
+    private void initializePetList() {
         fireStore.collection(AppPath2Pet.COLLECTION).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -72,7 +64,7 @@ public class PetsDB {
 
     private void uploadPetImages(Pet pet) {
         for (int i = 0; i < pet.images.size(); i++) {
-            Uri imageUri = pet.images.get(0);
+            Uri imageUri = pet.images.get(i);
             uploadImage(pet.id, String.valueOf(i), imageUri);
         }
 

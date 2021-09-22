@@ -15,6 +15,7 @@
         android:layout_marginStart="20dp"
         android:text="Choose filters"
         android:textSize="25dp"
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,10 +25,11 @@
         android:id="@+id/status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:text="Status:"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:text="Choose pet type:"
-        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_text" />
@@ -56,9 +58,10 @@
         android:id="@+id/petType_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         android:text="Pet Type:"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,9 +91,10 @@
         android:id="@+id/color_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         android:text="Color:"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +152,10 @@
         android:id="@+id/size_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         android:text="Size:"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +178,7 @@
         android:text="medium"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/size_text"
-        app:layout_constraintStart_toEndOf="@id/black" />
+        app:layout_constraintStart_toEndOf="@id/small" />
 
     <CheckBox
         android:id="@+id/large"
@@ -182,16 +187,17 @@
         android:text="large"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/size_text"
-        app:layout_constraintStart_toEndOf="@id/blonde" />
+        app:layout_constraintStart_toEndOf="@id/medium" />
 
     <!--    pet sex-->
     <TextView
         android:id="@+id/sex_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         android:text="Sex:"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
@@ -214,16 +220,17 @@
         android:text="Female"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/sex_text"
-        app:layout_constraintStart_toEndOf="@id/black" />
+        app:layout_constraintStart_toEndOf="@id/male" />
 
     <!--    pet collar-->
     <TextView
         android:id="@+id/collar_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
         android:text="Collar:"
         android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
@@ -246,12 +253,12 @@
         android:text="Without"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/collar_text"
-        app:layout_constraintStart_toEndOf="@id/black" />
+        app:layout_constraintStart_toEndOf="@id/with_collar" />
 
 
     <!--    filter button-->
     <Button
-        android:id="@+id/filer"
+        android:id="@+id/apply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apply"
