@@ -105,6 +105,8 @@ public class Pet implements Serializable {
         return color;
     }
 
+    public String getId(){return id;}
+
     @Exclude
     public List<Uri> getImages() {
         return images;

@@ -45,6 +45,7 @@
 
         <activity android:name=".LostPetProcess" />
         <activity android:name=".Feed" />
+        <activity android:name=".MyLostPets" />
         <activity
             android:name=".HomeScreen"
             android:exported="true">

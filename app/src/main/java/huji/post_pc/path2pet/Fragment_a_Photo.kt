@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -24,7 +23,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.smarteist.autoimageslider.SliderView
-import java.util.*
 
 
 class Fragment_a_Photo : Fragment() {
@@ -99,7 +97,7 @@ class Fragment_a_Photo : Fragment() {
     private fun uriList2string(images: MutableList<Uri>): String {
         var newStr = ""
         for (image in images) {
-            newStr = newStr + AppPath2Pet.URI_IMAGES_DELIMITER + image.toString()
+            newStr = newStr + AppPath2Pet.SP_DELIMITER + image.toString()
         }
         return newStr
     }

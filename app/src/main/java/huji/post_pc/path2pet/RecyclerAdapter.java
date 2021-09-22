@@ -1,16 +1,10 @@
 package huji.post_pc.path2pet;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -20,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 
 /**
@@ -129,7 +121,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
             breed = itemView.findViewById(R.id.breed);
             city = itemView.findViewById(R.id.city);
             date = itemView.findViewById(R.id.last_seen_date);
-            detailsButton = itemView.findViewById(R.id.details);
+            detailsButton = itemView.findViewById(R.id.found);
 
         }
     }

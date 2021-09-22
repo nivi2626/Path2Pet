@@ -32,6 +32,9 @@ class Fragment_h_End : Fragment() {
         val email = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "")
         val phone = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "")
 
+        // get last_reports from lostPetSP
+        var lostPetIDs = lostPetActivityInstance.spLostPets.getString(AppPath2Pet.SP_LOST_ID, "")
+
 
         // parse photos
         val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
@@ -62,6 +65,19 @@ class Fragment_h_End : Fragment() {
             uriImages
         )
         AppPath2Pet.getPetsDB().addPet(pet)
+        with(lostPetActivityInstance.spLostPets.edit())
+        {
+            if (lostPetIDs != "")
+            {
+                lostPetIDs = lostPetIDs + AppPath2Pet.SP_DELIMITER + id
+            }
+            else
+            {
+                lostPetIDs = id
+            }
+            putString(AppPath2Pet.SP_LOST_ID, lostPetIDs)
+            apply()
+        }
         lostPetActivityInstance.sp.edit().clear().apply()
         return view
 
