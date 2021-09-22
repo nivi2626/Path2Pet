@@ -29,10 +29,14 @@ class LostPetProcess : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        progressBar.incrementProgressBy(-1)
-        if (progressBar.progress < 0){
-            sp.edit().clear().apply()
+        if (progressBar.progress < 7)
+        {
+            progressBar.incrementProgressBy(-1)
+            if (progressBar.progress < 0){
+                sp.edit().clear().apply()
+            }
         }
+        return
     }
 
     fun exitDialog(context: Context, sp: SharedPreferences) {
