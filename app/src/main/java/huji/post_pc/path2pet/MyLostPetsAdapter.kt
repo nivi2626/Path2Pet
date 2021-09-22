@@ -41,11 +41,11 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
             // TODO - remove log.d
             Log.d("TAG", "found found found!")
         }
-        holder.editButton.setOnClickListener {
-            // TODO - implement, add Done button, change visibility, change other
-            //  text views to edit text views
-            Log.d("TAG", "edit edit edit!")
-        }
+//        holder.editButton.setOnClickListener {
+//            // TODO - implement, add Done button, change visibility, change other
+//            //  text views to edit text views
+//            Log.d("TAG", "edit edit edit!")
+//        }
     }
 
 

@@ -13,6 +13,5 @@ class MyLostPetsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var date: TextView = itemView.findViewById<TextView>(R.id.last_seen_date)
     var image: ImageView = itemView.findViewById<ImageView>(R.id.image)
     var foundButton: Button = itemView.findViewById<Button>(R.id.found)
-    var editButton: Button = itemView.findViewById<Button>(R.id.edit)
 
 }
