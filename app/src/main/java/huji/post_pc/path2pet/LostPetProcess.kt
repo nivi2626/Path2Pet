@@ -24,7 +24,6 @@ class LostPetProcess : AppCompatActivity() {
         this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
         sp.edit().clear().apply()
         setContentView(R.layout.activity_lost_pet_process)
-
         // find views
         progressBar = findViewById(R.id.progressBar)
     }
@@ -64,6 +63,20 @@ class LostPetProcess : AppCompatActivity() {
         alert.setTitle("Cancel Report")
         // show alert dialog
         alert.show()
+    }
+
+    fun string2UriList(images:String?): MutableList<Uri> {
+        if (images == null) {
+            return mutableListOf<Uri>()
+        }
+        val stringList = images.split(AppPath2Pet.URI_IMAGES_DELIMITER).toTypedArray()
+        val uriList = mutableListOf<Uri>()
+        for (image in stringList) {
+            if (image != ""){
+                uriList.add(Uri.parse(image))
+            }
+        }
+        return uriList
     }
 
 }

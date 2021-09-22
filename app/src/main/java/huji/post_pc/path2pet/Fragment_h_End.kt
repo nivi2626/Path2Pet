@@ -1,5 +1,6 @@
 package huji.post_pc.path2pet
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,10 +15,9 @@ class Fragment_h_End : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view =  inflater.inflate(R.layout.fragment_h_end, container, false)
-        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
+        val lostPetActivityInstance: LostPetProcess = activity as LostPetProcess
 
         // get data from SP
-        val photos = lostPetActivityInstance!!.sp.getString(AppPath2Pet.SP_PHOTOS, "")
         val location = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LOCATION, "")
         val type = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, "")
         val sex = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, "")
@@ -28,10 +28,17 @@ class Fragment_h_End : Fragment() {
         val comments = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COMMENTS, "")
         val details = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_DETAILS, "")
 
-        val id = UUID.randomUUID().toString()
-        // todo - parse location and photos from SP
 
-        var pet = Pet(id, "Lost", type, breed, size, color, null, Date(), comments,null)
+        // parse photos
+        val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
+        val uriImages: List<Uri> = lostPetActivityInstance.string2UriList(photos)
+
+        // todo - parse location from SP
+
+
+        //create a new Pet object
+        val id = UUID.randomUUID().toString()
+        val pet = Pet(id, "Lost", type, breed, size, color, null, Date(), comments, uriImages)
         AppPath2Pet.getPetsDB().addPet(pet)
         lostPetActivityInstance.sp.edit().clear().apply()
         return view
