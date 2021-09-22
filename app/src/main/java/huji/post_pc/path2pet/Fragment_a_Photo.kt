@@ -62,7 +62,7 @@ class Fragment_a_Photo : Fragment() {
         if (photos != null) {
             imageSlider.visibility = View.VISIBLE
             placeHolder.visibility = View.INVISIBLE
-            this.uriImages = string2UriList(photos)
+            this.uriImages = lostPetActivityInstance.string2UriList(photos)
             showPhotos(this.uriImages)
         }
         else {
@@ -102,17 +102,6 @@ class Fragment_a_Photo : Fragment() {
             newStr = newStr + AppPath2Pet.URI_IMAGES_DELIMITER + image.toString()
         }
         return newStr
-    }
-
-    private fun string2UriList(images:String): MutableList<Uri> {
-        val stringList = images.split(AppPath2Pet.URI_IMAGES_DELIMITER).toTypedArray()
-        val uriList = mutableListOf<Uri>()
-        for (image in stringList) {
-            if (image != ""){
-                uriList.add(Uri.parse(image))
-            }
-        }
-        return uriList
     }
 
 
@@ -210,7 +199,7 @@ class Fragment_a_Photo : Fragment() {
 
     // handle fragment A photo opening
     private fun openPhoto(){
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
@@ -223,7 +212,7 @@ class Fragment_a_Photo : Fragment() {
             val placeHolder: ImageView = thisView.findViewById(R.id.place_holder)
             imageSlider.visibility = View.VISIBLE
             placeHolder.visibility = View.INVISIBLE
-            this.adapter.renewItems(uriImages)
+            adapter.renewItems(uriImages)
             imageSlider.setSliderAdapter(adapter)
         }
     }

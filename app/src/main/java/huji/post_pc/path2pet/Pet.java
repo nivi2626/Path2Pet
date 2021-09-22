@@ -1,10 +1,16 @@
 package huji.post_pc.path2pet;
+import android.net.Uri;
+
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+@IgnoreExtraProperties
 public class Pet implements Serializable {
     public String id;
     public String petType;
@@ -17,26 +23,22 @@ public class Pet implements Serializable {
     public Date lastSeenDate;
     public String comments;
     public String color;
-    public ArrayList<Integer> images;
+    @Exclude public List<Uri> images;
 
     public Pet(String id, String status, String petType, String breed, String size, String color,
-               LatLng latLng, Date date, String comments, ArrayList<Integer> images) {
+               LatLng latLng, Date date, String comments,  List<Uri> images) {
         this.id = id;
-        this.petType = petType;
         this.status = status;
+        this.images = images;
+        this.latLng = latLng;
+        this.petType = petType;
+        this.sex = "MALE"; // TODO - ADD ATTRIBUTE
         this.breed = breed;
         this.size = size;
-        this.latLng = latLng;
+        this.color = color;
+        this.comments = comments;
         this.reportDate = date;
         this.lastSeenDate = date;
-        this.color = color;
-
-        if (comments != null ){
-            this.comments = comments;
-        }
-        if (images!=null){
-            this.images = images;
-        }
     }
 
     public Pet(){
@@ -75,7 +77,8 @@ public class Pet implements Serializable {
         return color;
     }
 
-    public ArrayList<Integer> getImages() {
+    @Exclude
+    public List<Uri> getImages() {
         return images;
     }
 
