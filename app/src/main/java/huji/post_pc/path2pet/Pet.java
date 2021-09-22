@@ -12,7 +12,8 @@ public class Pet implements Serializable {
     public String status;
     public String breed;
     public String size ;
-    public LatLng latLng;
+    public String latitude;
+    public String longitude;
     public Date reportDate;
     public Date lastSeenDate;
     public String comments;
@@ -20,13 +21,14 @@ public class Pet implements Serializable {
     public ArrayList<Integer> images;
 
     public Pet(String id, String status, String petType, String breed, String size, String color,
-               LatLng latLng, Date date, String comments, ArrayList<Integer> images) {
+               String latitude, String longitude, Date date, String comments, ArrayList<Integer> images) {
         this.id = id;
         this.petType = petType;
         this.status = status;
         this.breed = breed;
         this.size = size;
-        this.latLng = latLng;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.reportDate = date;
         this.lastSeenDate = date;
         this.color = color;
@@ -59,8 +61,14 @@ public class Pet implements Serializable {
         return comments;
     }
 
-    public LatLng getLatLng() {
-        return latLng;
+    public String getLatitude()
+    {
+        return latitude;
+    }
+
+    public String getLongitude()
+    {
+        return longitude;
     }
 
     public Date getLastSeenDate() {
