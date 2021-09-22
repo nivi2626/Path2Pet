@@ -31,10 +31,8 @@ public class PetsDB {
     private ArrayList<Pet> allPets;
     FirebaseFirestore fireStore;
     FirebaseStorage storage;
-//    private AppPath2Pet appInstance;
 
     public PetsDB() {
-//        appInstance = AppPath2Pet.getAppInstance();
         this.allPets = new ArrayList<>();
         fireStore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
