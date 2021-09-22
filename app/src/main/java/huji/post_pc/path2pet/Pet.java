@@ -1,4 +1,5 @@
 package huji.post_pc.path2pet;
+
 import android.net.Uri;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -13,37 +14,48 @@ import java.util.List;
 @IgnoreExtraProperties
 public class Pet implements Serializable {
     public String id;
-    public String petType;
-    public String sex;
     public String status;
-    public String breed;
-    public String size ;
     public String latitude;
     public String longitude;
+    public String petType;
+    public String sex;
+    public String breed;
+    public String size;
+    public String color;
+    public Boolean hasCollar;
+    public String comments;
+    public String name;
+    public String email;
+    public String phone;
     public Date reportDate;
     public Date lastSeenDate;
-    public String comments;
-    public String color;
-    @Exclude public List<Uri> images;
+    @Exclude
+    public List<Uri> images;
 
-    public Pet(String id, String status, String petType, String breed, String size, String color,
-               String latitude, String longitude, Date date, String comments,  List<Uri> images) {
+    public Pet(String id, String status, String latitude, String longitude, String petType,
+               String sex, String breed, String size, String color, Boolean hasColor,
+               String comments, String name, String email, String phone, Date date,
+               List<Uri> images) {
         this.id = id;
         this.status = status;
-        this.images = images;
-        this.petType = petType;
-        this.sex = "MALE"; // TODO - ADD ATTRIBUTE
-        this.breed = breed;
-        this.size = size;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.petType = petType;
+        this.sex = sex;
+        this.breed = breed;
+        this.size = size;
         this.color = color;
+        this.hasCollar = hasColor;
         this.comments = comments;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.images = images;
         this.reportDate = date;
         this.lastSeenDate = date;
     }
 
-    public Pet(){
+    public Pet() {
         // fireStore need default constructor
     }
 
@@ -59,19 +71,27 @@ public class Pet implements Serializable {
         return breed;
     }
 
+    public String getSex(){return sex;}
+
+    public String getSize(){return size;}
+
     public String getComments() {
         return comments;
     }
 
-    public String getLatitude()
-    {
+    public String getLatitude() {
         return latitude;
     }
 
-    public String getLongitude()
-    {
+    public String getLongitude() {
         return longitude;
     }
+
+    public String getName(){return name;}
+
+    public String getEmail(){return email;}
+
+    public String getPhone(){return phone;}
 
     public Date getLastSeenDate() {
         return lastSeenDate;

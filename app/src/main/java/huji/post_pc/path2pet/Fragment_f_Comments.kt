@@ -49,15 +49,12 @@ class Fragment_f_Comments : Fragment() {
         // next listener
         nextButton.setOnClickListener {
             userComments = userCommentsText.text.toString()
-            if (lostPetActivityInstance!=null)
+            with(lostPetActivityInstance.sp.edit())
             {
-                with(lostPetActivityInstance.sp.edit())
-                {
-                    putString(AppPath2Pet.SP_COMMENTS, userComments)
-                    apply()
-                }
-                lostPetActivityInstance.progressBar.incrementProgressBy(1)
+                putString(AppPath2Pet.SP_COMMENTS, userComments)
+                apply()
             }
+            lostPetActivityInstance.progressBar.incrementProgressBy(1)
             nextButtonOnClick(it)
         }
 

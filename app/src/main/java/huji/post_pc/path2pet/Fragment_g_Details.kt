@@ -6,38 +6,58 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 
 class Fragment_g_Details : Fragment() {
 
+    lateinit var lostPetActivityInstance: LostPetProcess
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_g_details, container, false)
-        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
+        lostPetActivityInstance = activity as LostPetProcess
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
+        val nameTxt: EditText = view.findViewById(R.id.name)
+        val emailTxt: EditText = view.findViewById(R.id.email)
+        val phoneTxt: EditText = view.findViewById(R.id.phone)
 
         // get data from sp
-        if (lostPetActivityInstance != null) {
-            val details = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_DETAILS, "")
-        }
-        // todo - set UI with details from SP
-        // todo - save new details to SP
+        var name = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "").toString()
+        var email = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "").toString()
+        var phone = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "").toString()
 
+        // set UI by sp
+        nameTxt.setText(name)
+        emailTxt.setText(email)
+        phoneTxt.setText(phone)
 
         // next listener
         nextButton.setOnClickListener {
-            lostPetActivityInstance?.progressBar?.incrementProgressBy(1)
+            lostPetActivityInstance.progressBar.incrementProgressBy(1)
+
+            name = nameTxt.text.toString()
+            email = emailTxt.text.toString()
+            phone = phoneTxt.text.toString()
+
+            with(lostPetActivityInstance.sp.edit())
+            {
+                putString(AppPath2Pet.SP_NAME, name)
+                putString(AppPath2Pet.SP_EMAIL, email)
+                putString(AppPath2Pet.SP_PHONE, phone)
+                apply()
+            }
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance!!.onBackPressed()
+            lostPetActivityInstance.onBackPressed()
         }
 
         return view

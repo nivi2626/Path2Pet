@@ -23,7 +23,9 @@ public class AppPath2Pet extends Application {
     final static String SP_COLOR = "Color";
     final static String SP_COLLAR = "Collar";
     final static String SP_COMMENTS = "Comments";
-    final static String SP_DETAILS = "Details";
+    final static String SP_NAME = "Name";
+    final static String SP_EMAIL = "Email";
+    final static String SP_PHONE = "Phone";
 
     // pet data
     final static String TYPE_DOG = "dog";

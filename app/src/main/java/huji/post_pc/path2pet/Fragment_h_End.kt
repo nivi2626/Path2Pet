@@ -12,9 +12,10 @@ import java.util.*
 class Fragment_h_End : Fragment() {
     override fun onCreateView(
         // Inflate the layout for this fragment
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
-        val view =  inflater.inflate(R.layout.fragment_h_end, container, false)
+        val view = inflater.inflate(R.layout.fragment_h_end, container, false)
         val lostPetActivityInstance: LostPetProcess = activity as LostPetProcess
 
         // get data from SP
@@ -27,7 +28,9 @@ class Fragment_h_End : Fragment() {
         val color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLOR, "")
         val collar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
         val comments = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COMMENTS, "")
-        val details = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_DETAILS, "")
+        val name = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "")
+        val email = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "")
+        val phone = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "")
 
 
         // parse photos
@@ -40,14 +43,29 @@ class Fragment_h_End : Fragment() {
         //create a new Pet object
         val id = UUID.randomUUID().toString()
 
-        var pet = Pet(id, "Lost", type, breed, size, color, latitude, longitude, Date(), comments,null)
+        var pet = Pet(
+            id,
+            "Lost",
+            latitude,
+            longitude,
+            type,
+            sex,
+            breed,
+            size,
+            color,
+            collar,
+            comments,
+            name,
+            email,
+            phone,
+            Date(),
+            null
+        )
         AppPath2Pet.getPetsDB().addPet(pet)
         lostPetActivityInstance.sp.edit().clear().apply()
         return view
 
     }
-
-
 
 
 }
