@@ -1,6 +1,5 @@
-package huji.post_pc.path2pet
+package huji.post_pc.path2pet.LostProcess
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +9,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Switch
-import androidx.core.view.size
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import huji.post_pc.path2pet.AppPath2Pet
+import huji.post_pc.path2pet.R
 import pl.utkala.searchablespinner.SearchableSpinner
 
 private var COLOR_ARRAY = arrayOf(

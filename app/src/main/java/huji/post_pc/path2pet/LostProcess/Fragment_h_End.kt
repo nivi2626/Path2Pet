@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet
+package huji.post_pc.path2pet.LostProcess
 
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import huji.post_pc.path2pet.AppPath2Pet
+import huji.post_pc.path2pet.Feed
+import huji.post_pc.path2pet.Pet
+import huji.post_pc.path2pet.R
 import java.util.*
 
 

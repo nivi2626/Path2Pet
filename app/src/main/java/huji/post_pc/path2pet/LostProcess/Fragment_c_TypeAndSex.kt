@@ -1,6 +1,5 @@
-package huji.post_pc.path2pet
+package huji.post_pc.path2pet.LostProcess
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
+import android.widget.TextView
 import androidx.navigation.Navigation
+import huji.post_pc.path2pet.AppPath2Pet
+import huji.post_pc.path2pet.R
 
 
 class Fragment_c_TypeGender : Fragment() {
@@ -26,10 +26,14 @@ class Fragment_c_TypeGender : Fragment() {
         val catButton: Button = view.findViewById(R.id.cat)
         val femaleButton: Button = view.findViewById(R.id.female)
         val maleButton: Button = view.findViewById(R.id.male)
+        val mandatoryComment: TextView = view.findViewById(R.id.mandatory_comment)
         var petType: String? = null
         var petGender: String? = null
+        var clickedType: Boolean = false
 
         // set UI
+        mandatoryComment.visibility = View.INVISIBLE
+
         // type colors
         dogButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
         catButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
@@ -45,6 +49,8 @@ class Fragment_c_TypeGender : Fragment() {
         // set data by sp
         if (petType != null)
         {
+            mandatoryComment.visibility = View.INVISIBLE
+            clickedType = true
             if (petType == AppPath2Pet.TYPE_DOG)
             {
                 dogButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
@@ -72,12 +78,16 @@ class Fragment_c_TypeGender : Fragment() {
             catButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             dogButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             petType = AppPath2Pet.TYPE_DOG
+            mandatoryComment.visibility = View.INVISIBLE
+            clickedType = true
         }
 
         catButton.setOnClickListener(){
             dogButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
             catButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
             petType = AppPath2Pet.TYPE_CAT
+            mandatoryComment.visibility = View.INVISIBLE
+            clickedType = true
         }
 
         // gender listeners
@@ -95,6 +105,11 @@ class Fragment_c_TypeGender : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
+            if (!clickedType)
+            {
+                mandatoryComment.visibility = View.VISIBLE
+                return@setOnClickListener
+            }
             with(lostPetActivityInstance.sp.edit()) {
                 putString(AppPath2Pet.SP_TYPE, petType)
                 putString(AppPath2Pet.SP_SEX, petGender)

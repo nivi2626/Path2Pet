@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment_g_Details">
+    tools:context=".LostProcess.Fragment_g_Details">
 
     <TextView
         android:id="@+id/name_text"
@@ -32,9 +32,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/mandatory_comment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* This is a mandatory field"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/red_alert"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
         android:id="@+id/email_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_text"
+        app:layout_constraintTop_toBottomOf="@+id/mandatory_comment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -54,15 +67,27 @@
         android:layout_marginVertical="20dp"
         android:inputType="textEmailAddress"
         android:textColor="@color/text_color"
-        app:layout_constraintTop_toBottomOf="@+id/name_text"
+        app:layout_constraintTop_toBottomOf="@+id/mandatory_comment_name"
         app:layout_constraintStart_toEndOf="@+id/email_text"
         />
 
+    <TextView
+        android:id="@+id/mandatory_comment_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* This is a mandatory field"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/red_alert"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <TextView
         android:id="@+id/phone_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_text"
+        app:layout_constraintTop_toBottomOf="@+id/mandatory_comment_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -79,12 +104,24 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="40dp"
-
         android:ems="10"
         android:inputType="phone"
         android:textColor="@color/text_color"
-        app:layout_constraintTop_toBottomOf="@+id/email_text"
+        app:layout_constraintTop_toBottomOf="@+id/mandatory_comment_email"
         app:layout_constraintStart_toEndOf="@+id/phone_text" />
+
+    <TextView
+        android:id="@+id/mandatory_comment_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* This is a mandatory field"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/red_alert"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/phone"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <Button
         android:id="@+id/next"

@@ -14,4 +14,5 @@
     <color name="button_color">#47AA6A</color>
     <color name="text_color">#252525</color>
     <color name="light_green">#71ED9D</color>
+    <color name="red_alert">#BF0202</color>
 </resources>
