@@ -83,7 +83,8 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             openPopUp = popupWindow;
 
             // find popUp views
-            Button close_button = popupView.findViewById(R.id.close);
+            Button closeButton = popupView.findViewById(R.id.close);
+            Button showDetailsButton = popupView.findViewById(R.id.show_details);
             TextView status = popupView.findViewById(R.id.lost_or_found);
             TextView description = popupView.findViewById(R.id.description);
             TextView sex = popupView.findViewById(R.id.sex);
@@ -118,10 +119,16 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
                 }
             }
 
-            close_button.setOnClickListener(v1 -> {
+            closeButton.setOnClickListener(v1 -> {
                 popupWindow.dismiss();
                 openPopUp = null;
             });
+
+            showDetailsButton.setOnClickListener(v1 -> {
+                popupWindow.dismiss();
+                openPopUp = null;
+            });
+
             popupWindow.showAsDropDown(popupView, 0, 0);
         });
     }
