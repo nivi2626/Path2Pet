@@ -19,6 +19,7 @@ class HomeScreen : AppCompatActivity() {
         val foundPet = findViewById<Button>(R.id.found_pet)
         val feed = findViewById<Button>(R.id.feed)
         val loading  = findViewById<ProgressBar>(R.id.loadingPanel)
+        val lostPetButton = findViewById<Button>(R.id.myLostPets)
         loading.visibility = View.INVISIBLE
 
         // Set UI
@@ -47,6 +48,11 @@ class HomeScreen : AppCompatActivity() {
         foundPet.setOnClickListener(){
 //            val intentFound = Intent(this, lostPetProcess::class.java)
 //            startActivity(intentFound)
+        }
+
+        lostPetButton.setOnClickListener {
+            val intentMyLostPets = Intent(this, MyLostPets::class.java)
+            startActivity(intentMyLostPets)
         }
 
         // feed
