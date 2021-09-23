@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,25 +50,18 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         this.context = holder.status.getContext();
 
         // set pet UI
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate = "";
-        if (pet.getLastSeenDate() != null) {
-            strDate = dateFormat.format(pet.getLastSeenDate());
-        }
+        setStatusBreedColorsDateAndLocation(pet, holder.status, holder.petType, holder.breed, holder.colors, holder.date, holder.city);
 
         if (pet.getImages().size() > 0) {
-            holder.image.setRotation(90);
             Picasso
                     .get()
                     .load(pet.getImages().get(0))
                     .into(holder.image);
         }
+        else{
+            holder.image.setImageResource(R.drawable.place_holder);
+        }
 
-        holder.date.setText(strDate);
-        holder.status.setText(pet.getStatus());
-        holder.petType.setText(pet.getPetType());
-        holder.city.setText("Jerusalem");   // todo - add a city (according to tha location)
-        holder.breed.setText(String.format("%s %s", pet.getBreed(), pet.getColors()));
 
         // details listener - show popUp with
         holder.detailsButton.setOnClickListener(v ->
@@ -86,12 +76,14 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             Button closeButton = popupView.findViewById(R.id.close);
             Button showDetailsButton = popupView.findViewById(R.id.show_details);
             TextView status = popupView.findViewById(R.id.lost_or_found);
-            TextView description = popupView.findViewById(R.id.description);
+            TextView type = popupView.findViewById(R.id.type);
+            TextView breed = popupView.findViewById(R.id.breed);
+            TextView colors = popupView.findViewById(R.id.colors);
             TextView sex = popupView.findViewById(R.id.sex);
             TextView city = popupView.findViewById(R.id.city);
             TextView collar = popupView.findViewById(R.id.with_or_without_collar);
-            TextView laseSeenDate = popupView.findViewById(R.id.last_seen_date);
-            TextView reportDate = popupView.findViewById(R.id.report_date);
+//            TextView laseSeenDate = popupView.findViewById(R.id.last_seen_date);
+            TextView reportDate = popupView.findViewById(R.id.date_text);
             TextView comments = popupView.findViewById(R.id.comments_edit);
             SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
             TextView nameText = popupView.findViewById(R.id.name_text);
@@ -101,19 +93,18 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             TextView phoneText = popupView.findViewById(R.id.phone_text);
             TextView phoneEdit = popupView.findViewById(R.id.phone_edit);
 
-            //set popUp UI
-            status.setText(pet.getStatus());
-            description.setText(String.format("%s %s %s", pet.getColors(), pet.getBreed(), pet.getPetType()));
+            //set popUp UI:
+            // set pet's description, report date, and city
+            setStatusBreedColorsDateAndLocation(pet, status, type, breed, colors, reportDate, city);
+            // set pet's sex, comments and collar
             sex.setText(pet.getSex());
-            // todo - put google location
-            city.setText("Jerusalem");
-//            collar.setText(pet.collar) // todo - when collar attribute is added;
-            Date laseSeen = pet.getLastSeenDate();
-            laseSeenDate.setText(dateFormat.format(laseSeen).toString());
-            Date report = pet.getReportDate();
-            reportDate.setText(dateFormat.format(report).toString());
             comments.setText(pet.getComments());
-
+            if (pet.hasCollar) {
+                collar.setText(AppPath2Pet.COLLAR_WITH); }
+            else {
+                collar.setText(AppPath2Pet.COLLAR_WITHOUT);
+            }
+            // set photos
             List<Uri> photos = pet.getImages();
             if (photos != null) {
                 if (photos.size() > 0) {
@@ -165,6 +156,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         TextView status;
         TextView petType;
         TextView breed;
+        TextView colors;
         TextView city;
         TextView date;
         ImageView image;
@@ -176,10 +168,40 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             status = itemView.findViewById(R.id.lost_or_found);
             image = itemView.findViewById(R.id.image);
             petType = itemView.findViewById(R.id.type);
+            colors = itemView.findViewById(R.id.colors);
             breed = itemView.findViewById(R.id.breed);
             city = itemView.findViewById(R.id.city);
-            date = itemView.findViewById(R.id.last_seen_date);
+            date = itemView.findViewById(R.id.date);
             detailsButton = itemView.findViewById(R.id.found);
         }
+    }
+
+    private void setStatusBreedColorsDateAndLocation(Pet pet, TextView status, TextView type, TextView breed, TextView colors, TextView reportDate, TextView city){
+        // set pet's description
+        status.setText(pet.getStatus());
+
+        // set pet's description
+        type.setText(pet.getPetType());
+
+        // set pet's description - colors and breed
+        StringBuilder petsColors = new StringBuilder();
+        for (String c: pet.getColors()) {
+            if (!c.equals("")) {
+                petsColors.append(c).append(", ");
+            }
+        }
+        if (petsColors.length() >0) {
+            colors.setText(petsColors.subSequence(0,petsColors.length()-2));
+        }
+        breed.setText(pet.getBreed());
+
+        // set pets report and last seen dates
+        Format dataFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date report = pet.getReportDate();
+        reportDate.setText(dataFormat.format(report).toString());
+
+        // set pet's location
+        city.setText("Jerusalem");   // todo - add a city (according to tha location)
+
     }
 }
