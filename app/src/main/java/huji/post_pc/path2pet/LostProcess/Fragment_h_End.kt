@@ -34,7 +34,7 @@ class Fragment_h_End : Fragment() {
         val sex = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, "")
         val breed = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, "")
         val size = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, "")
-        val color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLOR, "")
+        val color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")
         val collar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
         val comments = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COMMENTS, "")
         val name = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "")
@@ -48,6 +48,8 @@ class Fragment_h_End : Fragment() {
         // parse photos
         val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
         val uriImages: List<Uri> = lostPetActivityInstance.string2UriList(photos)
+
+        val colors = color!!.split(AppPath2Pet.SP_DELIMITER)
 
         // todo - parse location from SP
 
@@ -64,7 +66,7 @@ class Fragment_h_End : Fragment() {
             sex,
             breed,
             size,
-            color,
+            colors,
             collar,
             comments,
             name,

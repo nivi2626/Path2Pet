@@ -20,7 +20,7 @@ public class AppPath2Pet extends Application {
     final public static String SP_SEX = "Sex";
     final public static String SP_BREED = "Breed";
     final public static String SP_SIZE = "Size";
-    final public static String SP_COLOR = "Color";
+    final public static String SP_COLORS = "Colors";
     final public static String SP_COLLAR = "Collar";
     final public static String SP_COMMENTS = "Comments";
     final public static String SP_NAME = "Name";
@@ -38,6 +38,12 @@ public class AppPath2Pet extends Application {
     final public static String SIZE_LARGE = "large";
     final public static String SEX_FEMALE = "female";
     final public static String SEX_MALE = "MALE";
+    final public static String COLOR_WHITE = "White";
+    final public static String COLOR_BLACK = "Black";
+    final public static String COLOR_BROWN = "Brown";
+    final public static String COLOR_GRAY = "Gray";
+    final public static String COLOR_GINGER = "Ginger";
+    final public static String COLOR_BLOND = "Blond";
 
 
     // others

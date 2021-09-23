@@ -5,79 +5,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Switch
+import android.widget.*
 import androidx.navigation.Navigation
 import huji.post_pc.path2pet.AppPath2Pet
 import huji.post_pc.path2pet.R
 import pl.utkala.searchablespinner.SearchableSpinner
+import android.widget.CheckBox
+import java.util.*
+import kotlin.collections.ArrayList
 
-private var COLOR_ARRAY = arrayOf(
-    "Black",
-    "Blonde",
-    "Brown",
-    "Ginger",
-    "White",
-    "Mixed"
-)
 
 class Fragment_e_ColorCollar : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    lateinit var lostPetActivityInstance: LostPetProcess
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_e_color_collar, container, false)
-        val lostPetActivityInstance: LostPetProcess? = activity as LostPetProcess?
+        val lostPetActivityInstance = activity as LostPetProcess
 
-        var color: String? = null
-        var hasCollar: Boolean = false
+        var colors: String
+        var colorList: ArrayList<String> = ArrayList()
+        var colorListString : String = ""
+        var hasCollar: Boolean
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
-        val searchableSpinner: SearchableSpinner = view.findViewById(R.id.spinner)
+        val whiteBox: CheckBox = view.findViewById(R.id.checkBoxWhite)
+        val blackBox: CheckBox = view.findViewById(R.id.checkBoxBlack)
+        val grayBox: CheckBox = view.findViewById(R.id.checkBoxGray)
+        val blondBox: CheckBox = view.findViewById(R.id.checkBoxBlond)
+        val gingerBox: CheckBox = view.findViewById(R.id.checkBoxGinger)
+        val brownBox: CheckBox = view.findViewById(R.id.checkBoxBrown)
+
         val hasCollarSwitch: Switch = view.findViewById(R.id.collar_choose)
 
-        // set UI
-        // spinner text
-        searchableSpinner.setDialogTitle("Choose Pet Breed: ")
-        searchableSpinner.setDismissText("Dismiss")
-
-        // if there are saved details - get data from sp
-        if (lostPetActivityInstance != null)
-        {
-            color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLOR, null)
-            hasCollar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
-        }
-
-        searchableSpinner.adapter = ArrayAdapter<String>(
-            view.context,
-            android.R.layout.simple_spinner_dropdown_item,
-            COLOR_ARRAY
-        )
+        // get data from sp
+        colors = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")!!
+        hasCollar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
 
         // set UI
-        if (color != null) {
-            searchableSpinner.setSelection(COLOR_ARRAY.indexOf(color))
+        if (colors != "") {
+            colorList = colors.split(AppPath2Pet.SP_DELIMITER) as ArrayList<String>
+            for (i in listOf(whiteBox, blackBox, grayBox, brownBox, blondBox, gingerBox)) {
+                if (i.text.toString() in colorList) {
+                    i.isChecked
+                }
+            }
         }
 
         if (hasCollar) {
             hasCollarSwitch.isChecked = true
-        }
-
-        searchableSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                arg0: AdapterView<*>?,
-                arg1: View?,
-                arg2: Int,
-                arg3: Long
-            ) {
-                // set color
-                color = searchableSpinner.selectedItem.toString()
-            }
-
-            override fun onNothingSelected(arg0: AdapterView<*>?) {}
         }
 
         // set switch listener
@@ -87,22 +70,29 @@ class Fragment_e_ColorCollar : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            if (lostPetActivityInstance != null)
-            {
-                with(lostPetActivityInstance.sp.edit())
-                {
-                    putBoolean(AppPath2Pet.SP_COLLAR, hasCollar)
-                    putString(AppPath2Pet.SP_COLOR, color)
-                    apply()
+
+            // add selected colors to colorList
+            for (i in listOf(whiteBox, blackBox, grayBox, brownBox, blondBox, gingerBox)) {
+                if (i.isChecked) {
+                    colorList.add(i.text.toString())
+                    colorListString+=i.text.toString()+AppPath2Pet.SP_DELIMITER
                 }
-                lostPetActivityInstance.progressBar.incrementProgressBy(1)
             }
+
+            // edit sp
+            with(lostPetActivityInstance.sp.edit())
+            {
+                putBoolean(AppPath2Pet.SP_COLLAR, hasCollar)
+                putString(AppPath2Pet.SP_COLORS, colorListString)
+                apply()
+            }
+            lostPetActivityInstance.progressBar.incrementProgressBy(1)
             nextButtonOnClick(it)
         }
 
         // prev listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance!!.onBackPressed()
+            lostPetActivityInstance.onBackPressed()
         }
         return view
 

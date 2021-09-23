@@ -15,23 +15,72 @@
         android:textColor="#252525"
         android:textSize="25dp"
         android:fontFamily="sans-serif-light"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    Todo - add scroll bar of color options-->
-
-    <pl.utkala.searchablespinner.SearchableSpinner
-        android:id="@+id/spinner"
+    <CheckBox
+        android:id="@+id/checkBoxWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        app:closeText="Dismiss"
-        app:dialogTitle="Color: "
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:text="White"
+        app:layout_constraintTop_toBottomOf="@id/color_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/color_text" />
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Black"
+        app:layout_constraintTop_toBottomOf="@id/color_text"
+        app:layout_constraintStart_toEndOf="@id/checkBoxBlond"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gray"
+        app:layout_constraintTop_toBottomOf="@id/color_text"
+        app:layout_constraintStart_toEndOf="@id/checkBoxBrown"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxBlond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blond"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxBrown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brown"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
+        app:layout_constraintStart_toEndOf="@id/checkBoxBlond"
+        android:layout_marginStart="10dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxGinger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ginger"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
+        app:layout_constraintStart_toEndOf="@id/checkBoxBrown"
+        android:layout_marginStart="10dp"
+        />
 
     <TextView
         android:id="@+id/collar"
@@ -44,7 +93,7 @@
         android:textColor="#252525"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxBrown" />
 
     <Switch
         android:id="@+id/collar_choose"
@@ -54,7 +103,7 @@
         android:layout_marginTop="50dp"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/collar"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@id/checkBoxBrown" />
 
 
     <Button
@@ -79,7 +128,6 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,7 @@ public class Pet implements Serializable {
     public String sex;
     public String breed;
     public String size;
-    public String color;
+    public List<String> colors;
     public Boolean hasCollar;
     public String comments;
     public String name;
@@ -33,7 +33,7 @@ public class Pet implements Serializable {
     public List<Uri> images;
 
     public Pet(String id, String status, String latitude, String longitude, String petType,
-               String sex, String breed, String size, String color, Boolean hasColor,
+               String sex, String breed, String size, List<String> colors, Boolean hasColor,
                String comments, String name, String email, String phone, Date date,
                List<Uri> images) {
         this.id = id;
@@ -44,7 +44,7 @@ public class Pet implements Serializable {
         this.sex = sex;
         this.breed = breed;
         this.size = size;
-        this.color = color;
+        this.colors = colors;
         this.hasCollar = hasColor;
         this.comments = comments;
         this.name = name;
@@ -101,8 +101,8 @@ public class Pet implements Serializable {
         return reportDate;
     }
 
-    public String getColor() {
-        return color;
+    public List<String> getColor() {
+        return colors;
     }
 
     public String getId(){return id;}
