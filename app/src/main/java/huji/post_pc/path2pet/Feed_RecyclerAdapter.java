@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -62,17 +65,19 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         this.context = holder.status.getContext();
 
         // set pet UI
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = "";
         if (pet.getLastSeenDate() != null) {
             strDate = dateFormat.format(pet.getLastSeenDate());
         }
 
         if (pet.getImages().size() >0) {
+            holder.image.setRotation(90);
             Picasso
                     .get()
                     .load(pet.getImages().get(0))
                     .into(holder.image);
+
         }
 
         holder.date.setText(strDate);

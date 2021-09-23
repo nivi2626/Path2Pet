@@ -23,7 +23,7 @@
         android:id="@+id/feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/button_color"
+        android:backgroundTint="@color/logo_color"
         android:layout_marginBottom="30dp"
         android:text="feed"
         android:fontFamily="sans-serif-light"
