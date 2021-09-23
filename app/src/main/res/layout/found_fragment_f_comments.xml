@@ -21,16 +21,20 @@
 
     <EditText
         android:id="@+id/comments"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        android:inputType="textMultiLine"
         android:textColor="#252525"
-        android:inputType="textPersonName"
-        android:hint="Are there any more details about your pet?"
+        android:hint="Are there any more details about the pet you found?"
         android:text=""
+        android:lines="3"
+        android:maxLines="10"
+        android:gravity="top|start"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="@+id/comments_text"
         app:layout_constraintTop_toBottomOf="@+id/comments_text"
-        />
+        android:scrollbars="vertical" />
+
 
     <Button
         android:id="@+id/next"
