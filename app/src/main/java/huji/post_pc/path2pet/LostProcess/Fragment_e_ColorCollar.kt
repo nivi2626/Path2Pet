@@ -23,7 +23,7 @@ private var COLOR_ARRAY = arrayOf(
     "Mixed"
 )
 
-class Fragment_e_ColorPattern : Fragment() {
+class Fragment_e_ColorCollar : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

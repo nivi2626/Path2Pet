@@ -1,6 +1,7 @@
 package huji.post_pc.path2pet.LostProcess
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,11 @@ class Fragment_g_Details : Fragment() {
                 emailTxt.error = "This is a mandatory field"
                 allFilled = false
             }
+            else if (!isEmailValid(emailTxt.text.toString()))
+            {
+                emailTxt.error = "Email is not valid"
+                allFilled = false
+            }
             if (phoneTxt.text.toString() == "")
             {
                 phoneTxt.error = "This is a mandatory field"
@@ -86,6 +92,10 @@ class Fragment_g_Details : Fragment() {
 
     private fun nextButtonOnClick(view: View) {
         Navigation.findNavController(view).navigate(R.id.fragmentEnd)
+    }
+
+    private fun isEmailValid(str : String): Boolean {
+        return !TextUtils.isEmpty(str) && android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
     }
 
 }

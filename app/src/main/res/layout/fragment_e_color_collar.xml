@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LostProcess.Fragment_e_ColorPattern">
+    tools:context=".LostProcess.Fragment_e_ColorCollar">
 
     <TextView
         android:id="@+id/color_text"
