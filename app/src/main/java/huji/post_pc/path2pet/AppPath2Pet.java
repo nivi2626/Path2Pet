@@ -20,22 +20,22 @@ public class AppPath2Pet extends Application {
     final static String COLLECTION = "Pets";
 
     // sp keys
-    final static String SP_PHOTOS = "Photos";
-    final static String SP_LATITUDE = "Latitude";
-    final static String SP_LONGITUDE = "Longitude";
-    final static String SP_TYPE = "Type";
-    final static String SP_SEX = "Sex";
-    final static String SP_BREED = "Breed";
-    final static String SP_SIZE = "Size";
-    final static String SP_COLOR = "Color";
-    final static String SP_COLLAR = "Collar";
-    final static String SP_COMMENTS = "Comments";
-    final static String SP_NAME = "Name";
-    final static String SP_EMAIL = "Email";
-    final static String SP_PHONE = "Phone";
+    final public static String SP_PHOTOS = "Photos";
+    final public static String SP_LATITUDE = "Latitude";
+    final public static String SP_LONGITUDE = "Longitude";
+    final public static String SP_TYPE = "Type";
+    final public static String SP_SEX = "Sex";
+    final public static String SP_BREED = "Breed";
+    final public static String SP_SIZE = "Size";
+    final public static String SP_COLORS = "Colors";
+    final public static String SP_COLLAR = "Collar";
+    final public static String SP_COMMENTS = "Comments";
+    final public static String SP_NAME = "Name";
+    final public static String SP_EMAIL = "Email";
+    final public static String SP_PHONE = "Phone";
 
     // sp lost pets
-    final static String SP_LOST_ID = "ID";
+    final public static String SP_LOST_ID = "ID";
 
     // pet data
     final static String TYPE_DOG = "Dog";
@@ -45,6 +45,12 @@ public class AppPath2Pet extends Application {
     final static String SIZE_LARGE = "Large";
     final static String SEX_FEMALE = "Female";
     final static String SEX_MALE = "Male";
+    final public static String COLOR_WHITE = "White";
+    final public static String COLOR_BLACK = "Black";
+    final public static String COLOR_BROWN = "Brown";
+    final public static String COLOR_GRAY = "Gray";
+    final public static String COLOR_GINGER = "Ginger";
+    final public static String COLOR_BLOND = "Blond";
 
 
     // others
