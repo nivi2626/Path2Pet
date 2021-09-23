@@ -26,6 +26,7 @@
         android:id="@+id/image"
         android:layout_width="160dp"
         android:layout_height="160dp"
+        android:src="@drawable/place_holder"
         android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

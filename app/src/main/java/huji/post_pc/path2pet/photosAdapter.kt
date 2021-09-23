@@ -22,7 +22,6 @@ class photosAdapter() :
         // load image into view
         val image = imagesList[position]
         val imageView: ImageView = viewHolder.imageView
-        imageView.setRotation(90f)
         Picasso
             .get()
             .load(image)
