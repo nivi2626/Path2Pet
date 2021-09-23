@@ -23,7 +23,7 @@ class Fragment_e_ColorCollar : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_e_color_collar, container, false)
+        val view = inflater.inflate(R.layout.found_fragment_e_color_collar, container, false)
         val foundPetActivityInstance = activity as FoundPetProcess
 
         var colors: String
@@ -97,7 +97,7 @@ class Fragment_e_ColorCollar : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentcomments)
+        Navigation.findNavController(view).navigate(R.id.fragment_f_Comments)
     }
 
 }

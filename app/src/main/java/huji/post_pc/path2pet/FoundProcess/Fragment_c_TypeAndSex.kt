@@ -16,7 +16,7 @@ import huji.post_pc.path2pet.R
 class Fragment_c_TypeAndSex : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_c_type_sex, container, false)
+        val view = inflater.inflate(R.layout.found_fragment_c_type_sex, container, false)
         val foundPetActivityInstance: FoundPetProcess? = activity as FoundPetProcess?
 
         // find views
@@ -129,7 +129,7 @@ class Fragment_c_TypeAndSex : Fragment() {
     }
 
     private fun nextButtonOnClick(view:View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentBreedSize)
+        Navigation.findNavController(view).navigate(R.id.fragment_d_BreedSize)
     }
 
 }

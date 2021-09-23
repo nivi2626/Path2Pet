@@ -340,7 +340,7 @@ class Fragment_d_BreedSize : Fragment() {
         savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_d_breed_size, container, false)
+        val view = inflater.inflate(R.layout.found_fragment_d_breed_size, container, false)
         foundPetActivityInstance = activity as FoundPetProcess
         var items: Array<String> = emptyArray()
 
@@ -459,7 +459,7 @@ class Fragment_d_BreedSize : Fragment() {
 
     private fun nextButtonOnClick(view: View) {
         foundPetActivityInstance.progressBar.incrementProgressBy(1)
-        Navigation.findNavController(view).navigate(R.id.fragmentColorPattern)
+        Navigation.findNavController(view).navigate(R.id.fragment_e_ColorCollar)
     }
 
 }

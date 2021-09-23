@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import huji.post_pc.path2pet.LostProcess.LostPetProcess
+import huji.post_pc.path2pet.FoundProcess.FoundPetProcess
 
 class HomeScreen : AppCompatActivity() {
 
@@ -44,8 +45,8 @@ class HomeScreen : AppCompatActivity() {
 
         // found pet
         foundPet.setOnClickListener(){
-//            val intentFound = Intent(this, lostPetProcess::class.java)
-//            startActivity(intentFound)
+            val intentFound = Intent(this, FoundPetProcess::class.java)
+            startActivity(intentFound)
         }
 
         lostPetButton.setOnClickListener {

@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/activity_found_pet_process.xml" value="0.12916666666666668" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/activity_lost_pet_process.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/alert_dialog.xml" value="0.1490036231884058" />
@@ -13,6 +14,14 @@
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/feed.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/feed_item_list.xml" value="0.1" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/feed_pet_item.xml" value="0.1" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_a_photo.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_b_map.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_c_type_sex.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_d_breed_size.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_e_color_collar.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_f_comments.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_g_details.xml" value="0.12916666666666668" />
+        <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/found_fragment_h_end.xml" value="0.12916666666666668" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_a_photo.xml" value="0.13333333333333333" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_a_type_gender.xml" value="0.22" />
         <entry key="..\:/Or/Uni/POST_PC/final_project/Path2Pet/app/src/main/res/layout/fragment_b_map.xml" value="0.22" />

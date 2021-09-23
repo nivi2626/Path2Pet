@@ -44,7 +44,7 @@ class Fragment_a_Photo : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
+        val view = inflater.inflate(R.layout.found_fragment_a_photo, container, false)
         this.foundPetActivityInstance = activity as FoundPetProcess
         this.thisView = view
         this.photoContext = view.context
@@ -222,7 +222,7 @@ class Fragment_a_Photo : Fragment() {
     // next button
     private fun nextButtonOnClick(view: View) {
         foundPetActivityInstance.progressBar.incrementProgressBy(1)
-        Navigation.findNavController(view).navigate(R.id.fragmentMap)
+        Navigation.findNavController(view).navigate(R.id.fragment_b_Map)
     }
 
 

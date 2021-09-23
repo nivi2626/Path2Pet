@@ -19,7 +19,7 @@ class Fragment_f_Comments : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_f_comments, container, false)
+        val view = inflater.inflate(R.layout.found_fragment_f_comments, container, false)
         cameraContext = view.context
         val foundPetActivityInstance: FoundPetProcess? = activity as FoundPetProcess?
         var userComments : String? = ""
@@ -62,7 +62,7 @@ class Fragment_f_Comments : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentDetails)
+        Navigation.findNavController(view).navigate(R.id.fragment_g_Details)
     }
 
 }

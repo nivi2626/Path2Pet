@@ -25,7 +25,7 @@ class FoundPetProcess : AppCompatActivity() {
         this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
         this.spLostPets = this.getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE)
         sp.edit().clear().apply()
-        setContentView(R.layout.activity_lost_pet_process)
+        setContentView(R.layout.activity_found_pet_process)
         // find views
         progressBar = findViewById(R.id.progressBar)
     }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/found_nav_graph"
+    app:startDestination="@id/fragment_a_Photo">
+
+    <fragment
+        android:id="@+id/fragment_a_Photo"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_a_Photo"
+        android:label="found_fragment_a_photo"
+        tools:layout="@layout/found_fragment_a_photo" >
+        <action
+            android:id="@+id/action_fragment_a_Photo_to_fragment_b_Map"
+            app:destination="@id/fragment_b_Map" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_b_Map"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_b_Map"
+        android:label="found_fragment_b_map"
+        tools:layout="@layout/found_fragment_b_map" >
+        <action
+            android:id="@+id/action_fragment_b_Map_to_fragment_a_Photo"
+            app:destination="@id/fragment_a_Photo" />
+        <action
+            android:id="@+id/action_fragment_b_Map_to_fragment_c_TypeAndSex"
+            app:destination="@id/fragment_c_TypeAndSex" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_c_TypeAndSex"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_c_TypeAndSex"
+        android:label="found_fragment_c_type_sex"
+        tools:layout="@layout/found_fragment_c_type_sex" >
+        <action
+            android:id="@+id/action_fragment_c_TypeAndSex_to_fragment_b_Map"
+            app:destination="@id/fragment_b_Map" />
+        <action
+            android:id="@+id/action_fragment_c_TypeAndSex_to_fragment_d_BreedSize"
+            app:destination="@id/fragment_d_BreedSize" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_d_BreedSize"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_d_BreedSize"
+        android:label="found_fragment_d_breed_size"
+        tools:layout="@layout/found_fragment_d_breed_size" >
+        <action
+            android:id="@+id/action_fragment_d_BreedSize_to_fragment_c_TypeAndSex"
+            app:destination="@id/fragment_c_TypeAndSex" />
+        <action
+            android:id="@+id/action_fragment_d_BreedSize_to_fragment_e_ColorCollar"
+            app:destination="@id/fragment_e_ColorCollar" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_e_ColorCollar"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_e_ColorCollar"
+        android:label="found_fragment_e_color_collar"
+        tools:layout="@layout/found_fragment_e_color_collar" >
+        <action
+            android:id="@+id/action_fragment_e_ColorCollar_to_fragment_d_BreedSize"
+            app:destination="@id/fragment_d_BreedSize" />
+        <action
+            android:id="@+id/action_fragment_e_ColorCollar_to_fragment_f_Comments"
+            app:destination="@id/fragment_f_Comments" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_f_Comments"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_f_Comments"
+        android:label="found_fragment_f_comments"
+        tools:layout="@layout/found_fragment_f_comments" >
+        <action
+            android:id="@+id/action_fragment_f_Comments_to_fragment_e_ColorCollar"
+            app:destination="@id/fragment_e_ColorCollar" />
+        <action
+            android:id="@+id/action_fragment_f_Comments_to_fragment_g_Details"
+            app:destination="@id/fragment_g_Details" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_g_Details"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_g_Details"
+        android:label="found_fragment_g_details"
+        tools:layout="@layout/found_fragment_g_details" >
+        <action
+            android:id="@+id/action_fragment_g_Details_to_fragment_f_Comments"
+            app:destination="@id/fragment_f_Comments" />
+    </fragment>
+</navigation>

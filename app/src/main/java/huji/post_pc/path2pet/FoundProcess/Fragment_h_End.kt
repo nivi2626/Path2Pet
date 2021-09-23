@@ -21,7 +21,7 @@ class Fragment_h_End : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_h_end, container, false)
+        val view = inflater.inflate(R.layout.found_fragment_h_end, container, false)
         val foundPetActivityInstance: FoundPetProcess = activity as FoundPetProcess
 
         // find views
