@@ -20,11 +20,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/mandatory_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* This is a mandatory field"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/red_alert"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/dog"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <Button
         android:id="@+id/dog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Dog"
         android:textSize="20sp"
         android:layout_marginStart="20dp"
@@ -36,7 +49,7 @@
         android:id="@+id/cat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:textSize="20sp"
         android:text="Cat"
@@ -55,7 +68,7 @@
         android:textColor="#252525"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dog"
+        app:layout_constraintTop_toBottomOf="@+id/mandatory_comment"
         android:layout_marginTop="20dp"
         />
 
@@ -63,7 +76,7 @@
         android:id="@+id/female"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Female"
         android:textSize="20sp"
         android:layout_marginStart="20dp"
@@ -75,7 +88,7 @@
         android:id="@+id/male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:textSize="20sp"
         android:text="Male"

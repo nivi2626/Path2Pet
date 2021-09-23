@@ -30,7 +30,7 @@ class Fragment_h_End : Fragment() {
         val sex = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, "")
         val breed = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, "")
         val size = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, "")
-        val color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLOR, "")
+        val color = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")
         val collar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
         val comments = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COMMENTS, "")
         val name = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "")
@@ -45,11 +45,32 @@ class Fragment_h_End : Fragment() {
         val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
         val uriImages: List<Uri> = lostPetActivityInstance.string2UriList(photos)
 
+        val colors = color!!.split(AppPath2Pet.SP_DELIMITER)
+
+        // todo - parse location from SP
+
+
         //create a new Pet object
         val id = UUID.randomUUID().toString()
 
-        val pet = Pet(id, "Lost", latitude, longitude, type, sex, breed, size, color, collar,
-            comments, name, email, phone, Date(), uriImages, uriImages.size)
+        var pet = Pet(
+            id,
+            "Lost",
+            latitude,
+            longitude,
+            type,
+            sex,
+            breed,
+            size,
+            colors,
+            collar,
+            comments,
+            name,
+            email,
+            phone,
+            Date(),
+            uriImages
+        )
         AppPath2Pet.getPetsDB().addPet(pet)
         with(lostPetActivityInstance.spLostPets.edit())
         {

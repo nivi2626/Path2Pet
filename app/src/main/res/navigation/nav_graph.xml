@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/fragmentTypeSex"
-        android:name="huji.post_pc.path2pet.Fragment_c_TypeGender"
+        android:name="huji.post_pc.path2pet.Fragment_c_TypeAndSex"
         android:label="fragment_type_sex"
         tools:layout="@layout/fragment_c_type_sex" >
         <action
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/fragmentColorPattern"
-        android:name="huji.post_pc.path2pet.Fragment_e_ColorPattern"
+        android:name="huji.post_pc.path2pet.Fragment_e_ColorCollar"
         android:label="fragment_color_pattern"
         tools:layout="@layout/fragment_e_color_collar" >
         <action
