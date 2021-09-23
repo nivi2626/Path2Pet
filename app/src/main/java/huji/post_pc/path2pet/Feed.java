@@ -245,6 +245,7 @@ public class Feed extends AppCompatActivity {
             for (String c: p.colors) {
                 if (c!=null && !c.equals("") && colorList.contains(c)){
                     filtered.add(p);
+                    break;
                 }
             }
         }
