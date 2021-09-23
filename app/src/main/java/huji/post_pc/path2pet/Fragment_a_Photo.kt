@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -24,14 +23,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.smarteist.autoimageslider.SliderView
-import java.io.File
 
 
 class Fragment_a_Photo : Fragment() {
     lateinit var lostPetActivityInstance: LostPetProcess
     lateinit var photoContext: Context
     lateinit var thisView: View
-    private lateinit var adapter: Fragment_a_photosAdapter
+    private lateinit var adapter: photosAdapter
     lateinit var uriImages: MutableList<Uri>
 
 
@@ -41,14 +39,13 @@ class Fragment_a_Photo : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
         this.lostPetActivityInstance = activity as LostPetProcess
         this.thisView = view
         this.photoContext = view.context
-        this.adapter = Fragment_a_photosAdapter()
+        this.adapter = photosAdapter()
         this.uriImages =  mutableListOf<Uri>()
 
 
