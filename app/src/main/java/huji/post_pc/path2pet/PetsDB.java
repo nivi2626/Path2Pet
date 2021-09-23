@@ -45,27 +45,29 @@ public class PetsDB {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 Pet pet = document.toObject(Pet.class);
+                                // if there are default objects in firestore, pet will be null and count won't update
                                 if (pet != null) {
                                     pet.images = new ArrayList<Uri>();
                                     StorageReference storageRef = AppPath2Pet.getStorage().getReference(pet.id);
-                                    storageRef.listAll()
-                                            .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                                                @Override
-                                                public void onSuccess(ListResult listResult) {
-                                                    for (StorageReference item : listResult.getItems()) {
-                                                        item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                            @Override
-                                                            public void onSuccess(Uri uri) {
-                                                                pet.images.add(uri);
-                                                                count += 1;
-                                                                if (count == task.getResult().size()) {
-                                                                    AppPath2Pet.loadingFlag.setValue(false);
-                                                                }
-                                                            }
-                                                        });
+                                    storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                        @Override
+                                        public void onSuccess(ListResult listResult) {
+                                            for (StorageReference item : listResult.getItems()) {
+                                                item.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Uri> uriTask) {
+                                                        if (task.isSuccessful()) {
+                                                            pet.images.add(uriTask.getResult());
+                                                        }
                                                     }
+                                                });
+                                                count += 1;
+                                                if (count == task.getResult().size()) {
+                                                    AppPath2Pet.loadingFlag.setValue(false);
                                                 }
-                                            });
+                                            }
+                                        }
+                                    });
                                 }
                                 allPets.add(pet);
                             }

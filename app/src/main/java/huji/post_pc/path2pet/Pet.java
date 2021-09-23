@@ -121,7 +121,7 @@ public class Pet implements Serializable {
         return reportDate;
     }
 
-    public List<String> getColor() {
+    public List<String> getColors() {
         return colors;
     }
 

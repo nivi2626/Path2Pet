@@ -71,7 +71,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         holder.status.setText(pet.getStatus());
         holder.petType.setText(pet.getPetType());
         holder.city.setText("Jerusalem");   // todo - add a city (according to tha location)
-        holder.breed.setText(String.format("%s %s", pet.getBreed(), pet.getColor()));
+        holder.breed.setText(String.format("%s %s", pet.getBreed(), pet.getColors()));
 
         // details listener - show popUp with
         holder.detailsButton.setOnClickListener(v ->
@@ -96,7 +96,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
 
             //set popUp UI
             status.setText(pet.getStatus());
-            description.setText(String.format("%s %s %s", pet.getColor(), pet.getBreed(), pet.getPetType()));
+            description.setText(String.format("%s %s %s", pet.getColors(), pet.getBreed(), pet.getPetType()));
             sex.setText(pet.getSex());
             // todo - put google location
             city.setText("Jerusalem");
