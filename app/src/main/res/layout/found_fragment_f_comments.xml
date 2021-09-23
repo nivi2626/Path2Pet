@@ -23,7 +23,7 @@
         android:id="@+id/comments"
         android:inputType="textMultiLine"
         android:textColor="#252525"
-        android:hint="Are there any more details about your pet?"
+        android:hint="Are there any more details about the pet you found?"
         android:text=""
         android:lines="3"
         android:maxLines="10"

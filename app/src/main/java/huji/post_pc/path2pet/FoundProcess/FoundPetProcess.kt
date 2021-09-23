@@ -17,13 +17,13 @@ import huji.post_pc.path2pet.R
 
 class FoundPetProcess : AppCompatActivity() {
     lateinit var sp : SharedPreferences
-    lateinit var spLostPets : SharedPreferences
+    lateinit var spFoundPets : SharedPreferences
     lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
-        this.spLostPets = this.getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE)
+        this.sp = this.getSharedPreferences("local_found_db", Context.MODE_PRIVATE)
+        this.spFoundPets = this.getSharedPreferences("pets_I_found", Context.MODE_PRIVATE)
         sp.edit().clear().apply()
         setContentView(R.layout.activity_found_pet_process)
         // find views

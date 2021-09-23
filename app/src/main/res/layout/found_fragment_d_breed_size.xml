@@ -53,6 +53,7 @@
         android:layout_marginTop="40dp"
         android:text="Small"
         android:textSize="20sp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +63,8 @@
         android:id="@+id/Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+
         android:layout_marginTop="40dp"
         android:layout_marginStart="10dp"
         android:textSize="20sp"
@@ -77,6 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginStart="10dp"
+        android:fontFamily="sans-serif-light"
+
         android:textSize="20sp"
         android:text="Large"
         android:textColor="@color/white"
