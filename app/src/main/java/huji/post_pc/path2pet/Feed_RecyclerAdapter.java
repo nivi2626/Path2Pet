@@ -94,6 +94,12 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             TextView reportDate = popupView.findViewById(R.id.report_date);
             TextView comments = popupView.findViewById(R.id.comments_edit);
             SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
+            TextView nameText = popupView.findViewById(R.id.name_text);
+            TextView nameEdit = popupView.findViewById(R.id.name_edit);
+            TextView emailText = popupView.findViewById(R.id.email_text);
+            TextView emailEdit = popupView.findViewById(R.id.email_edit);
+            TextView phoneText = popupView.findViewById(R.id.phone_text);
+            TextView phoneEdit = popupView.findViewById(R.id.phone_edit);
 
             //set popUp UI
             status.setText(pet.getStatus());
@@ -125,8 +131,16 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             });
 
             showDetailsButton.setOnClickListener(v1 -> {
-                popupWindow.dismiss();
-                openPopUp = null;
+                nameText.setVisibility(View.VISIBLE);
+                nameEdit.setVisibility(View.VISIBLE);
+                nameEdit.setText(pet.name);
+                emailText.setVisibility(View.VISIBLE);
+                emailEdit.setVisibility(View.VISIBLE);
+                emailEdit.setText(pet.email);
+                phoneText.setVisibility(View.VISIBLE);
+                phoneEdit.setVisibility(View.VISIBLE);
+                phoneEdit.setText(pet.phone);
+                showDetailsButton.setClickable(false);
             });
 
             popupWindow.showAsDropDown(popupView, 0, 0);

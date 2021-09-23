@@ -6,7 +6,7 @@
     <!-- colors -->
     <string name="choose_color">#46A556</string>
     <string name="unChoose_color">#909190</string>
-
+    <string name="save_and_continue">Save and continue</string>
 
 
 </resources>

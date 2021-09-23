@@ -45,12 +45,15 @@ public class AppPath2Pet extends Application {
     final static String SIZE_LARGE = "Large";
     final static String SEX_FEMALE = "Female";
     final static String SEX_MALE = "Male";
-    final public static String COLOR_WHITE = "White";
-    final public static String COLOR_BLACK = "Black";
-    final public static String COLOR_BROWN = "Brown";
-    final public static String COLOR_GRAY = "Gray";
-    final public static String COLOR_GINGER = "Ginger";
-    final public static String COLOR_BLOND = "Blond";
+    final static String COLOR_WHITE = "White";
+    final static String COLOR_BLACK = "Black";
+    final static String COLOR_BROWN = "Brown";
+    final static String COLOR_GRAY = "Gray";
+    final static String COLOR_GINGER = "Ginger";
+    final static String COLOR_BLOND = "Blond";
+    final static String COLLAR_WITH = "With";
+    final static String COLLAR_WITHOUT = "Without";
+
 
 
     // others

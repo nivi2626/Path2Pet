@@ -88,50 +88,72 @@
         app:layout_constraintTop_toBottomOf="@id/dogFilter" />
 
     <CheckBox
-        android:id="@+id/black"
+        android:id="@+id/checkBoxWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="White"
+        app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="sans-serif-light"
-        android:text="Black"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/color_text"
-        app:layout_constraintStart_toStartOf="parent" />
+        />
 
     <CheckBox
-        android:id="@+id/blonde"
+        android:id="@+id/checkBoxBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blonde"
-        android:fontFamily="sans-serif-light"
+        android:text="Black"
         app:layout_constraintTop_toBottomOf="@id/color_text"
-        app:layout_constraintStart_toEndOf="@id/black" />
+        app:layout_constraintStart_toEndOf="@id/checkBoxBlond"        android:fontFamily="sans-serif-light"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
 
     <CheckBox
-        android:id="@+id/brown"
+        android:id="@+id/checkBoxGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gray"
+        app:layout_constraintTop_toBottomOf="@id/color_text"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintStart_toEndOf="@id/checkBoxBrown"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxBlond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blond"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBoxBrown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brown"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@id/color_text"
-        app:layout_constraintStart_toEndOf="@id/blonde" />
+        app:layout_constraintStart_toEndOf="@id/checkBoxBlond"
+        android:layout_marginStart="10dp"
+        />
 
     <CheckBox
-        android:id="@+id/ginger"
+        android:id="@+id/checkBoxGinger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ginger"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@id/color_text"
-        app:layout_constraintStart_toEndOf="@id/brown" />
-
-    <CheckBox
-        android:id="@+id/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="White"
-        android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@id/color_text"
-        app:layout_constraintStart_toEndOf="@id/ginger" />
+        app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
+        app:layout_constraintStart_toEndOf="@id/checkBoxBrown"
+        android:layout_marginStart="10dp"/>
 
 
     <!--    pet size-->
@@ -146,7 +168,7 @@
         android:text="Size:"
         android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/black" />
+        app:layout_constraintTop_toBottomOf="@id/checkBoxBlond" />
 
     <CheckBox
         android:id="@+id/small"

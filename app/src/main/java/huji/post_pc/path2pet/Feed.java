@@ -58,11 +58,12 @@ public class Feed extends AppCompatActivity {
             CheckBox found = popupView.findViewById(R.id.foundFilter);
             CheckBox dog = popupView.findViewById(R.id.dogFilter);
             CheckBox cat = popupView.findViewById(R.id.catFilter);
-            CheckBox black = popupView.findViewById(R.id.black);
-            CheckBox brown = popupView.findViewById(R.id.brown);
-            CheckBox blond = popupView.findViewById(R.id.blonde);
-            CheckBox ginger = popupView.findViewById(R.id.ginger);
-            CheckBox white = popupView.findViewById(R.id.white);
+            CheckBox black = popupView.findViewById(R.id.checkBoxBlack);
+            CheckBox brown = popupView.findViewById(R.id.checkBoxBrown);
+            CheckBox blond = popupView.findViewById(R.id.checkBoxBlond);
+            CheckBox ginger = popupView.findViewById(R.id.checkBoxGinger);
+            CheckBox white = popupView.findViewById(R.id.checkBoxWhite);
+            CheckBox gray = popupView.findViewById(R.id.checkBoxGray);
             CheckBox small = popupView.findViewById(R.id.small);
             CheckBox medium = popupView.findViewById(R.id.medium);
             CheckBox large = popupView.findViewById(R.id.large);
@@ -78,7 +79,7 @@ public class Feed extends AppCompatActivity {
             for (CheckBox i: Arrays.asList(cat, dog)) {
                 i.setChecked(typeList.contains(i.getText().toString()));
             }
-            for (CheckBox i: Arrays.asList(black, brown, white, ginger, blond)) {
+            for (CheckBox i: Arrays.asList(black, brown, white, ginger, blond, gray)) {
                 i.setChecked(colorList.contains(i.getText().toString()));
             }
             for (CheckBox i: Arrays.asList(small, medium, large)) {
@@ -106,7 +107,7 @@ public class Feed extends AppCompatActivity {
                     }
                 }
                 colorList = new ArrayList();
-                for (CheckBox i: Arrays.asList(black, brown, blond, ginger, white)) {
+                for (CheckBox i: Arrays.asList(black, brown, blond, ginger, white, gray)) {
                     if (i.isChecked()) {
                         colorList.add(i.getText().toString());
                     }
@@ -163,9 +164,9 @@ public class Feed extends AppCompatActivity {
         if (!sexList.isEmpty()) {
             filtered = filterBySex(sexList, filtered);
         }
-//        if (!collarList.isEmpty()) {
-//            filtered = filterByCollar(collarList, filtered);
-//        }
+        if (!collarList.isEmpty()) {
+            filtered = filterByCollar(collarList, filtered);
+        }
 
         // set items in adapter
         adapter.setPetList(filtered);
@@ -205,16 +206,18 @@ public class Feed extends AppCompatActivity {
         return filtered;
     }
 
-    // todo - uncomment when Pet have a collar attribute
-//    private ArrayList<Pet> filterByCollar(List<String> collarList, ArrayList<Pet> pets) {
-//        ArrayList<Pet> filtered = new ArrayList<>();
-//        for(Pet p: pets){
-//            if (collarList.isEmpty() || collarList.contains(p.collar)){
-//                filtered.add(p);
-//            }
-//        }
-//        return filtered;
-//    }
+    private ArrayList<Pet> filterByCollar(List<String> collarList, ArrayList<Pet> pets) {
+        ArrayList<Pet> filtered = new ArrayList<>();
+        for(Pet p: pets){
+            if (p.hasCollar && collarList.contains(AppPath2Pet.COLLAR_WITH)){
+                filtered.add(p);
+            }
+            else if (!p.hasCollar && collarList.contains(AppPath2Pet.COLLAR_WITHOUT)){
+                filtered.add(p);
+            }
+        }
+        return filtered;
+    }
 
     private ArrayList<Pet> filterBySex(List<String> sexList, ArrayList<Pet> pets) {
         ArrayList<Pet> filtered = new ArrayList<>();
