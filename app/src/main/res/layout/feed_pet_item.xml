@@ -96,7 +96,7 @@
         app:layout_constraintStart_toEndOf="@+id/image" />
 
     <Button
-        android:id="@+id/found"
+        android:id="@+id/details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="details"

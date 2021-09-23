@@ -173,7 +173,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             breed = itemView.findViewById(R.id.breed);
             city = itemView.findViewById(R.id.city);
             date = itemView.findViewById(R.id.date);
-            detailsButton = itemView.findViewById(R.id.found);
+            detailsButton = itemView.findViewById(R.id.details);
         }
     }
 
@@ -199,7 +199,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         // set pets report and last seen dates
         Format dataFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date report = pet.getReportDate();
-        reportDate.setText(dataFormat.format(report).toString());
+        reportDate.setText(dataFormat.format(report));
 
         // set pet's location
         try {

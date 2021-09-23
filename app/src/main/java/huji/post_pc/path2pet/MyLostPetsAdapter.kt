@@ -2,18 +2,17 @@ package huji.post_pc.path2pet
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.*
-import androidx.recyclerview.widget.RecyclerView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
+import java.text.Format
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
@@ -24,25 +23,54 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyLostPetsViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.my_lost_pets_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.my_lost_pets_item,
+            parent,
+            false
+        )
         return MyLostPetsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyLostPetsViewHolder, position: Int) {
         val curPet = petList[position]
         val adapterContext: Context = holder.petType.context
-        val lostPetSp:SharedPreferences = adapterContext.getSharedPreferences("my_lost_pets", android.content.Context.MODE_PRIVATE)
-//        holder.itemId.text = curPet.getId()
+        val adapter = photosAdapter()
+        val lostPetSp:SharedPreferences = adapterContext.getSharedPreferences(
+            "my_lost_pets",
+            android.content.Context.MODE_PRIVATE
+        )
+
+        // set UI
         holder.petType.text = curPet.getPetType()
         holder.breed.text = curPet.getBreed()
-        holder.city.text = "Jerusalem" // TODO - implement later
-        holder.date.text = curPet.getLastSeenDate().toString()
-//        holder.image!!.text = curPet.getPetType() // TODO implement later
+        holder.city.text = curPet.getCityByLocation(holder.city.context)
+
+        val dataFormat: Format = SimpleDateFormat("dd/MM/yyyy")
+        holder.date.text = dataFormat.format(curPet.getReportDate())
+
+        // set colors
+        val petsColors = StringBuilder()
+        for (c in curPet.getColors()) {
+            if (c != "") {
+                petsColors.append(c).append(", ")
+            }
+        }
+        if (petsColors.isNotEmpty()) {
+            holder.colors.text = petsColors.subSequence(0, petsColors.length - 2)
+        }
+
+        // set photos
+        val photos: MutableList<Uri> = curPet.getImages()
+            if (photos.size > 0) {
+                holder.imageSlider.setVisibility(View.VISIBLE)
+                holder.imageSlider.setSliderAdapter(adapter)
+                adapter.renewItems(photos)
+            }
+            else {
+                holder.imageSlider.setVisibility(View.INVISIBLE)
+        }
         holder.foundButton.setOnClickListener {
             exitDialog(adapterContext, curPet, lostPetSp)
-            // TODO - delete sp
-
         }
     }
 
@@ -51,7 +79,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         return petList.size
     }
 
-    fun exitDialog(context: Context, pet: Pet, sp:SharedPreferences) {
+    fun exitDialog(context: Context, pet: Pet, sp: SharedPreferences) {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
@@ -63,8 +91,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
             .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
 
                 // delete from storage
-                if (pet.imageNum > 0)
-                {
+                if (pet.imageNum > 0) {
                     AppPath2Pet.getPetsDB().deleteFromStorage(pet.getId())
                 }
 
