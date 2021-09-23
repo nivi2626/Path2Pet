@@ -3,28 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/found_nav_graph"
-    app:startDestination="@id/fragment_a_Photo">
+    app:startDestination="@id/fragment_a_Camera">
 
     <fragment
-        android:id="@+id/fragment_a_Photo"
-        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_a_Photo"
-        android:label="found_fragment_a_photo"
-        tools:layout="@layout/found_fragment_a_photo" >
+        android:id="@+id/fragment_a_Camera"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_a_Camera"
+        android:label="fragment_a_camera"
+        tools:layout="@layout/found_fragment_a_camera" >
         <action
-            android:id="@+id/action_fragment_a_Photo_to_fragment_b_Map"
+            android:id="@+id/action_fragment_a_Camera_to_fragment_b_Map"
             app:destination="@id/fragment_b_Map" />
     </fragment>
+
     <fragment
         android:id="@+id/fragment_b_Map"
         android:name="huji.post_pc.path2pet.FoundProcess.Fragment_b_Map"
         android:label="found_fragment_b_map"
         tools:layout="@layout/found_fragment_b_map" >
         <action
-            android:id="@+id/action_fragment_b_Map_to_fragment_a_Photo"
-            app:destination="@id/fragment_a_Photo" />
-        <action
             android:id="@+id/action_fragment_b_Map_to_fragment_c_TypeAndSex"
             app:destination="@id/fragment_c_TypeAndSex" />
+        <action
+            android:id="@+id/action_fragment_b_Map_to_fragment_a_Camera"
+            app:destination="@id/fragment_a_Camera" />
     </fragment>
     <fragment
         android:id="@+id/fragment_c_TypeAndSex"
@@ -83,4 +84,5 @@
             android:id="@+id/action_fragment_g_Details_to_fragment_f_Comments"
             app:destination="@id/fragment_f_Comments" />
     </fragment>
+
 </navigation>
