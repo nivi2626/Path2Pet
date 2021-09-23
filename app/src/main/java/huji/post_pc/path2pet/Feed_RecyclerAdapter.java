@@ -148,7 +148,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             breed = itemView.findViewById(R.id.breed);
             city = itemView.findViewById(R.id.city);
             date = itemView.findViewById(R.id.last_seen_date);
-            detailsButton = itemView.findViewById(R.id.details);
+            detailsButton = itemView.findViewById(R.id.found);
         }
     }
 }

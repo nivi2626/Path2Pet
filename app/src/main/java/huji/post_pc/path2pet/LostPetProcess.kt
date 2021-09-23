@@ -1,27 +1,26 @@
 package huji.post_pc.path2pet
 
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.smarteist.autoimageslider.SliderView
 
 
 class LostPetProcess : AppCompatActivity() {
     lateinit var sp : SharedPreferences
+    lateinit var spLostPets : SharedPreferences
     lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
+        this.spLostPets = this.getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE)
         sp.edit().clear().apply()
         setContentView(R.layout.activity_lost_pet_process)
         // find views
@@ -29,10 +28,20 @@ class LostPetProcess : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        progressBar.incrementProgressBy(-1)
-        if (progressBar.progress < 0){
-            sp.edit().clear().apply()
+        if (progressBar.progress < 7)
+        {
+            super.onBackPressed()
+            progressBar.incrementProgressBy(-1)
+            if (progressBar.progress < 0){
+                sp.edit().clear().apply()
+            }
+        }
+        else
+        {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intentHomeScreen = Intent(this, HomeScreen::class.java)
+            startActivity(intentHomeScreen)
+            return
         }
     }
 
@@ -69,7 +78,7 @@ class LostPetProcess : AppCompatActivity() {
         if (images == null) {
             return mutableListOf<Uri>()
         }
-        val stringList = images.split(AppPath2Pet.URI_IMAGES_DELIMITER).toTypedArray()
+        val stringList = images.split(AppPath2Pet.SP_DELIMITER).toTypedArray()
         val uriList = mutableListOf<Uri>()
         for (image in stringList) {
             if (image != ""){

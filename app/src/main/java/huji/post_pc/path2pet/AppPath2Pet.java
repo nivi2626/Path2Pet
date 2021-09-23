@@ -30,6 +30,9 @@ public class AppPath2Pet extends Application {
     final static String SP_EMAIL = "Email";
     final static String SP_PHONE = "Phone";
 
+    // sp lost pets
+    final static String SP_LOST_ID = "ID";
+
     // pet data
     final static String TYPE_DOG = "Dog";
     final static String TYPE_CAT = "Cat";
@@ -43,7 +46,7 @@ public class AppPath2Pet extends Application {
     // others
     final static String CHOSEN_COLOR = "#67CD8B";
     final static String NOT_CHOSEN_COLOR = "#909190";
-    final static String URI_IMAGES_DELIMITER = "#####";
+    final static String SP_DELIMITER = "#####";
 
 
     @Override

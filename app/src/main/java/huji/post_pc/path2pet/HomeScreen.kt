@@ -1,6 +1,7 @@
 package huji.post_pc.path2pet
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -12,12 +13,10 @@ import java.util.*
 class HomeScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.home_screen)
         val lostPet = findViewById<Button>(R.id.lost_pet)
         val foundPet = findViewById<Button>(R.id.found_pet)
         val feed = findViewById<Button>(R.id.feed)
-        val loading  = findViewById<ProgressBar>(R.id.loadingPanel)
-        loading.visibility = View.INVISIBLE
 
         // lost pet
         lostPet.setOnClickListener(){
@@ -31,6 +30,13 @@ class HomeScreen : AppCompatActivity() {
 //            startActivity(intentFound)
         }
 
+        // my lost pets button
+        myLostPetsButton.setOnClickListener()
+        {
+            val intentMyLostPets = Intent(this, MyLostPets::class.java)
+            startActivity(intentMyLostPets)
+        }
+
         // feed
         feed.setOnClickListener()
         {
@@ -41,5 +47,10 @@ class HomeScreen : AppCompatActivity() {
                 startActivity(intentFeed)
             }
         }
+
+    }
+
+    override fun onBackPressed() {
+        return
     }
 }

@@ -1,11 +1,13 @@
 package huji.post_pc.path2pet
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import java.util.*
 
 
@@ -17,6 +19,9 @@ class Fragment_h_End : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_h_end, container, false)
         val lostPetActivityInstance: LostPetProcess = activity as LostPetProcess
+
+        // find views
+        val feedButton : Button = view.findViewById(R.id.feed)
 
         // get data from SP
         val latitude = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LATITUDE, "")
@@ -32,6 +37,10 @@ class Fragment_h_End : Fragment() {
         val email = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "")
         val phone = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "")
 
+        // get last_reports from lostPetSP
+        var lostPetIDs = lostPetActivityInstance.spLostPets.getString(AppPath2Pet.SP_LOST_ID, "")
+
+
         // parse photos
         val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
         val uriImages: List<Uri> = lostPetActivityInstance.string2UriList(photos)
@@ -42,7 +51,27 @@ class Fragment_h_End : Fragment() {
         val pet = Pet(id, "Lost", latitude, longitude, type, sex, breed, size, color, collar,
             comments, name, email, phone, Date(), uriImages, uriImages.size)
         AppPath2Pet.getPetsDB().addPet(pet)
+        with(lostPetActivityInstance.spLostPets.edit())
+        {
+            if (lostPetIDs != "")
+            {
+                lostPetIDs = lostPetIDs + AppPath2Pet.SP_DELIMITER + id
+            }
+            else
+            {
+                lostPetIDs = id
+            }
+            putString(AppPath2Pet.SP_LOST_ID, lostPetIDs)
+            apply()
+        }
         lostPetActivityInstance.sp.edit().clear().apply()
+
+        // move to feed
+        feedButton.setOnClickListener {
+            val intentFeed = Intent(view.context, Feed::class.java)
+            startActivity(intentFeed)
+        }
+
         return view
 
     }
