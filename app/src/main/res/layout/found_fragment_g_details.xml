@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:padding="5dp"
+        android:padding="8dp"
         android:text="If you would like the pet's owner to be able to get back to you, leave details"
         android:textColor="@color/logo_color"
         android:textSize="25dp"

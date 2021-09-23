@@ -42,34 +42,6 @@ class Fragment_g_Details : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            allFilled = true
-
-            if (nameTxt.text.toString() == "")
-            {
-                nameTxt.error = "This is a mandatory field"
-                allFilled = false
-            }
-            if (emailTxt.text.toString() == "")
-            {
-                emailTxt.error = "This is a mandatory field"
-                allFilled = false
-            }
-            else if (!isEmailValid(emailTxt.text.toString()))
-            {
-                emailTxt.error = "Email is not valid"
-                allFilled = false
-            }
-            if (phoneTxt.text.toString() == "")
-            {
-                phoneTxt.error = "This is a mandatory field"
-                allFilled = false
-            }
-
-            if (!allFilled)
-            {
-                return@setOnClickListener
-            }
-
             foundPetActivityInstance.progressBar.incrementProgressBy(1)
 
             with(foundPetActivityInstance.sp.edit())
