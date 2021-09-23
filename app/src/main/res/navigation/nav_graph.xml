@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentPhoto"
-        android:name="huji.post_pc.path2pet.Fragment_a_Photo"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_a_Photo"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_a_photo" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragmentMap"
-        android:name="huji.post_pc.path2pet.Fragment_b_Map"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_b_Map"
         android:label="fragment_map"
         tools:layout="@layout/fragment_b_map" >
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/fragmentTypeSex"
-        android:name="huji.post_pc.path2pet.Fragment_c_TypeAndSex"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_c_TypeAndSex"
         android:label="fragment_type_sex"
         tools:layout="@layout/fragment_c_type_sex" >
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/fragmentBreedSize"
-        android:name="huji.post_pc.path2pet.Fragment_d_BreedSize"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_d_BreedSize"
         android:label="fragment_breed_size"
         tools:layout="@layout/fragment_d_breed_size" >
         <action
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/fragmentColorPattern"
-        android:name="huji.post_pc.path2pet.Fragment_e_ColorCollar"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_e_ColorCollar"
         android:label="fragment_color_pattern"
         tools:layout="@layout/fragment_e_color_collar" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentcomments"
-        android:name="huji.post_pc.path2pet.Fragment_f_Comments"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_f_Comments"
         android:label="fragment_fragmentcomments"
         tools:layout="@layout/fragment_f_comments" >
         <action
@@ -80,12 +80,12 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentEnd"
-        android:name="huji.post_pc.path2pet.Fragment_h_End"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_h_End"
         android:label="fragment_end"
         tools:layout="@layout/fragment_h_end" />
     <fragment
         android:id="@+id/fragmentDetails"
-        android:name="huji.post_pc.path2pet.Fragment_g_Details"
+        android:name="huji.post_pc.path2pet.LostProcess.Fragment_g_Details"
         android:label="fragment_details"
         tools:layout="@layout/fragment_g_details" >
         <action

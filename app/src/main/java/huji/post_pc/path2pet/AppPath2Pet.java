@@ -38,28 +38,28 @@ public class AppPath2Pet extends Application {
     final public static String SP_LOST_ID = "ID";
 
     // pet data
-    final static String TYPE_DOG = "Dog";
-    final static String TYPE_CAT = "Cat";
-    final static String SIZE_SMALL = "Small";
-    final static String SIZE_MEDIUM = "Medium";
-    final static String SIZE_LARGE = "Large";
-    final static String SEX_FEMALE = "Female";
-    final static String SEX_MALE = "Male";
-    final static String COLOR_WHITE = "White";
-    final static String COLOR_BLACK = "Black";
-    final static String COLOR_BROWN = "Brown";
-    final static String COLOR_GRAY = "Gray";
-    final static String COLOR_GINGER = "Ginger";
-    final static String COLOR_BLOND = "Blond";
-    final static String COLLAR_WITH = "With";
-    final static String COLLAR_WITHOUT = "Without";
+    final public static String TYPE_DOG = "Dog";
+    final public static String TYPE_CAT = "Cat";
+    final public static String SIZE_SMALL = "Small";
+    final public static String SIZE_MEDIUM = "Medium";
+    final public static String SIZE_LARGE = "Large";
+    final public static String SEX_FEMALE = "Female";
+    final public static String SEX_MALE = "Male";
+    final public static String COLOR_WHITE = "White";
+    final public static String COLOR_BLACK = "Black";
+    final public static String COLOR_BROWN = "Brown";
+    final public static String COLOR_GRAY = "Gray";
+    final public static String COLOR_GINGER = "Ginger";
+    final public static String COLOR_BLOND = "Blond";
+    final public static String COLLAR_WITH = "With";
+    final public static String COLLAR_WITHOUT = "Without";
 
 
 
     // others
-    final static String CHOSEN_COLOR = "#67CD8B";
-    final static String NOT_CHOSEN_COLOR = "#909190";
-    final static String SP_DELIMITER = "#####";
+    final public static String CHOSEN_COLOR = "#67CD8B";
+    final public static String NOT_CHOSEN_COLOR = "#909190";
+    final public static String SP_DELIMITER = "#####";
 
 
     @Override

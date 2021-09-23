@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet
+package huji.post_pc.path2pet.LostProcess
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
 import android.widget.CheckBox
+import huji.post_pc.path2pet.AppPath2Pet
+import huji.post_pc.path2pet.R
 import kotlin.collections.ArrayList
 
 
@@ -71,7 +73,7 @@ class Fragment_e_ColorCollar : Fragment() {
             for (i in listOf(whiteBox, blackBox, grayBox, brownBox, blondBox, gingerBox)) {
                 if (i.isChecked) {
                     colorList.add(i.text.toString())
-                    colorListString+=i.text.toString()+AppPath2Pet.SP_DELIMITER
+                    colorListString+=i.text.toString()+ AppPath2Pet.SP_DELIMITER
                 }
             }
 

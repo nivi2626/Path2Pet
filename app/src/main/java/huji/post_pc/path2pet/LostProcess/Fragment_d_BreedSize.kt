@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet
+package huji.post_pc.path2pet.LostProcess
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.navigation.Navigation
+import huji.post_pc.path2pet.AppPath2Pet
+import huji.post_pc.path2pet.R
 import pl.utkala.searchablespinner.SearchableSpinner
 
 private var DOG_BREED_ARRAY = arrayOf(

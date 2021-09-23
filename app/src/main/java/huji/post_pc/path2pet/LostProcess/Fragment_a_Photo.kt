@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet
+package huji.post_pc.path2pet.LostProcess
 
 import android.Manifest
 import android.app.Activity
@@ -23,6 +23,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.smarteist.autoimageslider.SliderView
+import huji.post_pc.path2pet.AppPath2Pet
+import huji.post_pc.path2pet.R
+import huji.post_pc.path2pet.photosAdapter
 
 
 class Fragment_a_Photo : Fragment() {
