@@ -73,8 +73,8 @@ class Fragment_g_Details : Fragment() {
             with(lostPetActivityInstance.sp.edit())
             {
                 putString(AppPath2Pet.SP_NAME, nameTxt.text.toString())
-                putString(AppPath2Pet.SP_EMAIL, email)
-                putString(AppPath2Pet.SP_PHONE, phone)
+                putString(AppPath2Pet.SP_EMAIL, emailTxt.text.toString())
+                putString(AppPath2Pet.SP_PHONE, phoneTxt.text.toString())
                 apply()
             }
             nextButtonOnClick(it)
