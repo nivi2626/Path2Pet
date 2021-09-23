@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.Navigation
-import huji.post_pc.path2pet.AppPath2Pet
-import huji.post_pc.path2pet.R
 
 
 class Fragment_c_TypeAndSex : Fragment() {

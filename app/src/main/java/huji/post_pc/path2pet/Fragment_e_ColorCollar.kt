@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
-import huji.post_pc.path2pet.AppPath2Pet
-import huji.post_pc.path2pet.R
-import pl.utkala.searchablespinner.SearchableSpinner
 import android.widget.CheckBox
-import java.util.*
 import kotlin.collections.ArrayList
 
 

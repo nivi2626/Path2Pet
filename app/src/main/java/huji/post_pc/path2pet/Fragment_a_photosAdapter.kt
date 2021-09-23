@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.smarteist.autoimageslider.SliderViewAdapter
-import huji.post_pc.path2pet.R
 
 
 class Fragment_a_photosAdapter() :

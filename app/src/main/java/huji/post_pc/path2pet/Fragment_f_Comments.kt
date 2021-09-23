@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet
 
 import android.content.Context
 import android.os.Bundle
@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.navigation.Navigation
-import huji.post_pc.path2pet.AppPath2Pet
-import huji.post_pc.path2pet.R
 
 
 class Fragment_f_Comments : Fragment() {

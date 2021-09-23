@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet
 import android.Manifest
 import android.location.Address
 import android.os.Bundle
@@ -25,8 +25,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
-import huji.post_pc.path2pet.AppPath2Pet
-import huji.post_pc.path2pet.R
 
 
 class Fragment_b_Map : Fragment() {

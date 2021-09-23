@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet
 
 import android.content.Context
 import android.content.DialogInterface
@@ -10,9 +10,6 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import huji.post_pc.path2pet.AppPath2Pet
-import huji.post_pc.path2pet.HomeScreen
-import huji.post_pc.path2pet.R
 
 
 class LostPetProcess : AppCompatActivity() {
