@@ -141,9 +141,11 @@ public class Pet implements Serializable {
         this.lastSeenDate = lastSeenDate;
     }
 
-    private String getCityByLocation(Double latitude, Double longitude, Context context) throws IOException {
+    public String getCityByLocation(Context context) throws IOException {
         Geocoder gcd = new Geocoder(context, Locale.getDefault());
-        List<Address> addresses = gcd.getFromLocation(latitude, longitude, 1);
+        double lat = Double.parseDouble(this.latitude);
+        double longit = Double.parseDouble(this.longitude);
+        List<Address> addresses = gcd.getFromLocation(lat, longit, 1);
         String country = "";
         String city = "";
         String retValue = "";
@@ -156,7 +158,7 @@ public class Pet implements Serializable {
             } else {
                 city = addresses.get(0).getAdminArea();
             }
-            retValue = "$city, $country";
+            retValue = String.format("%s, %s", city, country);
         } else {
             retValue = "";
         }

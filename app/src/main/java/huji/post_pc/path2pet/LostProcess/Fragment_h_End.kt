@@ -51,31 +51,12 @@ class Fragment_h_End : Fragment() {
 
         val colors = color!!.split(AppPath2Pet.SP_DELIMITER)
 
-        // todo - parse location from SP
-
-
         //create a new Pet object
         val id = UUID.randomUUID().toString()
 
-        var pet = Pet(
-            id,
-            "Lost",
-            latitude,
-            longitude,
-            type,
-            sex,
-            breed,
-            size,
-            colors,
-            collar,
-            comments,
-            name,
-            email,
-            phone,
-            Date(),
-            uriImages,
-            uriImages.size
-        )
+        val pet = Pet(id, "Lost", latitude, longitude, type, sex, breed, size, colors,
+            collar, comments, name, email, phone, Date(), uriImages, uriImages.size)
+
         AppPath2Pet.getPetsDB().addPet(pet)
         with(lostPetActivityInstance.spLostPets.edit())
         {

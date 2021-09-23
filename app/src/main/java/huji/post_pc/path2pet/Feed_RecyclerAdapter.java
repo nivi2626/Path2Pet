@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -201,7 +202,13 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         reportDate.setText(dataFormat.format(report).toString());
 
         // set pet's location
-        city.setText("Jerusalem");   // todo - add a city (according to tha location)
+        try {
+            String petsLocation = pet.getCityByLocation(city.getContext());
+            city.setText(petsLocation);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
