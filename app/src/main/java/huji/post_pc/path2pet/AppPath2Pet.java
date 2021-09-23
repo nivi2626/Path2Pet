@@ -3,10 +3,13 @@ package huji.post_pc.path2pet;
 import android.app.Application;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class AppPath2Pet extends Application {
-    private static AppPath2Pet appInstance = null;
     private static PetsDB petsDB = null;
+    private static FirebaseStorage storage = null;
+    private static FirebaseFirestore fireStore = null;
 
     // constants:
     // fireStore
@@ -47,17 +50,23 @@ public class AppPath2Pet extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseApp.initializeApp(this);
-        appInstance = this;
+        fireStore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
         petsDB = new PetsDB();
     }
+
 
     public static PetsDB getPetsDB() {
         return petsDB;
     }
 
-//    public static AppPath2Pet getAppInstance() {
-//        return appInstance;
-//    }
+    public static FirebaseFirestore getFireStore() {
+        return fireStore;
+    }
+
+    public static FirebaseStorage getStorage() {
+        return storage;
+    }
 
 
 

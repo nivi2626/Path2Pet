@@ -1,13 +1,22 @@
 package huji.post_pc.path2pet;
 
+import android.media.Image;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -29,13 +38,14 @@ public class Pet implements Serializable {
     public String phone;
     public Date reportDate;
     public Date lastSeenDate;
+    public int imageNum;
     @Exclude
-    public List<Uri> images;
+    public List<Uri> images = new ArrayList<Uri>();
 
     public Pet(String id, String status, String latitude, String longitude, String petType,
                String sex, String breed, String size, String color, Boolean hasColor,
                String comments, String name, String email, String phone, Date date,
-               List<Uri> images) {
+               List<Uri> images, int imageNum) {
         this.id = id;
         this.status = status;
         this.latitude = latitude;
@@ -50,13 +60,25 @@ public class Pet implements Serializable {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.images = images;
         this.reportDate = date;
         this.lastSeenDate = date;
+        this.images = images;
+        this.imageNum = imageNum;
     }
 
     public Pet() {
         // fireStore need default constructor
+        // get images from FireBase
+//        StorageReference storageRef = AppPath2Pet.getStorage().getReference().child(this.id + "/");
+//        StorageReference storageRef = AppPath2Pet.getStorage().getReference().child(this.id + "/");
+//        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+//            @Override
+//            public void onSuccess(ListResult listResult) {
+//                for (StorageReference item : listResult.getItems()) {
+//                    images.add(Uri.parse(item.toString()));
+//                }
+//            }
+//        });
     }
 
     public String getStatus() {
@@ -71,9 +93,13 @@ public class Pet implements Serializable {
         return breed;
     }
 
-    public String getSex(){return sex;}
+    public String getSex() {
+        return sex;
+    }
 
-    public String getSize(){return size;}
+    public String getSize() {
+        return size;
+    }
 
     public String getComments() {
         return comments;
@@ -87,11 +113,17 @@ public class Pet implements Serializable {
         return longitude;
     }
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
-    public String getEmail(){return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public String getPhone(){return phone;}
+    public String getPhone() {
+        return phone;
+    }
 
     public Date getLastSeenDate() {
         return lastSeenDate;
@@ -113,4 +145,50 @@ public class Pet implements Serializable {
     public void setLastSeenDate(Date lastSeenDate) {
         this.lastSeenDate = lastSeenDate;
     }
+
+//    void setImages() {
+//        final Uri[] uriL = {null};
+//        StorageReference storageRef = AppPath2Pet.getStorage().getReference(this.id);
+//        storageRef.listAll()
+//                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+//                    @Override
+//                    public void onSuccess(ListResult listResult) {
+//                        for (StorageReference item : listResult.getItems()) {
+//                            item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    // Do whatever you need here.
+//                                    uriL[0] = uri;
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    // Handle any errors
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+//    }
 }
+
+
+
+
+//        for (int i = 0; i < this.imageNum; i++) {
+//            storageRef.child(String.valueOf(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    final Uri firebaseImage = uri;
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                }
+//            });
+//            this.images.add()
+
+//        this.images = Arrays.asList(firebaseImages);
+
+

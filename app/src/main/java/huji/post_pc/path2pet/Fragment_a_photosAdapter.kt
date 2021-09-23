@@ -23,6 +23,8 @@ class Fragment_a_photosAdapter() :
         val image = imagesList[position]
         val imageView: ImageView = viewHolder.imageView
         imageView.setImageURI(image)
+
+        
     }
 
     override fun getCount(): Int {
@@ -41,11 +43,8 @@ class Fragment_a_photosAdapter() :
     }
 
 
-
-
     inner class VH(itemView: View) : ViewHolder(itemView) {
         var imageView: ImageView = itemView.findViewById(R.id.image)
-
     }
 
 

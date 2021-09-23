@@ -1,5 +1,6 @@
 package huji.post_pc.path2pet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.util.List;
 public class Feed extends AppCompatActivity {
     private ArrayList<Pet> petList = new ArrayList<>();
     private RecyclerView recyclerView = null;
-    private RecyclerAdapter adapter = null;
+    private Feed_RecyclerAdapter adapter = null;
     private PopupWindow popupWindow = null;
     private List<String> statusList = new ArrayList();
     private List<String> typeList = new ArrayList();
@@ -33,7 +34,7 @@ public class Feed extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new RecyclerAdapter(petList);
+        adapter = new Feed_RecyclerAdapter(petList);
         updatePetsList();
         setContentView(R.layout.feed);
 
@@ -179,7 +180,8 @@ public class Feed extends AppCompatActivity {
             adapter.openPopUp = null;
         }
         else {
-            super.onBackPressed();
+            Intent intentHomeScreen = new Intent(this, HomeScreen.class);
+            startActivity(intentHomeScreen);
         }
     }
 

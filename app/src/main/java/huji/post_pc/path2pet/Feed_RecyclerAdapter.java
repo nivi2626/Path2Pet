@@ -1,41 +1,46 @@
 package huji.post_pc.path2pet;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
+import android.database.Cursor;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 
 /**
- * Adapter for feed
+ * Adapter for the feed
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.AnimalViewHolder> {
+public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdapter.AnimalViewHolder> {
     private List<Pet> petList = null;
     private Context context;
     public PopupWindow openPopUp = null;
 
-    public RecyclerAdapter(List<Pet> petList) {
+    public Feed_RecyclerAdapter(List<Pet> petList) {
         if (this.petList == null) {
             this.petList = petList;
         }
@@ -54,21 +59,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
         this.context = holder.status.getContext();
 
         // set pet UI
-        holder.status.setText(pet.getStatus());
-        holder.petType.setText(pet.getPetType());
-        holder.city.setText("Jerusalem");   // todo - add a city (according to tha location)
-
         DateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
         String strDate = "";
         if (pet.getLastSeenDate() != null) {
             strDate = dateFormat.format(pet.getLastSeenDate());
         }
+        if (pet.getImages().size() >0) {
+            holder.image.setImageDrawable(null);
+            holder.image.setImageURI(pet.getImages().get(0));
+
+        }
         holder.date.setText(strDate);
-
-        String petBreed = pet.getBreed();
+        holder.status.setText(pet.getStatus());
+        holder.petType.setText(pet.getPetType());
+        holder.city.setText("Jerusalem");   // todo - add a city (according to tha location)
         holder.breed.setText(String.format("%s %s", pet.getBreed(), pet.getColor()));
-
-        // todo - set image
 
         // details listener - show popUp with
         holder.detailsButton.setOnClickListener(v ->
@@ -138,8 +143,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Animal
             city = itemView.findViewById(R.id.city);
             date = itemView.findViewById(R.id.last_seen_date);
             detailsButton = itemView.findViewById(R.id.details);
-
         }
     }
-
 }

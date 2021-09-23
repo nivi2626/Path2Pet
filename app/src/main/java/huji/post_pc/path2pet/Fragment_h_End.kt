@@ -32,35 +32,15 @@ class Fragment_h_End : Fragment() {
         val email = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "")
         val phone = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "")
 
-
         // parse photos
         val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
         val uriImages: List<Uri> = lostPetActivityInstance.string2UriList(photos)
 
-        // todo - parse location from SP
-
-
         //create a new Pet object
         val id = UUID.randomUUID().toString()
 
-        var pet = Pet(
-            id,
-            "Lost",
-            latitude,
-            longitude,
-            type,
-            sex,
-            breed,
-            size,
-            color,
-            collar,
-            comments,
-            name,
-            email,
-            phone,
-            Date(),
-            uriImages
-        )
+        val pet = Pet(id, "Lost", latitude, longitude, type, sex, breed, size, color, collar,
+            comments, name, email, phone, Date(), uriImages, uriImages.size)
         AppPath2Pet.getPetsDB().addPet(pet)
         lostPetActivityInstance.sp.edit().clear().apply()
         return view

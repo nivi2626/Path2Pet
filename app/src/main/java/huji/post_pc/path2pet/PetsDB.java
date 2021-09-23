@@ -1,5 +1,6 @@
 package huji.post_pc.path2pet;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -13,10 +14,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -27,8 +31,8 @@ public class PetsDB {
 
     public PetsDB() {
         this.allPets = new ArrayList<>();
-        fireStore = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
+        fireStore = AppPath2Pet.getFireStore();
+        storage = AppPath2Pet.getStorage();
         initializePetList();
     }
 
@@ -45,15 +49,35 @@ public class PetsDB {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 Pet pet = document.toObject(Pet.class);
+//                                pet.setImages();
+                                if (pet != null) {
+                                    pet.images = new ArrayList<Uri>();
+                                    StorageReference storageRef = AppPath2Pet.getStorage().getReference(pet.id);
+                                    storageRef.listAll()
+                                            .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                                @Override
+                                                public void onSuccess(ListResult listResult) {
+                                                    for (StorageReference item : listResult.getItems()) {
+                                                        item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                            @Override
+                                                            public void onSuccess(Uri uri) {
+                                                                pet.images.add(uri);
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception exception) {
+                                                                // Handle any errors
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                }
                                 allPets.add(pet);
                             }
                         }
                     }
                 });
-    }
-
-    int getCount() {
-        return allPets.size();
     }
 
     public void addPet(Pet newPet) {
@@ -63,18 +87,19 @@ public class PetsDB {
     }
 
     private void uploadPetImages(Pet pet) {
-        for (int i = 0; i < pet.images.size(); i++) {
-            Uri imageUri = pet.images.get(i);
+        for (int i = 0; i < pet.getImages().size(); i++) {
+            Uri imageUri = pet.getImages().get(i);
             uploadImage(pet.id, String.valueOf(i), imageUri);
         }
 
     }
+
     private void uploadImage(String ref, String childID, Uri uri) {
         StorageReference storageRef = storage.getReference(ref);
         storageRef.child(childID).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d(TAG, "Adding image %s" + childID + "succeed" );
+                Log.d(TAG, "Adding image %s" + childID + "succeed");
             }
 
         }).addOnFailureListener(new OnFailureListener() {
@@ -86,54 +111,26 @@ public class PetsDB {
     }
 
 
-//    private getImages() {
-//        StorageReference storageRef = storage.getReference(pet.id);
-//        storageRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                @SuppressWarnings("VisibleForTests")
-//                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//                DatabaseReference storageRef = storage.push();
-//                newPost.child("title").setValue(title_val);
-//                newPost.child("desc").setValue(desc_val);
-//                newPost.child("image").setValue(downloadUrl.toString());
-//                newPost.child("uid").setValue(PreferenceManager
-//                        .getDefaultSharedPreferences(PostActivity.this)
-//                        .getString("ID", "userid"));
-//                mProgress.dismiss();
-//                startActivity(new Intent(PostActivity.this, FeedPage.class));
-//            }
-//        });
-//    }
-//    else
-//
-//    {
-//        Toast.makeText(PostActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
-//    }
-
-
-
-        private void uploadToFireStore (Pet pet){
-            fireStore.collection(AppPath2Pet.COLLECTION).document(pet.id)
-                    .set(pet)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully written!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writing document", e);
-                        }
-                    });
-        }
+    private void uploadToFireStore(Pet pet) {
+        fireStore.collection(AppPath2Pet.COLLECTION).document(pet.id)
+                .set(pet)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+    }
 
     public ArrayList<Pet> getAllPets() {
         return allPets;
     }
 }
-
 
 
