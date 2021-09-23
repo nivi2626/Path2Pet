@@ -94,7 +94,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         // create dialog box
         val alert = dialogBuilder.create()
         // set title for alert dialog box
-        alert.setTitle("Cancel Report")
+        alert.setTitle("Pet Found!")
         // show alert dialog
         alert.show()
     }
