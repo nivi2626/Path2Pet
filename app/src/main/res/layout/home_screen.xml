@@ -47,10 +47,26 @@
         app:layout_constraintTop_toBottomOf="@+id/lost_pet" />
 
     <Button
+        android:id="@+id/myLostPets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="My Lost Pets"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/light_green"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/found_pet" />
+
+
+    <Button
         android:id="@+id/feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/button_color"
+        android:backgroundTint="@color/logo_color"
         android:fontFamily="sans-serif-light"
         android:layout_marginBottom="30dp"
         android:text="feed"
@@ -60,18 +76,4 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    <Button
-        android:id="@+id/myLostPets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="My Lost Pets"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/next_prev_color"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-light"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/found_pet" />
 </androidx.constraintlayout.widget.ConstraintLayout>
