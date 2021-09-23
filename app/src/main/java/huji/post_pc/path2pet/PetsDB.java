@@ -59,7 +59,7 @@ public class PetsDB {
                                                                 pet.images.add(uri);
                                                                 count += 1;
                                                                 if (count == task.getResult().size()) {
-                                                                    AppPath2Pet.loadingFlag = false;
+                                                                    AppPath2Pet.loadingFlag.setValue(false);
                                                                 }
                                                             }
                                                         });

@@ -2,6 +2,8 @@ package huji.post_pc.path2pet;
 
 import android.app.Application;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -10,7 +12,9 @@ public class AppPath2Pet extends Application {
     private static PetsDB petsDB = null;
     private static FirebaseStorage storage = null;
     private static FirebaseFirestore fireStore = null;
-    public static Boolean loadingFlag = true;
+
+    public static MutableLiveData<Boolean> loadingFlag = new MutableLiveData<Boolean>();
+
     // constants:
     // fireStore
     final static String COLLECTION = "Pets";
@@ -50,6 +54,7 @@ public class AppPath2Pet extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseApp.initializeApp(this);
+        loadingFlag.setValue(true);
         fireStore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         petsDB = new PetsDB();
