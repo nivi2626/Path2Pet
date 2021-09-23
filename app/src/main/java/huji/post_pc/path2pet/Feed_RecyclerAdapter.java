@@ -1,13 +1,7 @@
 package huji.post_pc.path2pet;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +12,17 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -62,13 +59,12 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             strDate = dateFormat.format(pet.getLastSeenDate());
         }
 
-        if (pet.getImages().size() >0) {
+        if (pet.getImages().size() > 0) {
             holder.image.setRotation(90);
             Picasso
                     .get()
                     .load(pet.getImages().get(0))
                     .into(holder.image);
-
         }
 
         holder.date.setText(strDate);
@@ -83,34 +79,52 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             // start popUp
             View popupView = LayoutInflater.from(context).inflate(R.layout.pet_details_popup, null);
             final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            photosAdapter adapter = new photosAdapter();
             openPopUp = popupWindow;
 
-            // find views
+            // find popUp views
             Button close_button = popupView.findViewById(R.id.close);
             TextView status = popupView.findViewById(R.id.lost_or_found);
             TextView description = popupView.findViewById(R.id.description);
+            TextView sex = popupView.findViewById(R.id.sex);
             TextView city = popupView.findViewById(R.id.city);
-            TextView date = popupView.findViewById(R.id.last_seen_date);
-            ImageView image = popupView.findViewById(R.id.image);
+            TextView collar = popupView.findViewById(R.id.with_or_without_collar);
+            TextView laseSeenDate = popupView.findViewById(R.id.last_seen_date);
+            TextView reportDate = popupView.findViewById(R.id.report_date);
+            TextView comments = popupView.findViewById(R.id.comments_edit);
+            SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
 
-            //set UI
+            //set popUp UI
             status.setText(pet.getStatus());
-            // todo - add photo
             description.setText(String.format("%s %s %s", pet.getColor(), pet.getBreed(), pet.getPetType()));
+            sex.setText(pet.getSex());
+            // todo - put google location
+            city.setText("Jerusalem");
+//            collar.setText(pet.collar) // todo - when collar attribute is added;
+            Date laseSeen = pet.getLastSeenDate();
+            laseSeenDate.setText(dateFormat.format(laseSeen).toString());
+            Date report = pet.getReportDate();
+            reportDate.setText(dateFormat.format(report).toString());
+            comments.setText(pet.getComments());
 
-            city.setText("Jerusalem");   // todo - replace the city with the google maps location
-            date.setText(pet.getLastSeenDate().toString());
+            List<Uri> photos = pet.getImages();
+            if (photos != null) {
+                if (photos.size() > 0) {
+                    imageSlider.setVisibility(View.VISIBLE);
+                    imageSlider.setSliderAdapter(adapter);
+                    adapter.renewItems(photos);
+                } else {
+                    imageSlider.setVisibility(View.INVISIBLE);
+                }
+            }
 
             close_button.setOnClickListener(v1 -> {
                 popupWindow.dismiss();
                 openPopUp = null;
             });
-
             popupWindow.showAsDropDown(popupView, 0, 0);
         });
-
     }
-
 
     @Override
     public int getItemCount() {

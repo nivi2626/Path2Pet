@@ -1,16 +1,16 @@
 package huji.post_pc.path2pet
 
-import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.smarteist.autoimageslider.SliderViewAdapter
+import com.squareup.picasso.Picasso
 
 
-class Fragment_a_photosAdapter() :
-    SliderViewAdapter<Fragment_a_photosAdapter.VH>() {
+class photosAdapter() :
+    SliderViewAdapter<photosAdapter.VH>() {
     private lateinit var imagesList: MutableList<Uri>
 
     override fun onCreateViewHolder(parent: ViewGroup): VH {
@@ -22,7 +22,11 @@ class Fragment_a_photosAdapter() :
         // load image into view
         val image = imagesList[position]
         val imageView: ImageView = viewHolder.imageView
-        imageView.setImageURI(image)
+        imageView.setRotation(90f)
+        Picasso
+            .get()
+            .load(image)
+            .into(imageView)
 
         
     }
