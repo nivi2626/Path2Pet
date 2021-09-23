@@ -1,5 +1,8 @@
 package huji.post_pc.path2pet;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.Image;
 import android.net.Uri;
 
@@ -14,11 +17,13 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @IgnoreExtraProperties
 public class Pet implements Serializable {
@@ -134,6 +139,28 @@ public class Pet implements Serializable {
 
     public void setLastSeenDate(Date lastSeenDate) {
         this.lastSeenDate = lastSeenDate;
+    }
+
+    private String getCityByLocation(Double latitude, Double longitude, Context context) throws IOException {
+        Geocoder gcd = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = gcd.getFromLocation(latitude, longitude, 1);
+        String country = "";
+        String city = "";
+        String retValue = "";
+        if (addresses.size() > 0) {
+            if (addresses.get(0).getCountryName() != null) {
+                country = addresses.get(0).getCountryName();
+            }
+            if (addresses.get(0).getLocality() != null) {
+                city = addresses.get(0).getLocality();
+            } else {
+                city = addresses.get(0).getAdminArea();
+            }
+            retValue = "$city, $country";
+        } else {
+            retValue = "";
+        }
+        return retValue;
     }
 }
 
