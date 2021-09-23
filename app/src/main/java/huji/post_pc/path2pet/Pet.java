@@ -133,50 +133,6 @@ public class Pet implements Serializable {
     public void setLastSeenDate(Date lastSeenDate) {
         this.lastSeenDate = lastSeenDate;
     }
-
-//    void setImages() {
-//        final Uri[] uriL = {null};
-//        StorageReference storageRef = AppPath2Pet.getStorage().getReference(this.id);
-//        storageRef.listAll()
-//                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-//                    @Override
-//                    public void onSuccess(ListResult listResult) {
-//                        for (StorageReference item : listResult.getItems()) {
-//                            item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                                @Override
-//                                public void onSuccess(Uri uri) {
-//                                    // Do whatever you need here.
-//                                    uriL[0] = uri;
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception exception) {
-//                                    // Handle any errors
-//                                }
-//                            });
-//                        }
-//                    }
-//                });
-//    }
 }
-
-
-
-
-//        for (int i = 0; i < this.imageNum; i++) {
-//            storageRef.child(String.valueOf(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    final Uri firebaseImage = uri;
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    // Handle any errors
-//                }
-//            });
-//            this.images.add()
-
-//        this.images = Arrays.asList(firebaseImages);
 
 

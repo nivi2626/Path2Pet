@@ -7,32 +7,19 @@
     android:layout_width="match_parent"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/main_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:text="Choose filters"
-        android:textSize="25dp"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/choose_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <!--status-->
     <TextView
         android:id="@+id/status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status:"
+        android:textColor="@color/choose_color"
         android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:textSize="20dp"
-        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_text" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/foundFilter"
@@ -63,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:text="Pet Type:"
-        android:textColor="@color/text_color"
+        android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lostFilter" />
 
@@ -96,7 +83,7 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:text="Color:"
-        android:textColor="@color/text_color"
+        android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dogFilter" />
 
@@ -157,7 +144,7 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:text="Size:"
-        android:textColor="@color/text_color"
+        android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/black" />
 
@@ -199,7 +186,7 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:text="Sex:"
-        android:textColor="@color/text_color"
+        android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/small" />
 
@@ -232,7 +219,7 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:text="Collar:"
-        android:textColor="@color/text_color"
+        android:textColor="@color/choose_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/male" />
 
@@ -263,7 +250,7 @@
         android:layout_height="wrap_content"
         android:text="Apply"
         android:fontFamily="sans-serif-light"
-        android:backgroundTint="#A8A8A8"
+        android:backgroundTint="@color/choose_color"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
