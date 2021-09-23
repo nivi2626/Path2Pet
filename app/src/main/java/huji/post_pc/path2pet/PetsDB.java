@@ -26,6 +26,7 @@ import static android.content.ContentValues.TAG;
 
 public class PetsDB {
     private ArrayList<Pet> allPets;
+    int count;
     FirebaseFirestore fireStore;
     FirebaseStorage storage;
 
@@ -36,11 +37,6 @@ public class PetsDB {
         initializePetList();
     }
 
-    Pet getPetByPosition(int position) {
-        return allPets.get(position);
-    }
-
-
     private void initializePetList() {
         fireStore.collection(AppPath2Pet.COLLECTION).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -49,7 +45,6 @@ public class PetsDB {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 Pet pet = document.toObject(Pet.class);
-//                                pet.setImages();
                                 if (pet != null) {
                                     pet.images = new ArrayList<Uri>();
                                     StorageReference storageRef = AppPath2Pet.getStorage().getReference(pet.id);
@@ -62,11 +57,10 @@ public class PetsDB {
                                                             @Override
                                                             public void onSuccess(Uri uri) {
                                                                 pet.images.add(uri);
-                                                            }
-                                                        }).addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception exception) {
-                                                                // Handle any errors
+                                                                count += 1;
+                                                                if (count == task.getResult().size()) {
+                                                                    AppPath2Pet.loadingFlag = false;
+                                                                }
                                                             }
                                                         });
                                                     }

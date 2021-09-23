@@ -10,7 +10,7 @@ public class AppPath2Pet extends Application {
     private static PetsDB petsDB = null;
     private static FirebaseStorage storage = null;
     private static FirebaseFirestore fireStore = null;
-
+    public static Boolean loadingFlag = true;
     // constants:
     // fireStore
     final static String COLLECTION = "Pets";
@@ -67,8 +67,5 @@ public class AppPath2Pet extends Application {
     public static FirebaseStorage getStorage() {
         return storage;
     }
-
-
-
 
 }

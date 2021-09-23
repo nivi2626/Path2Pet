@@ -38,7 +38,7 @@ public class Pet implements Serializable {
     public String phone;
     public Date reportDate;
     public Date lastSeenDate;
-    public int imageNum;
+    public int imageNum = 0;
     @Exclude
     public List<Uri> images = new ArrayList<Uri>();
 
@@ -67,18 +67,6 @@ public class Pet implements Serializable {
     }
 
     public Pet() {
-        // fireStore need default constructor
-        // get images from FireBase
-//        StorageReference storageRef = AppPath2Pet.getStorage().getReference().child(this.id + "/");
-//        StorageReference storageRef = AppPath2Pet.getStorage().getReference().child(this.id + "/");
-//        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-//            @Override
-//            public void onSuccess(ListResult listResult) {
-//                for (StorageReference item : listResult.getItems()) {
-//                    images.add(Uri.parse(item.toString()));
-//                }
-//            }
-//        });
     }
 
     public String getStatus() {

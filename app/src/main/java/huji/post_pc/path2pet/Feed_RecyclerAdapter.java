@@ -2,6 +2,7 @@ package huji.post_pc.path2pet;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -26,7 +27,9 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -59,16 +62,19 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         this.context = holder.status.getContext();
 
         // set pet UI
-        DateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
         String strDate = "";
         if (pet.getLastSeenDate() != null) {
             strDate = dateFormat.format(pet.getLastSeenDate());
         }
-        if (pet.getImages().size() >0) {
-            holder.image.setImageDrawable(null);
-            holder.image.setImageURI(pet.getImages().get(0));
 
+        if (pet.getImages().size() >0) {
+            Picasso
+                    .get()
+                    .load(pet.getImages().get(0))
+                    .into(holder.image);
         }
+
         holder.date.setText(strDate);
         holder.status.setText(pet.getStatus());
         holder.petType.setText(pet.getPetType());
