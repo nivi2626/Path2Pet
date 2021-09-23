@@ -113,7 +113,7 @@ class Fragment_b_Map : Fragment() {
             // moves camera to coordinates
             mMap.moveCamera(point)
             // animates camera to coordinates
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
 
             it.setOnMapClickListener { coordinate->
                 it.clear()
@@ -146,7 +146,7 @@ class Fragment_b_Map : Fragment() {
                     latLng = LatLng(address.latitude, address.longitude)
                     mMap.clear()
                     mMap.addMarker(MarkerOptions().position(latLng).title(searchInitLocation))
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
                 }
                 return true
             }

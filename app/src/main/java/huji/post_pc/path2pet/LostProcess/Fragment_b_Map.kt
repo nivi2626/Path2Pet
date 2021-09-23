@@ -63,11 +63,8 @@ class Fragment_b_Map : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_b_map, container, false)
         myContext = view.context
@@ -124,7 +121,7 @@ class Fragment_b_Map : Fragment() {
             // moves camera to coordinates
             mMap.moveCamera(point)
             // animates camera to coordinates
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
 
             it.setOnMapClickListener { coordinate ->
                 it.clear()
