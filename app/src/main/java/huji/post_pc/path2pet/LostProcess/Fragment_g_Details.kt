@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.navigation.Navigation
 import huji.post_pc.path2pet.AppPath2Pet
 import huji.post_pc.path2pet.R
-
 class Fragment_g_Details : Fragment() {
 
     lateinit var lostPetActivityInstance: LostPetProcess
@@ -20,6 +20,7 @@ class Fragment_g_Details : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_g_details, container, false)
         lostPetActivityInstance = activity as LostPetProcess
+        var allFilled : Boolean
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -40,15 +41,34 @@ class Fragment_g_Details : Fragment() {
 
         // next listener
         nextButton.setOnClickListener {
-            lostPetActivityInstance.progressBar.incrementProgressBy(1)
+            allFilled = true
 
-            name = nameTxt.text.toString()
-            email = emailTxt.text.toString()
-            phone = phoneTxt.text.toString()
+            if (nameTxt.text.toString() == "")
+            {
+                nameTxt.error = "This is a mandatory field"
+                allFilled = false
+            }
+            if (emailTxt.text.toString() == "")
+            {
+                emailTxt.error = "This is a mandatory field"
+                allFilled = false
+            }
+            if (phoneTxt.text.toString() == "")
+            {
+                phoneTxt.error = "This is a mandatory field"
+                allFilled = false
+            }
+
+            if (!allFilled)
+            {
+                return@setOnClickListener
+            }
+
+            lostPetActivityInstance.progressBar.incrementProgressBy(1)
 
             with(lostPetActivityInstance.sp.edit())
             {
-                putString(AppPath2Pet.SP_NAME, name)
+                putString(AppPath2Pet.SP_NAME, nameTxt.text.toString())
                 putString(AppPath2Pet.SP_EMAIL, email)
                 putString(AppPath2Pet.SP_PHONE, phone)
                 apply()
@@ -69,3 +89,4 @@ class Fragment_g_Details : Fragment() {
     }
 
 }
+
