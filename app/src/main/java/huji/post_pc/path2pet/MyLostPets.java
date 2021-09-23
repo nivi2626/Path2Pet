@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MyLostPets extends AppCompatActivity {
@@ -27,7 +28,6 @@ public class MyLostPets extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyLostPetsAdapter();
-        adapter.setPetList(lostPetList);
         readAnimalListByUserID();
         recyclerView.setAdapter(adapter);
     }
@@ -35,16 +35,14 @@ public class MyLostPets extends AppCompatActivity {
     private void readAnimalListByUserID() {
         List<Pet> pets = AppPath2Pet.getPetsDB().getAllPets();
         List<Pet> userPets = new ArrayList<Pet>();
-        String[] userLostPetsIDs = spLostPets.getString(AppPath2Pet.SP_LOST_ID, "").split(AppPath2Pet.SP_DELIMITER);
-        if (userLostPetsIDs.length == 0) {
+        List<String> userLostPetsIDs = Arrays.asList(spLostPets.getString(AppPath2Pet.SP_LOST_ID, "").split(AppPath2Pet.SP_DELIMITER));
+        if (userLostPetsIDs.size() == 0) {
             return;
         }
-        for (String petID : userLostPetsIDs) {
-            for (Pet pet : pets) {
-                if (pet.getId().equals(petID))
-                {
-                    userPets.add(pet);
-                }
+        for (Pet pet : pets) {
+            if (userLostPetsIDs.contains(pet.getId()))
+            {
+                userPets.add(pet);
             }
         }
         adapter.setPetList(userPets);

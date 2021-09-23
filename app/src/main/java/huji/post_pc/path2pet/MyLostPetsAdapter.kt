@@ -17,9 +17,9 @@ import androidx.appcompat.app.AlertDialog
 
 
 class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
-    private lateinit var petList: List<Pet>
+    private lateinit var petList: MutableList<Pet>
 
-    fun setPetList(petList: List<Pet>) {
+    fun setPetList(petList: MutableList<Pet>) {
         this.petList = petList
     }
 
@@ -73,6 +73,10 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
 
                 // delete from sp
                 spUpdater(sp, pet.getId())
+                this.petList.remove(pet)
+
+                setPetList(this.petList)
+                notifyDataSetChanged()
 
                 // hurray message
                 val toast = Toast.makeText(
@@ -81,8 +85,6 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
                     Toast.LENGTH_LONG
                 )
                 toast.show()
-
-                notifyDataSetChanged()
             })
             // negative button text and action
             .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
