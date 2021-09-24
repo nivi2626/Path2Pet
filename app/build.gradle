@@ -44,6 +44,8 @@ android {
 dependencies {
 
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'androidx.camera:camera-core:1.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout-core:1.0.0'
     def activity_version = "1.3.0"
     def fragment_version = "1.3.6"
 
@@ -101,4 +103,5 @@ dependencies {
     // photos recycler
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.camera:camera-core:1.1.0-alpha03'
 }
