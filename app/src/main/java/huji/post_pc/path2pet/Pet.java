@@ -132,6 +132,8 @@ public class Pet implements Serializable {
 
     public String getId(){return id;}
 
+    public Boolean getHasCollar(){return hasCollar;}
+
     @Exclude
     public List<Uri> getImages() {
         return images;

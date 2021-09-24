@@ -19,6 +19,12 @@ public class AppPath2Pet extends Application {
     // fireStore
     final static String COLLECTION = "Pets";
 
+    // workManager kets
+    final public static String WM_USER_LOST_PETS = "User Lost Pets";
+    final public static String WM_ON_SUCCESS = "Match Success";
+    final public static String WM_ON_FAILURE = "Match Fail";
+
+
     // sp keys
     final public static String SP_PHOTOS = "Photos";
     final public static String SP_LATITUDE = "Latitude";
@@ -33,6 +39,8 @@ public class AppPath2Pet extends Application {
     final public static String SP_NAME = "Name";
     final public static String SP_EMAIL = "Email";
     final public static String SP_PHONE = "Phone";
+    final public static String SP_FOUND = "Found";
+    final public static String SP_LOST = "Lost";
 
     // sp lost pets
     final public static String SP_LOST_ID = "ID";
