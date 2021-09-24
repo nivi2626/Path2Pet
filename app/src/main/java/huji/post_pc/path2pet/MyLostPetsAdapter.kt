@@ -92,7 +92,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
 
                 // delete from storage
                 if (pet.imageNum > 0) {
-                    AppPath2Pet.getPetsDB().deleteFromStorage(pet.getId())
+                    AppPath2Pet.getPetsDB().deleteFromStorage(pet.getId(), pet.getImages().size)
                 }
 
                 // delete data from fireStore

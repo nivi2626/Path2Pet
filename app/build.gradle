@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.0.0'
     def activity_version = "1.3.0"
     def fragment_version = "1.3.6"
+    def work_version = "2.4.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
@@ -101,4 +102,12 @@ dependencies {
     // photos recycler
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // work manager
+    // base dependency, for java usage only:
+    implementation "androidx.work:work-runtime:$work_version"
+    // for Kotlin usage add this line as well:
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    // add this line if you plan to use ListenableWork:
+    implementation 'com.google.guava:guava:30.0-android'
 }

@@ -24,6 +24,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
+
 public class PetsDB {
     private ArrayList<Pet> allPets;
     int count;
@@ -124,8 +125,7 @@ public class PetsDB {
                 });
     }
 
-    public void deleteFromFireStore(String id)
-    {
+    public void deleteFromFireStore(String id) {
         fireStore.collection(AppPath2Pet.COLLECTION).document(id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -142,22 +142,20 @@ public class PetsDB {
                 });
     }
 
-    public void deleteFromStorage(String id)
-    {
-        storage.getReference(id)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
+    public void deleteFromStorage(String id, int numOfImages) {
+        for (int i = 0; i < numOfImages; i++) {
+            storage.getReference(id + "/" + i).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.w(TAG, "Error deleting document", exception);
+                }
+            });
+        }
     }
 
     public ArrayList<Pet> getAllPets() {
