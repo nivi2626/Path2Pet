@@ -40,6 +40,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/type_dog"
         android:textSize="20sp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
+        android:fontFamily="sans-serif-light"
         android:textSize="20sp"
         android:text="@string/type_cat"
         android:textColor="@color/white"
@@ -78,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/sex_female"
+        android:fontFamily="sans-serif-light"
         android:textSize="20sp"
         android:layout_marginStart="20dp"
         android:textColor="@color/white"
@@ -88,6 +91,7 @@
         android:id="@+id/male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:textSize="20sp"
@@ -95,9 +99,6 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/female"
         app:layout_constraintTop_toBottomOf="@+id/pet_gender_text"/>
-
-
-    <!--        Todo - add photos of male and female signs -->
 
 
     <Button
