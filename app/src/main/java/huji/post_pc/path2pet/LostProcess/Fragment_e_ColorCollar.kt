@@ -26,10 +26,8 @@ class Fragment_e_ColorCollar : Fragment() {
         val view = inflater.inflate(R.layout.fragment_e_color_collar, container, false)
         val lostPetActivityInstance = activity as LostPetProcess
 
-        var colors: String
         var colorList: ArrayList<String> = ArrayList()
         var colorListString : String = ""
-        var hasCollar: Boolean
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -44,8 +42,8 @@ class Fragment_e_ColorCollar : Fragment() {
         val hasCollarSwitch: Switch = view.findViewById(R.id.collar_choose)
 
         // get data from sp
-        colors = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")!!
-        hasCollar = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
+        var colors: String = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")!!
+        var hasCollar: Boolean = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
 
         // set UI
         if (colors != "") {
