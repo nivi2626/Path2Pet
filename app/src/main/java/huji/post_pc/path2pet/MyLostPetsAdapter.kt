@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.smarteist.autoimageslider.SliderView
+import java.lang.String.format
 import java.text.Format
 import java.text.SimpleDateFormat
 
@@ -34,7 +35,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
     override fun onBindViewHolder(holder: MyLostPetsViewHolder, position: Int) {
         this.context = holder.city.context
         val curPet = petList[position]
-        var matchedScore = 0.0
+        var matchedScore = 0
         var matchedPet : Pet? = null
         val adapterContext: Context = holder.petType.context
         val adapter = photosAdapter()
@@ -48,11 +49,9 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         holder.breed.text = curPet.getBreed()
         holder.city.text = curPet.getCityByLocation(holder.city.context)
         holder.matchButton.visibility = View.INVISIBLE
-        holder.matchText.visibility = View.INVISIBLE
         holder.matchButton.isEnabled = false
 
-        val dataFormat: Format = SimpleDateFormat("dd/MM/yyyy")
-        holder.date.text = dataFormat.format(curPet.getReportDate())
+        holder.date.text = curPet.stringDate
 
         // set colors
         val petsColors = StringBuilder()
@@ -79,8 +78,6 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
             exitDialog(adapterContext, curPet, lostPetSp)
         }
 
-        // TODO - check if indeed same pet has match
-        // && hasMatch(curPet.getId())
         if (AppPath2Pet.bestMatches.size > 0)
         {
             for (item in AppPath2Pet.bestMatches)
@@ -91,17 +88,20 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
                 else
                 {
                     val matchedPetID = parseMatchedList(item.keyValueMap.values.toString()).otherID()
-                    matchedPet = AppPath2Pet.getPetsDB().getPetByID(matchedPetID)
                     matchedScore = parseMatchedList(item.keyValueMap.values.toString()).getMatchScore()
+                    if (matchedScore < AppPath2Pet.MIN_MATCH_VAL)
+                    {
+                        continue
+                    }
+                    matchedPet = AppPath2Pet.getPetsDB().getPetByID(matchedPetID)
+                    holder.matchButton.text = "$matchedScore% Match Found!"
                     holder.matchButton.visibility = View.VISIBLE
-                    holder.matchText.visibility = View.VISIBLE
                     holder.matchButton.isEnabled = true
                 }
         }
 
         holder.matchButton.setOnClickListener {
             if (matchedPet != null) {
-//                todo - matchedScore
                 // start popUp
                 val popupView = LayoutInflater.from(context).inflate(R.layout.match_pet_popup, null)
                 val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
@@ -109,6 +109,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
 
                 // find popUp views
                 val closeButton = popupView.findViewById<Button>(R.id.close)
+                val title = popupView.findViewById<TextView>(R.id.title)
                 val type = popupView.findViewById<TextView>(R.id.type)
                 val breed = popupView.findViewById<TextView>(R.id.breed)
                 val colors = popupView.findViewById<TextView>(R.id.colors)
@@ -123,6 +124,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
 
                 //set popUp UI:
                 // set pet's description, report date, and city
+                title.text = "We found a$matchedScore% match for your pet!"
                 type.text = matchedPet.getPetType()
                 breed.text = matchedPet.getBreed()
                 colors.text = matchedPet.stringColors

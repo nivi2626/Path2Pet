@@ -14,7 +14,6 @@ val SIZE_FACTOR = 4
 val COLORS_FACTOR = 5
 val LOCATION_FACTOR = 6
 val MAX_DISTANCE = 20000
-val MIN_MATCH_VAL = 0.70
 
 // set maxEstimator
 val maxEstimator =
@@ -69,9 +68,9 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
                 continue
             }
             val matchValue = calcMatchPercentage(userPet, pet)
-            if (matchValue > MIN_MATCH_VAL && matchValue > matchBestScore) {
+            if (matchValue-0.05 > AppPath2Pet.MIN_MATCH_VAL && matchValue > matchBestScore) {
                 bestMatchedPetID = pet.getId()
-                matchBestScore = matchValue
+                matchBestScore = matchValue - 0.05
             }
 
         }

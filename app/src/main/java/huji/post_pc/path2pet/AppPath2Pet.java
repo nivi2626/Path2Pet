@@ -30,6 +30,7 @@ public class AppPath2Pet extends Application {
     final public static String WM_USER_LOST_PETS = "User Lost Pets";
     final public static String WM_ON_SUCCESS = "Match Success";
     final public static String WM_ON_FAILURE = "Match Fail";
+    final public static Double MIN_MATCH_VAL = 0.65;
 
 
     // sp keys

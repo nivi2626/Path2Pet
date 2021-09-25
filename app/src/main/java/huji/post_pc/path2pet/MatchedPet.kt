@@ -10,8 +10,8 @@ data class MatchedPet(val myPetID :String, val otherPetID: String, val score: Do
         return otherPetID
     }
 
-    public fun getMatchScore() : Double{
-        return score
+    public fun getMatchScore() : Int{
+        return score.toInt()
     }
 
 
