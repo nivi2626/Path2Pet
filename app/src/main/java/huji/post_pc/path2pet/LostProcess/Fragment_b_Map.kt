@@ -40,10 +40,8 @@ class Fragment_b_Map : Fragment() {
     private lateinit var currentLocation: LatLng
     private lateinit var lostPetActivityInstance: LostPetProcess
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_b_map, container, false)
         myContext = view.context
@@ -59,8 +57,7 @@ class Fragment_b_Map : Fragment() {
         val prevButton: Button = view.findViewById(R.id.previous)
         var searchView: SearchView = view.findViewById(R.id.idSearchView)
 
-
-
+        
 
 
 
