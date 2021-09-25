@@ -1,4 +1,4 @@
-package huji.post_pc.path2pet.LostProcess
+package huji.post_pc.path2pet.FoundProcess
 
 import android.Manifest
 import android.app.Activity
@@ -6,9 +6,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,50 +28,60 @@ import com.smarteist.autoimageslider.SliderView
 import huji.post_pc.path2pet.AppPath2Pet
 import huji.post_pc.path2pet.R
 import huji.post_pc.path2pet.photosAdapter
+import java.io.ByteArrayOutputStream
+import java.util.*
 
-
-class Fragment_a_Photo : Fragment() {
-    lateinit var lostPetActivityInstance: LostPetProcess
-    lateinit var photoContext: Context
+class Fragment_a_Camera : Fragment() {
+    lateinit var foundPetActivityInstance: FoundPetProcess
+    lateinit var cameraContext: Context
     lateinit var thisView: View
     private lateinit var adapter: photosAdapter
     lateinit var uriImages: MutableList<Uri>
+    private val PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
+    private val Image_Capture_Code = 102
+    private val GALLERY_REQUEST_CODE = 200
+    private val REQUEST_IMAGE_CAPTURE = 100
+    private val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888
 
-    val REQUEST_CODE = 200
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_a_photo, container, false)
-        this.lostPetActivityInstance = activity as LostPetProcess
+        val view = inflater.inflate(R.layout.found_fragment_a_camera, container, false)
+        this.foundPetActivityInstance = activity as FoundPetProcess
         this.thisView = view
-        this.photoContext = view.context
+        this.cameraContext = view.context
         this.adapter = photosAdapter()
-        this.uriImages =  mutableListOf<Uri>()
-
+        this.uriImages = ArrayList()
 
         // find views
-        val nextButton: Button = view.findViewById(R.id.next)
-        val prevButton: Button = view.findViewById(R.id.previous)
-        val galleryButton: Button = view.findViewById(R.id.gallery_button)
+        val nextButton = view.findViewById<Button>(R.id.next)
+        val prevButton = view.findViewById<Button>(R.id.previous)
+        val galleryButton = view.findViewById<Button>(R.id.gallery_button)
         val imageSlider: SliderView = view.findViewById(R.id.imageSlider)
+        val camera = view.findViewById<Button>(R.id.open_camera)
         val placeHolder: ImageView = view.findViewById(R.id.place_holder)
 
         // set UI
-        val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
+        val photos = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
         if (photos != null && photos != "") {
             imageSlider.visibility = View.VISIBLE
             placeHolder.visibility = View.INVISIBLE
-            this.uriImages = lostPetActivityInstance.string2UriList(photos)
+            this.uriImages = foundPetActivityInstance.string2UriList(photos)
             showPhotos(this.uriImages)
         }
         else {
             imageSlider.visibility = View.INVISIBLE
             placeHolder.visibility = View.VISIBLE
+        }
+
+        // camera listener
+        camera.setOnClickListener {
+            val cInt = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            //                File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+            //                cInt.putExtra(MediaStore.EXTRA_OUTPUT,
+            //                        Uri.fromFile(photo));
+            //                imageUri = Uri.fromFile(photo);
+            startActivityForResult(cInt, 100)
         }
 
         // gallery listener
@@ -79,10 +91,10 @@ class Fragment_a_Photo : Fragment() {
             }
         }
 
-        // next listener
+        // next button listener
         nextButton.setOnClickListener {
             val strImages:String = uriList2string(uriImages)
-            with(lostPetActivityInstance.sp.edit()) {
+            with(foundPetActivityInstance.sp.edit()) {
                 putString(AppPath2Pet.SP_PHOTOS, strImages)
                 apply()
             }
@@ -91,112 +103,38 @@ class Fragment_a_Photo : Fragment() {
 
         // prev or cancel listener
         prevButton.setOnClickListener {
-            lostPetActivityInstance.progressBar.progress = 0
-            lostPetActivityInstance.exitDialog(view.context, lostPetActivityInstance.sp)
+            foundPetActivityInstance.progressBar.progress = 0
+            foundPetActivityInstance.exitDialog(view.context, foundPetActivityInstance.sp)
         }
+
         return view
     }
 
+    //        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+    //            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 100);
+    //        }else
+    //        {
+    //            openCamera();
+    //        }
+    //    }
+    //    @Override
+    //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    //        if(requestCode == 100){
+    //            if(grantResults.length < 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+    //                openCamera();
+    //            }else
+    //            {
+    //                Toast.makeText(getActivity(), "Camera permission is required to use camera", Toast.LENGTH_LONG).show();
+    //            }
+    //        }
+    //    }
+    //    private void openCamera()
+    //    {
+    //        Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    //        startActivityForResult(cInt, 100);
+    //    }
 
-    private fun uriList2string(images: MutableList<Uri>): String {
-        var newStr = ""
-        for (image in images) {
-            newStr = newStr + AppPath2Pet.SP_DELIMITER + image.toString()
-        }
-        return newStr
-    }
-
-
-    // handle permissions
-    private fun isPermissionsAllowed(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            photoContext,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun askForPermissions(): Boolean {
-        if (!isPermissionsAllowed()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    photoContext as Activity,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )) {
-                showPermissionDeniedDialog()
-            } else {
-                ActivityCompat.requestPermissions(
-                    photoContext as Activity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_CODE
-                )
-            }
-            return false
-        }
-        return true
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            REQUEST_CODE -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission is granted, you can perform your operation here
-                } else {
-                    // permission is denied, you can ask for permission again, if you want
-                    //  askForPermissions()
-                }
-                return
-            }
-        }
-    }
-
-    private fun showPermissionDeniedDialog() {
-        AlertDialog.Builder(photoContext)
-            .setTitle("Permission Denied")
-            .setMessage("Permission is denied, Please allow permissions from App Settings.")
-            .setPositiveButton("App Settings",
-                DialogInterface.OnClickListener { dialogInterface, i ->
-                    // send to app settings if permission is denied permanently
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    val uri = Uri.fromParts("package", photoContext.packageName, null)
-                    intent.data = uri
-                    startActivity(intent)
-                })
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
-
-
-    // handle photos
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == 200){
-            // if multiple images are selected
-            if (data?.clipData != null) {
-                val count = data.clipData!!.itemCount
-
-                for (i in 0 until count) {
-                    var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
-                    uriImages.add(imageUri)
-                }
-            }
-            // if single image is selected
-            else if (data?.data != null) {
-                var imageUri: Uri = data.data!!
-                uriImages.add(imageUri)
-            }
-        }
-        else {
-            Log.i(
-                "onActivityResult: ",
-                "requestCode=$requestCode, resultCode=$resultCode, data$data"
-            )
-        }
-        showPhotos(uriImages)
-    }
 
     // handle fragment A photo opening
     private fun openPhoto(){
@@ -218,11 +156,110 @@ class Fragment_a_Photo : Fragment() {
         }
     }
 
+    private fun uriList2string(images: MutableList<Uri>): String {
+        var newStr = ""
+        for (image in images) {
+            newStr = newStr + AppPath2Pet.SP_DELIMITER + image.toString()
+        }
+        return newStr
+    }
+
+    // handle permissions
+    private fun isPermissionsAllowed(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            cameraContext,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun askForPermissions(): Boolean {
+        if (!isPermissionsAllowed()) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    cameraContext as Activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )) {
+                showPermissionDeniedDialog()
+            } else {
+                ActivityCompat.requestPermissions(
+                    cameraContext as Activity,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    GALLERY_REQUEST_CODE
+                )
+            }
+            return false
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            GALLERY_REQUEST_CODE -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission is granted, you can perform your operation here
+                } else {
+                    // permission is denied, you can ask for permission again, if you want
+                    //  askForPermissions()
+                }
+                return
+            }
+        }
+    }
+
+    private fun showPermissionDeniedDialog() {
+        AlertDialog.Builder(cameraContext)
+            .setTitle("Permission Denied")
+            .setMessage("Permission is denied, Please allow permissions from App Settings.")
+            .setPositiveButton("App Settings",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    // send to app settings if permission is denied permanently
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    val uri = Uri.fromParts("package", cameraContext.packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
+                })
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+
+    // handle photos
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && (requestCode == 200 || requestCode == 100)){
+            // if multiple images are selected
+            if (data?.clipData != null) {
+                val count = data.clipData!!.itemCount
+
+                for (i in 0 until count) {
+                    var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+                    uriImages.add(imageUri)
+                }
+            }
+            // if single image is selected
+            else if (data?.data != null) {
+                var imageUri: Uri = data.data!!
+                uriImages.add(imageUri)
+            }
+        }
+
+        else {
+            Log.i(
+                "onActivityResult: ",
+                "requestCode=$requestCode, resultCode=$resultCode, data$data"
+            )
+        }
+        showPhotos(uriImages)
+    }
 
     // next button
     private fun nextButtonOnClick(view: View) {
-        lostPetActivityInstance.progressBar.incrementProgressBy(1)
-        Navigation.findNavController(view).navigate(R.id.fragmentMap)
+        foundPetActivityInstance.progressBar.incrementProgressBy(1)
+        Navigation.findNavController(view).navigate(R.id.fragment_b_Map)
     }
 
 

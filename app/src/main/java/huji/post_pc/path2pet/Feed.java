@@ -134,6 +134,7 @@ public class Feed extends AppCompatActivity {
                     }
                 }
                 doFiltering(statusList, typeList, colorList, sizeList, sexList, collarList);
+                popupWindow = null;
                 popupWindow.dismiss();
             });
 
@@ -179,6 +180,10 @@ public class Feed extends AppCompatActivity {
         if (adapter.openPopUp !=null) {
             adapter.openPopUp.dismiss();
             adapter.openPopUp = null;
+        }
+        else if (popupWindow != null) {
+            popupWindow.dismiss();
+            popupWindow = null;
         }
         else {
             Intent intentHomeScreen = new Intent(this, HomeScreen.class);
