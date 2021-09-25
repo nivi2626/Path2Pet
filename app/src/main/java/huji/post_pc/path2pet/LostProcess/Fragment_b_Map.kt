@@ -47,9 +47,9 @@ class Fragment_b_Map : Fragment() {
         myContext = view.context
         lostPetActivityInstance = activity as LostPetProcess
         // initial latlng for Tel Aviv
-        var latLng: LatLng = LatLng(32.109333, 34.855499)
-        var latitude: String = "32.109333"
-        var longitude: String = "34.855499"
+        var latLng: LatLng = LatLng(32.098051, 34.791873)
+        var latitude: String = "32.098051"
+        var longitude: String = "34.791873"
 
 
         // find views
@@ -57,7 +57,7 @@ class Fragment_b_Map : Fragment() {
         val prevButton: Button = view.findViewById(R.id.previous)
         var searchView: SearchView = view.findViewById(R.id.idSearchView)
 
-        
+
 
 
 
@@ -103,7 +103,7 @@ class Fragment_b_Map : Fragment() {
             // moves camera to coordinates
             mMap.moveCamera(point)
             // animates camera to coordinates
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
 
             it.setOnMapClickListener { coordinate ->
                 it.clear()
