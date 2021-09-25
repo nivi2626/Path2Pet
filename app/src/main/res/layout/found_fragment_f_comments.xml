@@ -14,7 +14,6 @@
         android:text="Comments: "
         android:fontFamily="sans-serif-light"
         android:layout_marginLeft="20dp"
-        android:textColor="#252525"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +21,6 @@
     <EditText
         android:id="@+id/comments"
         android:inputType="textMultiLine"
-        android:textColor="#252525"
         android:hint="Are there any more details about the pet you found?"
         android:text=""
         android:lines="3"

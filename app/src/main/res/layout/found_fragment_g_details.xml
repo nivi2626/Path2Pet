@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Name: "
-        android:textColor="#252525"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text" />
@@ -42,7 +41,6 @@
         android:ems="7"
         android:inputType="textPersonName"
         android:text=""
-        android:textColor="#252525"
         app:layout_constraintStart_toEndOf="@+id/name_text"
         app:layout_constraintTop_toBottomOf="@+id/text"/>
 
@@ -57,7 +55,6 @@
         android:fontFamily="sans-serif-light"
         android:layout_marginStart="20dp"
         android:text="Email: "
-        android:textColor="#252525"
         android:textSize="25dp" />
 
 
@@ -68,7 +65,6 @@
         android:ems="7"
         android:layout_marginTop="20dp"
         android:inputType="textEmailAddress"
-        android:textColor="@color/text_color"
         app:layout_constraintTop_toBottomOf="@+id/name"
         app:layout_constraintStart_toEndOf="@+id/email_text"
         />
@@ -83,7 +79,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:text="Phone number: "
-        android:textColor="@color/text_color"
         android:textSize="25dp" />
 
 
@@ -93,7 +88,6 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="7"
-        android:textColor="@color/text_color"
         app:layout_constraintTop_toBottomOf="@+id/email"
         app:layout_constraintStart_toEndOf="@+id/phone_text" />
 
