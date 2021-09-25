@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -18,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -30,6 +28,7 @@ import huji.post_pc.path2pet.R
 import huji.post_pc.path2pet.photosAdapter
 import java.io.ByteArrayOutputStream
 import java.util.*
+
 
 class Fragment_a_Camera : Fragment() {
     lateinit var foundPetActivityInstance: FoundPetProcess
@@ -44,8 +43,11 @@ class Fragment_a_Camera : Fragment() {
     private val REQUEST_IMAGE_CAPTURE = 100
     private val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
+
         val view = inflater.inflate(R.layout.found_fragment_a_camera, container, false)
         this.foundPetActivityInstance = activity as FoundPetProcess
         this.thisView = view
@@ -64,8 +66,6 @@ class Fragment_a_Camera : Fragment() {
         // set UI
         val photos = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
         if (photos != null && photos != "") {
-            imageSlider.visibility = View.VISIBLE
-            placeHolder.visibility = View.INVISIBLE
             this.uriImages = foundPetActivityInstance.string2UriList(photos)
             showPhotos(this.uriImages)
         }
@@ -76,24 +76,22 @@ class Fragment_a_Camera : Fragment() {
 
         // camera listener
         camera.setOnClickListener {
-            val cInt = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            //                File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
-            //                cInt.putExtra(MediaStore.EXTRA_OUTPUT,
-            //                        Uri.fromFile(photo));
-            //                imageUri = Uri.fromFile(photo);
-            startActivityForResult(cInt, 100)
+            // todo - ask for permissions!
+            if (askForCameraPermissions()) {
+                openCamera()
+            }
         }
 
         // gallery listener
         galleryButton.setOnClickListener {
-            if (askForPermissions()) {
+            if (askForGalleryPermissions()) {
                 openPhoto()
             }
         }
 
         // next button listener
         nextButton.setOnClickListener {
-            val strImages:String = uriList2string(uriImages)
+            val strImages:String = foundPetActivityInstance.uriList2string(uriImages)
             with(foundPetActivityInstance.sp.edit()) {
                 putString(AppPath2Pet.SP_PHOTOS, strImages)
                 apply()
@@ -108,6 +106,16 @@ class Fragment_a_Camera : Fragment() {
         }
 
         return view
+    }
+
+    private fun askForCameraPermissions(): Boolean {
+        // todo
+        return true
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, 100)
     }
 
     //        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -129,11 +137,6 @@ class Fragment_a_Camera : Fragment() {
     //            }
     //        }
     //    }
-    //    private void openCamera()
-    //    {
-    //        Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    //        startActivityForResult(cInt, 100);
-    //    }
 
 
     // handle fragment A photo opening
@@ -146,9 +149,14 @@ class Fragment_a_Camera : Fragment() {
     }
 
     private fun showPhotos(uriImages: MutableList<Uri>) {
-        if (uriImages.size > 0) {
-            val imageSlider: SliderView = thisView.findViewById(R.id.imageSlider)
-            val placeHolder: ImageView = thisView.findViewById(R.id.place_holder)
+        val placeHolder: ImageView = thisView.findViewById(R.id.place_holder)
+        val imageSlider: SliderView = thisView.findViewById(R.id.imageSlider)
+
+        if (uriImages.size == 1) {
+            placeHolder.setImageURI(uriImages[0])
+        }
+
+        else if (uriImages.size > 1) {
             imageSlider.visibility = View.VISIBLE
             placeHolder.visibility = View.INVISIBLE
             adapter.renewItems(uriImages)
@@ -156,24 +164,9 @@ class Fragment_a_Camera : Fragment() {
         }
     }
 
-    private fun uriList2string(images: MutableList<Uri>): String {
-        var newStr = ""
-        for (image in images) {
-            newStr = newStr + AppPath2Pet.SP_DELIMITER + image.toString()
-        }
-        return newStr
-    }
-
-    // handle permissions
-    private fun isPermissionsAllowed(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            cameraContext,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun askForPermissions(): Boolean {
-        if (!isPermissionsAllowed()) {
+    private fun askForGalleryPermissions(): Boolean {
+        val isPermissionsAllowed =  ContextCompat.checkSelfPermission(cameraContext, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        if (!(isPermissionsAllowed)) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     cameraContext as Activity,
                     Manifest.permission.READ_EXTERNAL_STORAGE
@@ -230,7 +223,7 @@ class Fragment_a_Camera : Fragment() {
     // handle photos
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && (requestCode == 200 || requestCode == 100)){
+        if (resultCode == Activity.RESULT_OK && requestCode == 200){
             // if multiple images are selected
             if (data?.clipData != null) {
                 val count = data.clipData!!.itemCount
@@ -242,9 +235,17 @@ class Fragment_a_Camera : Fragment() {
             }
             // if single image is selected
             else if (data?.data != null) {
-                var imageUri: Uri = data.data!!
+                val imageUri: Uri = data.data!!
                 uriImages.add(imageUri)
             }
+        }
+
+        else if (resultCode == Activity.RESULT_OK && requestCode == 100 ) {
+            val image:Bitmap = data!!.extras!!.get("data") as Bitmap
+            val bytes = ByteArrayOutputStream()
+            image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            val path: String = MediaStore.Images.Media.insertImage(context?.getContentResolver(), image, "Title", null)
+            uriImages.add(Uri.parse(path))
         }
 
         else {

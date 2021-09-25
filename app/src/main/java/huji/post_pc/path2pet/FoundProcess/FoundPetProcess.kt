@@ -90,4 +90,12 @@ class FoundPetProcess : AppCompatActivity() {
         }
         return uriList
     }
+
+    fun uriList2string(images: MutableList<Uri>): String {
+        var newStr = ""
+        for (image in images) {
+            newStr = newStr + AppPath2Pet.SP_DELIMITER + image.toString()
+        }
+        return newStr
+    }
 }
