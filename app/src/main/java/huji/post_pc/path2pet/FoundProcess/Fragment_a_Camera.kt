@@ -76,15 +76,14 @@ class Fragment_a_Camera : Fragment() {
 
         // camera listener
         camera.setOnClickListener {
-            // todo - ask for permissions!
-            if (askForCameraPermissions()) {
+            if (askForPermissions(Manifest.permission.CAMERA, REQUEST_IMAGE_CAPTURE)) {
                 openCamera()
             }
         }
 
         // gallery listener
         galleryButton.setOnClickListener {
-            if (askForGalleryPermissions()) {
+            if (askForPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, GALLERY_REQUEST_CODE)) {
                 openPhoto()
             }
         }
@@ -108,8 +107,18 @@ class Fragment_a_Camera : Fragment() {
         return view
     }
 
-    private fun askForCameraPermissions(): Boolean {
-        // todo
+    private fun askForPermissions(permission: String, request_code: Int): Boolean {
+        val isPermissionsAllowed =  ContextCompat.checkSelfPermission(cameraContext, permission) == PackageManager.PERMISSION_GRANTED
+        if (!(isPermissionsAllowed)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(cameraContext as Activity, permission)) {
+                showPermissionDeniedDialog()
+            }
+            else {
+                ActivityCompat.requestPermissions(cameraContext as Activity,
+                    arrayOf(permission), request_code)
+            }
+            return false
+        }
         return true
     }
 
@@ -117,26 +126,6 @@ class Fragment_a_Camera : Fragment() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, 100)
     }
-
-    //        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-    //            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 100);
-    //        }else
-    //        {
-    //            openCamera();
-    //        }
-    //    }
-    //    @Override
-    //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    //        if(requestCode == 100){
-    //            if(grantResults.length < 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-    //                openCamera();
-    //            }else
-    //            {
-    //                Toast.makeText(getActivity(), "Camera permission is required to use camera", Toast.LENGTH_LONG).show();
-    //            }
-    //        }
-    //    }
 
 
     // handle fragment A photo opening
@@ -162,26 +151,6 @@ class Fragment_a_Camera : Fragment() {
             adapter.renewItems(uriImages)
             imageSlider.setSliderAdapter(adapter)
         }
-    }
-
-    private fun askForGalleryPermissions(): Boolean {
-        val isPermissionsAllowed =  ContextCompat.checkSelfPermission(cameraContext, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        if (!(isPermissionsAllowed)) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    cameraContext as Activity,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )) {
-                showPermissionDeniedDialog()
-            } else {
-                ActivityCompat.requestPermissions(
-                    cameraContext as Activity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    GALLERY_REQUEST_CODE
-                )
-            }
-            return false
-        }
-        return true
     }
 
     override fun onRequestPermissionsResult(
