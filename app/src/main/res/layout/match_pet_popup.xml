@@ -8,22 +8,23 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/lost_or_found"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="found"
+        android:paddingHorizontal="20dp"
+        android:text=""
         android:layout_marginTop="10dp"
         android:textColor="@color/choose_color"
         android:textSize="30dp"
         android:textStyle="italic"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/imageSlider"
-        android:visibility="invisible"
         android:layout_width="270dp"
         android:layout_height="270dp"
         app:sliderIndicatorGravity="center_horizontal|bottom"
@@ -33,7 +34,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lost_or_found"/>
+        app:layout_constraintTop_toBottomOf="@id/title"/>
 
     <TextView
         android:id="@+id/type"
@@ -102,13 +103,13 @@
         android:id="@+id/comments_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:text="Comments: "
         android:textColor="@color/text_color"
         android:textSize="20dp"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@+id/sex"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sex"/>
 
     <TextView
         android:id="@+id/comments_edit"
@@ -124,7 +125,6 @@
         app:layout_constraintStart_toEndOf="@+id/comments_text" />
 
 
-
     <TextView
         android:id="@+id/city"
         android:layout_width="wrap_content"
@@ -138,6 +138,7 @@
         android:layout_marginTop="15dp"
         app:layout_constraintTop_toBottomOf="@+id/imageSlider"
         app:layout_constraintStart_toStartOf="parent" />
+
     <!--report date-->
     <TextView
         android:id="@+id/date_text"
@@ -203,48 +204,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_edit" />
 
-<!--    show details-->
-    <Button
-        android:id="@+id/show_details"
-        android:layout_width="120dp"
+
+
+    <TextView
+        android:id="@+id/reporter_details"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reporter\nDetails"
-        android:textSize="15dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/light_green"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
+        android:text="Reporter details:"
+        android:textSize="18dp"
+        android:textColor="@color/logo_color"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@+id/comments_text"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/comments_text" />
 
     <!--    reporter name-->
     <TextView
         android:id="@+id/name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:text="Name: "
         android:textSize="18dp"
         android:textColor="@color/text_color"
-        android:visibility="invisible"
         android:fontFamily="sans-serif-light"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/comments_text"
-        app:layout_constraintStart_toEndOf="@id/show_details" />
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reporter_details" />
 
     <TextView
         android:id="@+id/name_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="AAAAA"
+        android:text=""
         android:textColor="@color/text_color"
-        android:visibility="invisible"
         android:textSize="18dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/comments_text"
+        app:layout_constraintTop_toBottomOf="@+id/reporter_details"
         app:layout_constraintStart_toEndOf="@+id/name_text" />
 
     <!--    reporter Email-->
@@ -252,23 +248,21 @@
         android:id="@+id/email_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:text="Email: "
         android:textColor="@color/text_color"
         android:textSize="18dp"
-        android:visibility="invisible"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@+id/name_text"
-        app:layout_constraintStart_toEndOf="@id/show_details" />
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_text" />
 
     <TextView
         android:id="@+id/email_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="AAAAA"
+        android:text=""
         android:textColor="@color/text_color"
-        android:visibility="invisible"
         android:textSize="18dp"
         app:layout_constraintTop_toBottomOf="@+id/name_text"
         app:layout_constraintStart_toEndOf="@+id/email_text" />
@@ -278,27 +272,24 @@
         android:id="@+id/phone_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:visibility="invisible"
         android:textColor="@color/text_color"
         android:text="Phone: "
         android:textSize="18dp"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toBottomOf="@+id/email_text"
-        app:layout_constraintStart_toEndOf="@id/show_details" />
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_text" />
 
     <TextView
         android:id="@+id/phone_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:visibility="invisible"
         android:textColor="@color/text_color"
-        android:text="AAAAA"
+        android:text=""
         android:textSize="18dp"
         app:layout_constraintTop_toBottomOf="@+id/email_text"
         app:layout_constraintStart_toEndOf="@+id/phone_text" />
-
 
 
 
