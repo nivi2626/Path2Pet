@@ -1,7 +1,6 @@
 package huji.post_pc.path2pet
 
 import android.content.Context
-import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
@@ -25,35 +24,38 @@ val maxEstimator =
 
 class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
+    companion object {
+        var lostPetNum = 0
+    }
 
     // key is id, double is match score
 //    val petsMap = mutableMapOf<String, Double>()
 
     override fun doWork(): Result {
-
+        val currentNum = lostPetNum
+        lostPetNum += 1
         val allPets = AppPath2Pet.getPetsDB().allPets
+        // set default return value on fail
+        val failurePet = createJson("", "", 0.0)
 
-        val userPetsString =
+        val userPetId =
             // on failure return empty map
-            inputData.getString(AppPath2Pet.WM_USER_LOST_PETS) ?: return Result.failure(
+            inputData.getString(currentNum.toString()) ?: return Result.failure(
                 workDataOf(
-                    AppPath2Pet.WM_ON_FAILURE to mutableMapOf<String, Double>()
+                    AppPath2Pet.WM_ON_FAILURE to failurePet
                 )
             )
-        if (userPetsString == "") {
-            return Result.success(workDataOf(
-                AppPath2Pet.WM_ON_SUCCESS to mutableMapOf<String, Double>()))
-        }
 
-        val userPets: MutableList<Pet> = ArrayList()
-        val userLostPetsIDs = userPetsString.split(AppPath2Pet.SP_DELIMITER)
+        // get user pet from id
+        val userPet = findPetByID(userPetId, allPets)
+            ?: return Result.failure(
+                workDataOf(
+                    AppPath2Pet.WM_ON_FAILURE to failurePet
+                )
+            )
 
-        // set all userLostPets
-        for (pet in allPets) {
-            if (userLostPetsIDs.contains(pet.getId())) {
-                userPets.add(pet)
-            }
-        }
+        // keep the best match
+        var (bestMatchedPetID, matchBestScore) = Pair("", 0.0)
 
         // iterate over all pets and see if there is a match
         for (pet in allPets) {
@@ -61,25 +63,28 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
             if (pet.getStatus() == AppPath2Pet.SP_LOST) {
                 continue
             }
-            for (lostPet in userPets) {
-                // if types differ not helpful
-                if (pet.getPetType() != lostPet.getPetType()) {
-                    continue
-                }
-                val matchValue = calcMatchPercentage(lostPet, pet)
-                if (matchValue > MIN_MATCH_VAL) {
-                    val obj: MatchedPet = MatchedPet(pet.getId(), matchValue)
-                    val gson = Gson()
-                    val objAsJson: String = gson.toJson(obj)
-                    return Result.success(workDataOf(AppPath2Pet.WM_ON_SUCCESS to objAsJson))
-                    // TODO - continue here
 
-//                    petsMap[pet.getId()] = matchValue
-                }
+            // if types differ not helpful
+            if (pet.getPetType() != userPet.getPetType()) {
+                continue
             }
+            val matchValue = calcMatchPercentage(userPet, pet)
+            if (matchValue > MIN_MATCH_VAL && matchValue > matchBestScore) {
+                bestMatchedPetID = pet.getId()
+                matchBestScore = matchValue
+            }
+
         }
         // return the matching pets dictionary
-        return Result.failure()
+        return Result.success(
+            workDataOf(
+                AppPath2Pet.WM_ON_SUCCESS to createJson(
+                    userPet.getId(),
+                    bestMatchedPetID,
+                    matchBestScore
+                )
+            )
+        )
     }
 
 
@@ -156,9 +161,21 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
         return accumulatedMatchScore / maxEstimator
     }
 
-    data class MatchedPet(val otherPetID: String, val score:Double)
-    {
-        val otherId = otherPetID
-        val matchScore = score
+    private fun createJson(myPetID : String, otherPetID: String, score: Double): String {
+        val obj = MatchedPet(myPetID, otherPetID, score)
+        val gson = Gson()
+        return gson.toJson(obj)
+    }
+
+    data class MatchedPet(val myPetID :String, val otherPetID: String, val score: Double) {
+    }
+
+    private fun findPetByID(id: String, pets: List<Pet>): Pet? {
+        for (pet in pets) {
+            if (pet.getId() == id) {
+                return pet
+            }
+        }
+        return null
     }
 }

@@ -3,10 +3,14 @@ package huji.post_pc.path2pet;
 import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.work.Data;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppPath2Pet extends Application {
     private static PetsDB petsDB = null;
@@ -14,12 +18,15 @@ public class AppPath2Pet extends Application {
     private static FirebaseFirestore fireStore = null;
 
     public static MutableLiveData<Boolean> loadingFlag = new MutableLiveData<Boolean>();
+    public static Boolean workerWorked = false;
+    public static Boolean userNotified = false;
+    public static List<Data> bestMatches = new ArrayList<>();
 
     // constants:
     // fireStore
     final static String COLLECTION = "Pets";
 
-    // workManager kets
+    // workManager keys
     final public static String WM_USER_LOST_PETS = "User Lost Pets";
     final public static String WM_ON_SUCCESS = "Match Success";
     final public static String WM_ON_FAILURE = "Match Fail";
