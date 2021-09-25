@@ -18,6 +18,8 @@ public class AppPath2Pet extends Application {
     // constants:
     // fireStore
     final static String COLLECTION = "Pets";
+    final public static String LOST = "Lost";
+    final public static String FOUND = "Found";
 
     // sp keys
     final public static String SP_PHOTOS = "Photos";

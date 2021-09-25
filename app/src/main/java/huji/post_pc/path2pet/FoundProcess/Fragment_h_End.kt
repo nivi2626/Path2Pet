@@ -55,7 +55,7 @@ class Fragment_h_End : Fragment() {
         //create a new Pet object
         val id = UUID.randomUUID().toString()
 
-        val pet = Pet(id, "found", latitude, longitude, type, sex,
+        val pet = Pet(id, AppPath2Pet.FOUND, latitude, longitude, type, sex,
             breed, size, colors, collar, comments, name, email, phone, Date(), uriImages,
             uriImages.size)
 

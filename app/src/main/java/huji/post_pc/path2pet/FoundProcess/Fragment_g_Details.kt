@@ -63,7 +63,8 @@ class Fragment_g_Details : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.fragmentEnd)
+        // TODO - currently the lost fragment
+        Navigation.findNavController(view).navigate(R.id.fragment_h_End)
     }
 
     private fun isEmailValid(str : String): Boolean {

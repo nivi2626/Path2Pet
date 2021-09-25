@@ -83,6 +83,13 @@
         <action
             android:id="@+id/action_fragment_g_Details_to_fragment_f_Comments"
             app:destination="@id/fragment_f_Comments" />
+        <action
+            android:id="@+id/action_fragment_g_Details_to_fragment_h_End"
+            app:destination="@id/fragment_h_End" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_h_End"
+        android:name="huji.post_pc.path2pet.FoundProcess.Fragment_h_End"
+        android:label="Fragment_h_End" />
 
 </navigation>
