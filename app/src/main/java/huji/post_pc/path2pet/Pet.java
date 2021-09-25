@@ -19,6 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -126,9 +128,22 @@ public class Pet implements Serializable {
         return reportDate;
     }
 
+
+
     public List<String> getColors() {
         return colors;
     }
+
+    public String getStringColors() {
+        StringBuilder petsColors = new StringBuilder();
+        for (String c: this.colors) {
+            if (!c.equals("")) {
+                petsColors.append(c).append(", ");
+            }
+        }
+        return (String) petsColors.subSequence(0,petsColors.length()-2);
+    }
+
 
     public String getId(){return id;}
 
@@ -165,6 +180,12 @@ public class Pet implements Serializable {
             retValue = "";
         }
         return retValue;
+    }
+
+    public String getStringDate() {
+        Format dataFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date report = this.reportDate;
+        return dataFormat.format(report);
     }
 }
 

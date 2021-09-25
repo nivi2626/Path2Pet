@@ -48,16 +48,15 @@ public class MyLostPets extends AppCompatActivity {
         adapter.setPetList(userPets);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (adapter.getPopupWindow() !=null) {
+            adapter.getPopupWindow().dismiss();
+            adapter.setPopupWindow(null);
+        }
+        else {
+            super.onBackPressed();
+        }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (adapter.openPopUp !=null) {
-//            adapter.openPopUp.dismiss();
-//            adapter.openPopUp = null;
-//        } else
-//        {
-//            super.onBackPressed();
-//        }
-//
-//    }
+    }
 }

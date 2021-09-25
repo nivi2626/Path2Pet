@@ -9,6 +9,8 @@ import com.smarteist.autoimageslider.SliderView
 
 class MyLostPetsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val foundButton: Button = itemView.findViewById(R.id.found)
+    val matchButton: Button = itemView.findViewById(R.id.possibleMatch)
+    val matchText: TextView = itemView.findViewById(R.id.possibleMatchText)
     val imageSlider: SliderView = itemView.findViewById(R.id.imageSlider)
     val image: ImageView = itemView.findViewById(R.id.image)
     val petType: TextView = itemView.findViewById(R.id.type)

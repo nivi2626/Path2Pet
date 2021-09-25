@@ -83,7 +83,6 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             TextView sex = popupView.findViewById(R.id.sex);
             TextView city = popupView.findViewById(R.id.city);
             TextView collar = popupView.findViewById(R.id.with_or_without_collar);
-//            TextView laseSeenDate = popupView.findViewById(R.id.last_seen_date);
             TextView reportDate = popupView.findViewById(R.id.date_text);
             TextView comments = popupView.findViewById(R.id.comments_edit);
             SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
@@ -184,22 +183,15 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         // set pet's description
         type.setText(pet.getPetType());
 
-        // set pet's description - colors and breed
-        StringBuilder petsColors = new StringBuilder();
-        for (String c: pet.getColors()) {
-            if (!c.equals("")) {
-                petsColors.append(c).append(", ");
-            }
+        // set pet's colors
+        if (pet.getColors().size() > 0) {
+            colors.setText(pet.getStringColors());
         }
-        if (petsColors.length() >0) {
-            colors.setText(petsColors.subSequence(0,petsColors.length()-2));
-        }
+        // set pet's breed
         breed.setText(pet.getBreed());
 
         // set pets report and last seen dates
-        Format dataFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date report = pet.getReportDate();
-        reportDate.setText(dataFormat.format(report));
+        reportDate.setText(pet.getStringDate());
 
         // set pet's location
         try {

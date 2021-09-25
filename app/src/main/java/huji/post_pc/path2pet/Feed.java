@@ -242,7 +242,7 @@ public class Feed extends AppCompatActivity {
     private ArrayList<Pet> filterByColor(List<String> colorList, ArrayList<Pet> pets) {
         ArrayList<Pet> filtered = new ArrayList<>();
         for(Pet p: pets){
-            for (String c: p.colors) {
+            for (String c: p.getColors()) {
                 if (c!=null && !c.equals("") && colorList.contains(c)){
                     filtered.add(p);
                     break;

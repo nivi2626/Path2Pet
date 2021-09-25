@@ -161,6 +161,16 @@ public class PetsDB {
     public ArrayList<Pet> getAllPets() {
         return allPets;
     }
+
+    public Pet getPetByID(String petID) {
+        for (Pet pet: allPets) {
+            if (pet.getId().equals(petID))
+            {
+                return pet;
+            }
+        }
+        return null;
+    }
 }
 
 

@@ -7,16 +7,19 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.smarteist.autoimageslider.SliderView
 import java.text.Format
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
     private lateinit var petList: MutableList<Pet>
+    private lateinit var context: Context
+    var popupWindow: PopupWindow? = null
 
     fun setPetList(petList: MutableList<Pet>) {
         this.petList = petList
@@ -24,15 +27,15 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyLostPetsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.my_lost_pets_item,
-            parent,
-            false
-        )
+            R.layout.my_lost_pets_item, parent, false)
         return MyLostPetsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyLostPetsViewHolder, position: Int) {
+        this.context = holder.city.context
         val curPet = petList[position]
+        var matchedScore = 0.0
+        var matchedPet : Pet? = null
         val adapterContext: Context = holder.petType.context
         val adapter = photosAdapter()
         val lostPetSp:SharedPreferences = adapterContext.getSharedPreferences(
@@ -44,6 +47,9 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         holder.petType.text = curPet.getPetType()
         holder.breed.text = curPet.getBreed()
         holder.city.text = curPet.getCityByLocation(holder.city.context)
+        holder.matchButton.visibility = View.INVISIBLE
+        holder.matchText.visibility = View.INVISIBLE
+        holder.matchButton.isEnabled = false
 
         val dataFormat: Format = SimpleDateFormat("dd/MM/yyyy")
         holder.date.text = dataFormat.format(curPet.getReportDate())
@@ -72,14 +78,83 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         holder.foundButton.setOnClickListener {
             exitDialog(adapterContext, curPet, lostPetSp)
         }
-    }
 
+        // TODO - check if indeed same pet has match
+        // && hasMatch(curPet.getId())
+        if (AppPath2Pet.bestMatches.size > 0)
+        {
+            for (item in AppPath2Pet.bestMatches)
+                if (parseMatchedList(item.keyValueMap.values.toString()).myID() != curPet.getId())
+                {
+                    continue
+                }
+                else
+                {
+                    val matchedPetID = parseMatchedList(item.keyValueMap.values.toString()).otherID()
+                    matchedPet = AppPath2Pet.getPetsDB().getPetByID(matchedPetID)
+                    matchedScore = parseMatchedList(item.keyValueMap.values.toString()).getMatchScore()
+                    holder.matchButton.visibility = View.VISIBLE
+                    holder.matchText.visibility = View.VISIBLE
+                    holder.matchButton.isEnabled = true
+                }
+        }
+
+        holder.matchButton.setOnClickListener {
+            if (matchedPet != null) {
+//                todo - matchedScore
+                // start popUp
+                val popupView = LayoutInflater.from(context).inflate(R.layout.match_pet_popup, null)
+                val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+                this.popupWindow = popupWindow
+
+                // find popUp views
+                val closeButton = popupView.findViewById<Button>(R.id.close)
+                val type = popupView.findViewById<TextView>(R.id.type)
+                val breed = popupView.findViewById<TextView>(R.id.breed)
+                val colors = popupView.findViewById<TextView>(R.id.colors)
+                val sex = popupView.findViewById<TextView>(R.id.sex)
+                val city = popupView.findViewById<TextView>(R.id.city)
+                val collar = popupView.findViewById<TextView>(R.id.with_or_without_collar)
+                val reportDate = popupView.findViewById<TextView>(R.id.date_text)
+                val comments = popupView.findViewById<TextView>(R.id.comments_edit)
+                val nameEdit = popupView.findViewById<TextView>(R.id.name_edit)
+                val emailEdit = popupView.findViewById<TextView>(R.id.email_edit)
+                val phoneEdit = popupView.findViewById<TextView>(R.id.phone_edit)
+
+                //set popUp UI:
+                // set pet's description, report date, and city
+                type.text = matchedPet.getPetType()
+                breed.text = matchedPet.getBreed()
+                colors.text = matchedPet.stringColors
+                sex.text = matchedPet.getSex()
+                city.text = matchedPet.getCityByLocation(context)
+                if (matchedPet.getHasCollar()) {
+                    collar.text = AppPath2Pet.COLLAR_WITH
+                }
+                else {
+                    collar.setText(AppPath2Pet.COLLAR_WITHOUT)
+                }
+                reportDate.setText(matchedPet.stringDate)
+                comments.setText(matchedPet.getComments())
+                nameEdit.setText(matchedPet.getName())
+                emailEdit.setText(matchedPet.getEmail())
+                phoneEdit.setText(matchedPet.getPhone())
+
+                closeButton.setOnClickListener { v1: View? ->
+                    popupWindow.dismiss()
+                    this.popupWindow = null
+                }
+
+                popupWindow.showAsDropDown(popupView, 0, 0)
+            }
+        }
+    }
 
     override fun getItemCount(): Int {
         return petList.size
     }
 
-    fun exitDialog(context: Context, pet: Pet, sp: SharedPreferences) {
+    private fun exitDialog(context: Context, pet: Pet, sp: SharedPreferences) {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
@@ -139,6 +214,18 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
             }
         }
         sp.edit().putString(AppPath2Pet.SP_LOST_ID, newIDsList).apply()
+    }
+
+
+    private fun parseMatchedList(currentMatchStr : String): MatchedPet {
+        var myPetId = ""
+        var otherPetId = ""
+        var score = 0.0
+        var attr = currentMatchStr.split(",")
+        myPetId = attr[0].split(":")[1].split("\"")[1]
+        otherPetId = attr[1].split(":")[1].split("\"")[1]
+        score = attr[2].split(":")[1].split("}")[0].toDouble()*100
+        return MatchedPet(myPetId, otherPetId, score)
     }
 
 }

@@ -167,9 +167,6 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
         return gson.toJson(obj)
     }
 
-    data class MatchedPet(val myPetID :String, val otherPetID: String, val score: Double) {
-    }
-
     private fun findPetByID(id: String, pets: List<Pet>): Pet? {
         for (pet in pets) {
             if (pet.getId() == id) {
