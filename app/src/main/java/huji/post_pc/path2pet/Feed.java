@@ -47,6 +47,7 @@ public class Feed extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
+
         filter.setOnClickListener(v ->{
             // set popup window
             View popupView = LayoutInflater.from(Feed.this).inflate(R.layout.filter_popup, null);
@@ -256,5 +257,6 @@ public class Feed extends AppCompatActivity {
         }
         return filtered;
     }
+
 
 }
