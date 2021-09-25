@@ -174,8 +174,6 @@ public class Feed extends AppCompatActivity {
         adapter.setPetList(filtered);
     }
 
-
-
     @Override
     public void onBackPressed() {
         if (adapter.openPopUp !=null) {

@@ -45,8 +45,8 @@ public class BreedRecyclerAdapter extends RecyclerView.Adapter<BreedRecyclerAdap
         holder.bind(breedList.get(position));
         int tempPosition = position;
         this.context = holder.breed_type.getContext();
-        holder.breed_type.setText(breed.getName());
-        holder.breed_image.setImageResource(breed.getImageNum());
+        holder.breed_type.setText(breed.breedName);
+        holder.breed_image.setImageResource(breed.imageNum);
         holder.itemView.setOnClickListener(v ->
         {
             holder.bind(breed);
@@ -57,7 +57,7 @@ public class BreedRecyclerAdapter extends RecyclerView.Adapter<BreedRecyclerAdap
             if(checkedPosition != holder.getAdapterPosition()){
                 notifyItemChanged(checkedPosition);
                 checkedPosition = holder.getAdapterPosition();
-                selectedItem = breed.getName();
+                selectedItem = breed.breedName;
             }
         });
     }
@@ -101,7 +101,7 @@ public class BreedRecyclerAdapter extends RecyclerView.Adapter<BreedRecyclerAdap
                     checkedIcon.setVisibility(View.GONE);
                 }
             }
-            breed_type.setText(breed.getName());
+            breed_type.setText(breed.breedName);
         }
     }
 }

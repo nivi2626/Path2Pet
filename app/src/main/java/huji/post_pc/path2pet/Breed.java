@@ -1,20 +1,13 @@
 package huji.post_pc.path2pet;
 
 public class Breed {
-    String name;
+    public String breedName;
     public int imageNum;
 
-    public Breed (String name, int image)
+    public Breed (String breedName, int imageNum)
     {
-        this.name = name;
-        this.imageNum = image;
+        this.breedName = breedName;
+        this.imageNum = imageNum;
     }
-    public String getName()
-    {
-        return name;
-    }
-    public int getImageNum()
-    {
-        return imageNum;
-    }
+
 }

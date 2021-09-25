@@ -16,69 +16,18 @@ import pl.utkala.searchablespinner.SearchableSpinner
 import java.util.ArrayList
 
 
-private var DOG_BREED_ARRAY = arrayOf(
-    "Mixed Breed",
-    "German Shepherd",
-    "Akita",
-    "Alaskan Malamute",
-    "Border Collie",
-    "Beagle",
-    "Boxer",
-    "Chihuahua",
-    "Dalmatian",
-    "Greyhound",
-    "Jack Russell Terrier",
-    "Mastiff",
-    "Pomeranian",
-    "Poodle",
-    "Pug",
-    "Samoyed",
-    "Shih Tzu",
-    "Siberian Husky",
-    "Tibetan Mastiff",
-    "Tibetan Terrier",
-    "Yorkshire Terrier",
-)
-private var CAT_BREED_ARRAY = arrayOf(
-    "Mixed Breed",
-    "Asian",
-    "Balinese",
-    "Bengal",
-    "Chartreux",
-    "Chausie",
-    "Cyprus",
-    "Dwelf",
-    "Foldex",
-    "German Rex",
-    "Highlander",
-    "Himalayan",
-    "Lambkin",
-    "LaPerm",
-    "Minskin",
-    "Napoleon",
-    "Persian",
-    "Siamese",
-    "Siberian",
-    "Thai",
-    "York Chocolate"
-)
-
-
 
 class Fragment_d_BreedSize : Fragment() {
     private lateinit var foundPetActivityInstance: FoundPetProcess
     private var breed_adapter: BreedRecyclerAdapter? = null
-    var openPopUp: PopupWindow? = null
     private val breedList = ArrayList<Breed>()
-    private var selectedBreed: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        //
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.found_fragment_d_breed_size, container, false)
         foundPetActivityInstance = activity as FoundPetProcess
-        var items: Array<String> = emptyArray()
 
         // find views
         val smallButton: Button = view.findViewById(R.id.Small)
@@ -86,15 +35,10 @@ class Fragment_d_BreedSize : Fragment() {
         val largeButton: Button = view.findViewById(R.id.Large)
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
-        val searchableSpinner: SearchableSpinner = view.findViewById(R.id.spinner)
         val breeds_choice: Button = view.findViewById(R.id.breeds);
         val breedText: TextView = view.findViewById(R.id.breedText)
 
         // set UI
-        // spinner text
-        searchableSpinner.setDialogTitle("Choose Pet Breed: ")
-        searchableSpinner.setDismissText("Dismiss")
-
         // button colors
         smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
         mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
@@ -102,102 +46,70 @@ class Fragment_d_BreedSize : Fragment() {
 
         // get data from sp
         val petType: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, null)
-        var breed: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
         var selectedBreed: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
         var size: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, null)
-        if(selectedBreed != null){
-            breedText!!.text = selectedBreed
-        }
-        else
-        {
-            selectedBreed = "Mixed Breed"
-            breedText!!.text = selectedBreed
-        }
-        // set data by sp
+
+        // get pet's type and set items for breed list
         if (petType != null) {
             if (petType == AppPath2Pet.TYPE_DOG) {
-                items = DOG_BREED_ARRAY
                 initializeDogBreedList()
             }
             else if (petType == AppPath2Pet.TYPE_CAT) {
-                items = CAT_BREED_ARRAY
                 initializeCatBreedList()
             }
         }
 
-        searchableSpinner.adapter =
-            ArrayAdapter<String>(view.context, android.R.layout.simple_spinner_dropdown_item, items)
-
-        if (breed != null) {
-            searchableSpinner.setSelection(items.indexOf(breed))
+        // set breed
+        if(selectedBreed != null){
+            breedText.text = selectedBreed
+        }
+        else
+        {
+            selectedBreed =  breedList[0].breedName
+            breedText.text = selectedBreed
         }
 
+        // set size
         if (size != null) {
             when (size) {
                 AppPath2Pet.SIZE_SMALL -> {
                     smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
-                    mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
-                    largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                 }
                 AppPath2Pet.SIZE_MEDIUM -> {
-                    smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                     mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
-                    largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                 }
                 else -> {
-                    smallButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
-                    mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
                     largeButton.setBackgroundColor(Color.parseColor(AppPath2Pet.CHOSEN_COLOR))
                 }
             }
         }
 
-        searchableSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                arg0: AdapterView<*>?,
-                arg1: View?,
-                arg2: Int,
-                arg3: Long
-            ) {
-                // Do what you want
-                breed = searchableSpinner.selectedItem.toString()
-            }
-
-            override fun onNothingSelected(arg0: AdapterView<*>?) {}
-        }
-
         breeds_choice.setOnClickListener(){
-            // start popUp
-
             // start popUp
             val popupView = LayoutInflater.from(context).inflate(R.layout.breed_popup, null)
             val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-            openPopUp = popupWindow
+            foundPetActivityInstance.openPopUp = popupWindow
 
             // find popUp views
             val closeButton = popupView.findViewById<Button>(R.id.close_breeds)
             val recycler = popupView.findViewById<RecyclerView>(R.id.recycler);
             breed_adapter = BreedRecyclerAdapter(breedList)
+
             // set recycle viewer
             recycler!!.layoutManager = LinearLayoutManager(context)
             recycler.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            recycler!!.adapter = breed_adapter
-            recycler.setOnClickListener{v0: View? ->
-                selectedBreed = breed_adapter!!.selectedItem
-                popupWindow.dismiss()
-                openPopUp = null
-            }
+            recycler.adapter = breed_adapter
+
             closeButton.setOnClickListener { v1: View? ->
                 selectedBreed = breed_adapter!!.selectedItem
-                popupWindow.dismiss()
-                openPopUp = null
                 breedText.setText(selectedBreed)
+                foundPetActivityInstance.openPopUp = null
+                popupWindow.dismiss()
 
             }
-            popupWindow!!.showAsDropDown(popupView, 0, 0)
-
-
+            popupWindow.showAsDropDown(popupView, 0, 0)
         }
+
         // size listeners
         smallButton.setOnClickListener() {
             mediumButton.setBackgroundColor(Color.parseColor(AppPath2Pet.NOT_CHOSEN_COLOR))
