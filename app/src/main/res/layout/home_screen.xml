@@ -81,7 +81,7 @@
         android:backgroundTint="@color/logo_color"
         android:fontFamily="sans-serif-light"
         android:layout_marginBottom="30dp"
-        android:text="feed"
+        android:text="go to feed"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

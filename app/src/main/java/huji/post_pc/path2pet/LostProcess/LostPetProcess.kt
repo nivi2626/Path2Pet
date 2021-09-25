@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupWindow
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ class LostPetProcess : AppCompatActivity() {
     lateinit var sp : SharedPreferences
     lateinit var spLostPets : SharedPreferences
     lateinit var progressBar: ProgressBar
+    var openPopUp: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +28,18 @@ class LostPetProcess : AppCompatActivity() {
         this.spLostPets = this.getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE)
         sp.edit().clear().apply()
         setContentView(R.layout.activity_lost_pet_process)
+
         // find views
         progressBar = findViewById(R.id.progressBar)
     }
 
     override fun onBackPressed() {
+        if (openPopUp != null) {
+            openPopUp!!.dismiss()
+            openPopUp = null
+            return
+        }
+
         if (progressBar.progress < 7)
         {
             super.onBackPressed()
@@ -77,7 +86,7 @@ class LostPetProcess : AppCompatActivity() {
         alert.show()
     }
 
-    fun string2UriList(images:String?): MutableList<Uri> {
+    fun string2UriList(images: String?): MutableList<Uri> {
         if (images == null) {
             return mutableListOf<Uri>()
         }

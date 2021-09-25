@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupWindow
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,8 @@ class FoundPetProcess : AppCompatActivity() {
     lateinit var sp : SharedPreferences
     lateinit var spFoundPets : SharedPreferences
     lateinit var progressBar: ProgressBar
+    var openPopUp: PopupWindow? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,11 @@ class FoundPetProcess : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (openPopUp != null) {
+            openPopUp!!.dismiss()
+            openPopUp = null
+            return
+        }
         if (progressBar.progress < 7)
         {
             super.onBackPressed()
@@ -89,5 +97,13 @@ class FoundPetProcess : AppCompatActivity() {
             }
         }
         return uriList
+    }
+
+    fun uriList2string(images: MutableList<Uri>): String {
+        var newStr = ""
+        for (image in images) {
+            newStr = newStr + AppPath2Pet.SP_DELIMITER + image.toString()
+        }
+        return newStr
     }
 }

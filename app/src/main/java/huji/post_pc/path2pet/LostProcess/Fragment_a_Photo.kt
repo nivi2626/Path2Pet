@@ -61,7 +61,7 @@ class Fragment_a_Photo : Fragment() {
 
         // set UI
         val photos = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
-        if (photos != null) {
+        if (photos != null && photos != "") {
             imageSlider.visibility = View.VISIBLE
             placeHolder.visibility = View.INVISIBLE
             this.uriImages = lostPetActivityInstance.string2UriList(photos)

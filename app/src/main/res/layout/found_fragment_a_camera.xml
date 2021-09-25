@@ -7,17 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".FoundProcess.Fragment_a_Camera">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/petImageView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:scaleType="centerInside"-->
-<!--        android:adjustViewBounds="true"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/gallery_button"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/petImageView"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:scaleType="centerInside"-->
+    <!--        android:adjustViewBounds="true"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/gallery_button"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/gallery_button"

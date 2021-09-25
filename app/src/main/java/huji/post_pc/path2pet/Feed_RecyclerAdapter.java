@@ -83,6 +83,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             TextView sex = popupView.findViewById(R.id.sex);
             TextView city = popupView.findViewById(R.id.city);
             TextView collar = popupView.findViewById(R.id.with_or_without_collar);
+            TextView size = popupView.findViewById(R.id.size);
             TextView reportDate = popupView.findViewById(R.id.date_text);
             TextView comments = popupView.findViewById(R.id.comments_edit);
             SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
@@ -96,9 +97,35 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             //set popUp UI:
             // set pet's description, report date, and city
             setStatusBreedColorsDateAndLocation(pet, status, type, breed, colors, reportDate, city);
-            // set pet's sex, comments and collar
-            sex.setText(pet.getSex());
-            comments.setText(pet.getComments());
+
+            // set pet's sex and size
+            if (!pet.getSex().equals("")){
+                sex.setText(pet.getSex());
+            }
+            if (!pet.getSize().equals("")) {
+                size.setText(pet.getSize());
+            }
+
+            // set comments
+            String orgString = pet.getComments();
+            StringBuilder finalString = new StringBuilder();
+            int space = 0;
+            int index = 0;
+            for (int i = 1; i < orgString.length(); i++) {
+                if (orgString.substring(i, i + 1).equals(" ")) {
+                    space = i;
+                }
+                if (i % 20 == 0 ) {
+                    finalString.append(orgString.substring(index, space)).append("\n");
+                    index = space;
+                }
+                if (i == orgString.length()-1){
+                    finalString.append(orgString.substring(index));
+                }
+            }
+            comments.setText(finalString);
+
+            // set collar
             if (pet.hasCollar) {
                 collar.setText(AppPath2Pet.COLLAR_WITH); }
             else {
@@ -124,13 +151,13 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             showDetailsButton.setOnClickListener(v1 -> {
                 nameText.setVisibility(View.VISIBLE);
                 nameEdit.setVisibility(View.VISIBLE);
-                nameEdit.setText(pet.name);
+                nameEdit.setText(pet.getName());
                 emailText.setVisibility(View.VISIBLE);
                 emailEdit.setVisibility(View.VISIBLE);
-                emailEdit.setText(pet.email);
+                emailEdit.setText(pet.getEmail());
                 phoneText.setVisibility(View.VISIBLE);
                 phoneEdit.setVisibility(View.VISIBLE);
-                phoneEdit.setText(pet.phone);
+                phoneEdit.setText(pet.getPhone());
                 showDetailsButton.setClickable(false);
             });
 
@@ -149,7 +176,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
     }
 
     /**
-     * View holder
+     * feed item View holder
      */
     public static class AnimalViewHolder extends RecyclerView.ViewHolder {
         View view;

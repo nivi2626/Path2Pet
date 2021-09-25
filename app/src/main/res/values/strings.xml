@@ -7,6 +7,19 @@
     <string name="choose_color">#46A556</string>
     <string name="unChoose_color">#909190</string>
     <string name="save_and_continue">Save and continue</string>
+    <string name="size_small">Small</string>
+    <string name="size_medium">Medium</string>
+    <string name="size_large">Large</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
+    <string name="type_dog">Dog</string>
+    <string name="type_cat">Cat</string>
+    <string name="color_white">White</string>
+    <string name="color_black">Black</string>
+    <string name="color_gray">Gray</string>
+    <string name="color_blond">Blond</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_ginger">Ginger</string>
 
 
 </resources>

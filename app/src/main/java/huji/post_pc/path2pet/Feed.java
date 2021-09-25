@@ -47,6 +47,7 @@ public class Feed extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
+
         filter.setOnClickListener(v ->{
             // set popup window
             View popupView = LayoutInflater.from(Feed.this).inflate(R.layout.filter_popup, null);
@@ -134,6 +135,7 @@ public class Feed extends AppCompatActivity {
                     }
                 }
                 doFiltering(statusList, typeList, colorList, sizeList, sexList, collarList);
+                popupWindow = null;
                 popupWindow.dismiss();
             });
 
@@ -172,13 +174,15 @@ public class Feed extends AppCompatActivity {
         adapter.setPetList(filtered);
     }
 
-
-
     @Override
     public void onBackPressed() {
         if (adapter.openPopUp !=null) {
             adapter.openPopUp.dismiss();
             adapter.openPopUp = null;
+        }
+        else if (popupWindow != null) {
+            popupWindow.dismiss();
+            popupWindow = null;
         }
         else {
             Intent intentHomeScreen = new Intent(this, HomeScreen.class);
@@ -251,5 +255,6 @@ public class Feed extends AppCompatActivity {
         }
         return filtered;
     }
+
 
 }
