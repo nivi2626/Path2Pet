@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".FoundProcess.Fragment_a_Camera">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/petImageView"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="1"-->
-    <!--        android:scaleType="centerInside"-->
-    <!--        android:adjustViewBounds="true"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/gallery_button"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <Button
         android:id="@+id/gallery_button"
         android:layout_width="200dp"
@@ -51,34 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-
-    <Button
-        android:id="@+id/next"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@color/next_prev_color"
-        android:text="@string/save_and_continue"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-light"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-
-    <Button
-        android:id="@+id/previous"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@color/next_prev_color"
-        android:fontFamily="sans-serif-light"
-        android:text="Back"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageView
         android:id="@+id/place_holder"
         android:layout_width="320dp"
@@ -105,5 +65,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/next_prev_color"
+        android:text="@string/save_and_continue"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/next_prev_color"
+        android:fontFamily="sans-serif-light"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

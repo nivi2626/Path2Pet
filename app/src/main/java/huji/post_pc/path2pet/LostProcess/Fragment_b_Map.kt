@@ -22,6 +22,8 @@ import androidx.appcompat.widget.SearchView
 import java.lang.Exception
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -37,34 +39,11 @@ class Fragment_b_Map : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var currentLocation: LatLng
     private lateinit var lostPetActivityInstance: LostPetProcess
-    private var fusedLocationProvider: FusedLocationProviderClient? = null
 
-    // TODO - request permissions - add if relevant
-//    private val locationRequest: LocationRequest =  LocationRequest.create().apply {
-//        interval = 30
-//        fastestInterval = 10
-//        priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-//        maxWaitTime= 60
-//    }
-
-    private var locationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            val locationList = locationResult.locations
-            if (locationList.isNotEmpty()) {
-                //The last location in the list is the newest
-                val location = locationList.last()
-                Toast.makeText(
-                    myContext,
-                    "Got Location: " + location.toString(),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            }
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_b_map, container, false)
         myContext = view.context
@@ -79,6 +58,12 @@ class Fragment_b_Map : Fragment() {
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
         var searchView: SearchView = view.findViewById(R.id.idSearchView)
+
+
+
+
+
+
         val geocoder: Geocoder
 
         // upload data from sp

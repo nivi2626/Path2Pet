@@ -26,6 +26,8 @@
         android:text="Found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:layout_marginStart="20dp"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/status_text"
@@ -36,6 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lost"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
+
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/status_text"
         app:layout_constraintStart_toEndOf="@id/foundFilter"/>
@@ -60,6 +65,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:text="Dog"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/petType_text"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,6 +76,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cat"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/petType_text"
         app:layout_constraintStart_toEndOf="@id/dogFilter" />
@@ -94,6 +103,8 @@
         android:text="White"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="sans-serif-light"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/color_text"
@@ -104,6 +115,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Black"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/color_text"
         app:layout_constraintStart_toEndOf="@id/checkBoxBlond"        android:fontFamily="sans-serif-light"
 
@@ -116,6 +129,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gray"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/color_text"
         android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toEndOf="@id/checkBoxBrown"
@@ -128,6 +143,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Blond"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
         android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +156,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brown"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
         android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toEndOf="@id/checkBoxBlond"
@@ -150,6 +169,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ginger"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/checkBoxWhite"
         app:layout_constraintStart_toEndOf="@id/checkBoxBrown"
@@ -176,6 +197,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:text="@string/size_small"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/size_text"
         app:layout_constraintStart_toStartOf="parent" />
@@ -185,6 +208,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/size_medium"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/size_text"
         app:layout_constraintStart_toEndOf="@id/small" />
@@ -194,6 +219,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/size_large"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/size_text"
         app:layout_constraintStart_toEndOf="@id/medium" />
@@ -218,6 +245,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:text="@string/sex_male"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/sex_text"
         app:layout_constraintStart_toStartOf="parent" />
@@ -227,6 +256,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sex_female"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/sex_text"
         app:layout_constraintStart_toEndOf="@id/male" />
@@ -242,6 +273,7 @@
         android:textSize="20dp"
         android:text="Collar:"
         android:textColor="@color/choose_color"
+        android:buttonTint="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/male" />
 
@@ -251,6 +283,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:text="With"
+        android:textColor="@color/text_color"
+        android:buttonTint="@color/text_color"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/collar_text"
         app:layout_constraintStart_toStartOf="parent" />
@@ -260,7 +294,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Without"
+        android:textColor="@color/text_color"
         android:fontFamily="sans-serif-light"
+        android:buttonTint="@color/text_color"
         app:layout_constraintTop_toBottomOf="@id/collar_text"
         app:layout_constraintStart_toEndOf="@id/with_collar" />
 

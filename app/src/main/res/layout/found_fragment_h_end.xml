@@ -14,7 +14,6 @@
         android:fontFamily="sans-serif-light"
         android:padding="3dp"
         android:text="Thank you for reporting about a lost pet!\nwe will do our best to find it's owners!"
-        android:textColor="@color/text_color"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

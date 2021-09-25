@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Where was your pet last seen?"
-        android:textColor="#252525"
         android:fontFamily="sans-serif-light"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"

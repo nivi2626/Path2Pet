@@ -135,8 +135,8 @@ public class Feed extends AppCompatActivity {
                     }
                 }
                 doFiltering(statusList, typeList, colorList, sizeList, sexList, collarList);
-                popupWindow = null;
                 popupWindow.dismiss();
+                popupWindow = null;
             });
 
             popupWindow.showAsDropDown(popupView, 0, 0);
