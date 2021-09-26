@@ -28,6 +28,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.MapStyleOptions
 import huji.post_pc.path2pet.AppPath2Pet
 import huji.post_pc.path2pet.R
 import java.util.*
@@ -58,11 +59,6 @@ class Fragment_b_Map : Fragment() {
         var searchView: SearchView = view.findViewById(R.id.idSearchView)
 
 
-
-
-
-        val geocoder: Geocoder
-
         // upload data from sp
         latitude =
             lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LATITUDE, latitude).toString()
@@ -70,28 +66,7 @@ class Fragment_b_Map : Fragment() {
             lostPetActivityInstance.sp.getString(AppPath2Pet.SP_LONGITUDE, longitude).toString()
         latLng = LatLng(latitude.toDouble(), longitude.toDouble())
 
-//        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(myContext)
-//        checkLocationPermission()
-
-
-//        // TODO - try to ask permissions - if time allows
-//        if (ContextCompat.checkSelfPermission(myContext,
-//                Manifest.permission.ACCESS_COARSE_LOCATION) !==
-//            PackageManager.PERMISSION_GRANTED) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(lostPetActivityInstance,
-//                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
-//                ActivityCompat.requestPermissions(lostPetActivityInstance,
-//                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
-//            } else {
-//                ActivityCompat.requestPermissions(lostPetActivityInstance,
-//                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
-//            }
-//        }
-//        // TODO - end of try to ask permissions
-
-//
-//
-        //google map
+        // google map
         val mapFragment: SupportMapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(OnMapReadyCallback {
@@ -113,7 +88,7 @@ class Fragment_b_Map : Fragment() {
 
         })
 
-//         search view query
+        // search view query
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 val searchInitLocation = searchView.query.toString()
@@ -166,6 +141,5 @@ class Fragment_b_Map : Fragment() {
     private fun nextButtonOnClick(view: View) {
         Navigation.findNavController(view).navigate(R.id.fragmentTypeSex)
     }
-
 
 }

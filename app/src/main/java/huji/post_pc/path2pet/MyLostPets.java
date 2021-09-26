@@ -17,13 +17,12 @@ public class MyLostPets extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyLostPetsAdapter adapter = null;
     private SharedPreferences spLostPets;
-    // TODO - change "my_lost_pets" to constant string, add it to LostPetProcess class
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        spLostPets = getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE);
+        spLostPets = getSharedPreferences(AppPath2Pet.SP_MY_LOST, Context.MODE_PRIVATE);
         setContentView(R.layout.my_lost_pets);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

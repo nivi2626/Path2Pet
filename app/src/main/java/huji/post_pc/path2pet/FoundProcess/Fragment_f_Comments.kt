@@ -33,7 +33,7 @@ class Fragment_f_Comments : Fragment() {
         userComments = foundPetActivityInstance!!.sp.getString(AppPath2Pet.SP_COMMENTS, "")
 
         // set data by sp
-        if (userComments!=null) {
+        if (userComments != null) {
             if (userComments.isNotEmpty())
             {
                 userCommentsText.setText(userComments)

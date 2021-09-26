@@ -26,7 +26,7 @@ class Fragment_e_ColorCollar : Fragment() {
         val view = inflater.inflate(R.layout.found_fragment_e_color_collar, container, false)
         val foundPetActivityInstance = activity as FoundPetProcess
 
-        var colors: String
+        val colors: String
         var colorList: ArrayList<String> = ArrayList()
         var colorListString : String = ""
         var hasCollar: Boolean

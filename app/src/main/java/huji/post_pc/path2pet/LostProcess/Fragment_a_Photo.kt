@@ -34,8 +34,6 @@ class Fragment_a_Photo : Fragment() {
     lateinit var thisView: View
     private lateinit var adapter: photosAdapter
     lateinit var uriImages: MutableList<Uri>
-
-
     val REQUEST_CODE = 200
 
 
@@ -50,7 +48,6 @@ class Fragment_a_Photo : Fragment() {
         this.photoContext = view.context
         this.adapter = photosAdapter()
         this.uriImages =  mutableListOf<Uri>()
-
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)

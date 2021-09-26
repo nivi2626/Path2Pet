@@ -98,10 +98,6 @@
         app:layout_constraintStart_toEndOf="@+id/female"
         app:layout_constraintTop_toBottomOf="@+id/pet_gender_text"/>
 
-
-    <!--        Todo - add photos of male and female signs -->
-
-
     <Button
         android:id="@+id/next"
         android:layout_width="150dp"

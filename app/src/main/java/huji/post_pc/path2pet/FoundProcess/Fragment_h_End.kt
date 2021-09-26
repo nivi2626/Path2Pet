@@ -18,8 +18,7 @@ import java.util.*
 class Fragment_h_End : Fragment() {
     override fun onCreateView(
         // Inflate the layout for this fragment
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.found_fragment_h_end, container, false)
         val foundPetActivityInstance: FoundPetProcess = activity as FoundPetProcess
@@ -40,11 +39,6 @@ class Fragment_h_End : Fragment() {
         val name = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "")
         val email = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "")
         val phone = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "")
-
-        // TODO - implement my reports given time
-        // get last_reports from foundPetSP
-        // var foundPetIDs = foundPetActivityInstance.spfoundPets.getString(AppPath2Pet.SP_found_ID, "")
-
 
         // parse photos
         val photos = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_PHOTOS, null)
@@ -67,9 +61,7 @@ class Fragment_h_End : Fragment() {
             val intentFeed = Intent(view.context, Feed::class.java)
             startActivity(intentFeed)
         }
-
         return view
-
     }
 
 

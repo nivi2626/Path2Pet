@@ -42,7 +42,7 @@ class Fragment_e_ColorCollar : Fragment() {
         val hasCollarSwitch: Switch = view.findViewById(R.id.collar_choose)
 
         // get data from sp
-        var colors: String = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")!!
+        val colors: String = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")!!
         var hasCollar: Boolean = lostPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)
 
         // set UI

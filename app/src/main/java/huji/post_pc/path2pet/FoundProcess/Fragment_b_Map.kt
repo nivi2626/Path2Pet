@@ -72,39 +72,16 @@ class Fragment_b_Map : Fragment() {
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
         val prevButton: Button = view.findViewById(R.id.previous)
-        var searchView: SearchView = view.findViewById(R.id.idSearchView)
-        val geocoder : Geocoder
+        val searchView: SearchView = view.findViewById(R.id.idSearchView)
 
         // upload data from sp
         latitude = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_LATITUDE, latitude).toString()
         longitude = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_LONGITUDE, longitude).toString()
         latLng = LatLng(latitude.toDouble(), longitude.toDouble())
 
-//        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(myContext)
-//        checkLocationPermission()
-
-
-        // TODO - try to ask permissions
-        if (ContextCompat.checkSelfPermission(myContext,
-                Manifest.permission.ACCESS_COARSE_LOCATION) !==
-            PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(foundPetActivityInstance,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                ActivityCompat.requestPermissions(foundPetActivityInstance,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
-            } else {
-                ActivityCompat.requestPermissions(foundPetActivityInstance,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
-            }
-        }
-        // TODO - end of try to ask permissions
-
-//
-//
-        //google map
+        // google map
         val mapFragment:SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(OnMapReadyCallback {
-            // todo - make map go to your current location
             mMap = it
 
             val point = CameraUpdateFactory.newLatLng(latLng)
@@ -123,9 +100,7 @@ class Fragment_b_Map : Fragment() {
 
         })
 
-        //TODO - add location to SP (key = AppPath2Pet.SP_LOCATION)
-
-//         search view query
+        // search view query
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 val searchInitLocation = searchView.query.toString()
@@ -173,163 +148,10 @@ class Fragment_b_Map : Fragment() {
             foundPetActivityInstance.onBackPressed()
         }
 
-//        // todo - places suggestions
-//        val autocompleteFragment = childFragmentManager.fragments[1] as AutocompleteSupportFragment
-//        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
-//        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-//            override fun onPlaceSelected(place: Place) {
-//                val latLng = place.latLng
-//                if (latLng != null) {
-//                    mMap.addMarker(MarkerOptions().position(latLng).title(place.name))
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-//                }
-//            }
-//            override fun onError(status: Status) {
-//                Log.i(TAG, "Google maps: places suggestions: An error occurred: $status")
-//            }
-//        })
-
-
         return view
     }
 
     private fun nextButtonOnClick(view:View) {
         Navigation.findNavController(view).navigate(R.id.fragment_c_TypeAndSex)
     }
-
-    // ask permissions code
-
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-//                                            grantResults: IntArray) {
-//        when (requestCode) {
-//            1 -> {
-//                if (grantResults.isNotEmpty() && grantResults[0] ==
-//                    PackageManager.PERMISSION_GRANTED) {
-//                    if ((ContextCompat.checkSelfPermission(myContext,
-//                            Manifest.permission.ACCESS_FINE_LOCATION) ===
-//                                PackageManager.PERMISSION_GRANTED)) {
-//                        Toast.makeText(myContext, "Permission Granted", Toast.LENGTH_SHORT).show()
-//                    }
-//                } else {
-//                    Toast.makeText(myContext, "Permission Denied", Toast.LENGTH_SHORT).show()
-//                }
-//                return
-//            }
-//        }
-//    }
-
-//    override fun onResume() {
-//        super.onResume()
-//        if (ContextCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION)
-//            == PackageManager.PERMISSION_GRANTED) {
-//
-//            fusedLocationProvider?.requestLocationUpdates(
-//                locationRequest,
-//                locationCallback,
-//                Looper.getMainLooper()
-//            )
-//        }
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        if (ContextCompat.checkSelfPermission(myContext,
-//                Manifest.permission.ACCESS_FINE_LOCATION)
-//            == PackageManager.PERMISSION_GRANTED) {
-//
-//            fusedLocationProvider?.removeLocationUpdates(locationCallback)
-//        }
-//    }
-//
-//    private fun checkLocationPermission() {
-//        if (ActivityCompat.checkSelfPermission(
-//                myContext,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(
-//                    foundPetActivityInstance,
-//                    Manifest.permission.ACCESS_FINE_LOCATION
-//                )
-//            ) {
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//                AlertDialog.Builder(myContext)
-//                    .setTitle("Location Permission Needed")
-//                    .setMessage("This app needs the Location permission, please accept to use location functionality")
-//                    .setPositiveButton(
-//                        "OK"
-//                    ) { _, _ ->
-//                        //Prompt the user once explanation has been shown
-//                        requestLocationPermission()
-//                    }
-//                    .create()
-//                    .show()
-//            } else {
-//                // No explanation needed, we can request the permission.
-//                requestLocationPermission()
-//            }
-//        }
-//    }
-//
-//    private fun requestLocationPermission() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//            ActivityCompat.requestPermissions(
-//                foundPetActivityInstance,
-//                arrayOf(
-//                    Manifest.permission.ACCESS_FINE_LOCATION,
-//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-//                ),
-//                MY_PERMISSIONS_REQUEST_LOCATION
-//            )
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                foundPetActivityInstance,
-//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-//                MY_PERMISSIONS_REQUEST_LOCATION
-//            )
-//        }
-//    }
-//
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        when (requestCode) {
-//            MY_PERMISSIONS_REQUEST_LOCATION -> {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//                    // permission was granted, yay! Do the
-//                    // location-related task you need to do.
-//                    if (ContextCompat.checkSelfPermission(
-//                            myContext,
-//                            Manifest.permission.ACCESS_FINE_LOCATION
-//                        ) == PackageManager.PERMISSION_GRANTED
-//                    ) {
-//                        fusedLocationProvider?.requestLocationUpdates(
-//                            locationRequest,
-//                            locationCallback,
-//                            Looper.getMainLooper()
-//                        )
-//                    }
-//
-//                } else {
-//
-//                    // permission denied, boo! Disable the
-//                    // functionality that depends on this permission.
-//                    Toast.makeText(myContext, "permission denied", Toast.LENGTH_LONG).show()
-//                }
-//                return
-//            }
-//        }
-//    }
-//
-//    companion object {
-//        private const val MY_PERMISSIONS_REQUEST_LOCATION = 99
-//    }
-
 }

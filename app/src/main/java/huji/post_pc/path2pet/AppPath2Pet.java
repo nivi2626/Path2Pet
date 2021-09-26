@@ -73,8 +73,6 @@ public class AppPath2Pet extends Application {
     final public static String COLLAR_WITH = "With";
     final public static String COLLAR_WITHOUT = "Without";
 
-
-
     // others
     final public static String CHOSEN_COLOR = "#67CD8B";
     final public static String NOT_CHOSEN_COLOR = "#909190";
@@ -90,7 +88,6 @@ public class AppPath2Pet extends Application {
         storage = FirebaseStorage.getInstance();
         petsDB = new PetsDB();
     }
-
 
     public static PetsDB getPetsDB() {
         return petsDB;
