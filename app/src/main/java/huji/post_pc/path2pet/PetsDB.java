@@ -88,7 +88,6 @@ public class PetsDB {
             Uri imageUri = pet.getImages().get(i);
             uploadImage(pet.id, String.valueOf(i), imageUri);
         }
-
     }
 
     private void uploadImage(String ref, String childID, Uri uri) {

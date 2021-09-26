@@ -135,6 +135,9 @@ public class Pet implements Serializable {
     }
 
     public String getStringColors() {
+        if (this.colors.size() <= 1) {
+            return "";
+        }
         StringBuilder petsColors = new StringBuilder();
         for (String c: this.colors) {
             if (!c.equals("")) {

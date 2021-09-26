@@ -25,7 +25,7 @@ class LostPetProcess : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.sp = this.getSharedPreferences("local_lost_db", Context.MODE_PRIVATE)
-        this.spLostPets = this.getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE)
+        this.spLostPets = this.getSharedPreferences(AppPath2Pet.SP_MY_LOST, Context.MODE_PRIVATE)
         sp.edit().clear().apply()
         setContentView(R.layout.activity_lost_pet_process)
 
@@ -62,7 +62,7 @@ class LostPetProcess : AppCompatActivity() {
         dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
-        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
+        dialogBuilder.setMessage("Are you sure you want to exit?\nAll data will be lost")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action

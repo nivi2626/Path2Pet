@@ -6,14 +6,16 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.google.gson.Gson
 
-val BASIC_FACTOR = 60
-val COLLAR_FACTOR = 1
-val SEX_FACTOR = 2
-val BREED_FACTOR = 3
-val SIZE_FACTOR = 4
-val COLORS_FACTOR = 5
-val LOCATION_FACTOR = 6
-val MAX_DISTANCE = 20000
+const val BASIC_FACTOR = 60
+const val COLLAR_FACTOR = 1
+const val SEX_FACTOR = 2
+const val BREED_FACTOR = 3
+const val SIZE_FACTOR = 4
+const val COLORS_FACTOR = 5
+const val LOCATION_FACTOR = 6
+const val CLOSE_DISTANCE = 1000
+const val MEDIUM_DISTANCE = 5000
+const val FAR_DISTANCE = 20000
 
 // set maxEstimator
 val maxEstimator =
@@ -112,33 +114,48 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
 
         val missingAttrReminder = missingAttributesScore / countAttributes
 
+        // calc distance match
         val result = FloatArray(1)
-        // calculates distance between two dots in meters
-        android.location.Location.distanceBetween(
-            lostPet.getLatitude().toDouble(), lostPet.getLongitude().toDouble(),
+        android.location.Location.distanceBetween(  // calculates distance between two dots (in meters)
+        lostPet.getLatitude().toDouble(), lostPet.getLongitude().toDouble(),
             candidatePet.getLatitude().toDouble(), candidatePet.getLongitude().toDouble(),
             result
         )
-        if (result[0] < MAX_DISTANCE) {
+
+        // if distance is 0 < 1,000 meters - all 6 points
+        // if distance is 1.000 < 5,000 meters - 4 points
+        // if distance is 5,000 < 20,000 meters - 2 points
+        if (result[0] < CLOSE_DISTANCE) {
             accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * LOCATION_FACTOR)
         }
+        else if (result[0] < MEDIUM_DISTANCE) {
+            accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * LOCATION_FACTOR*2/3)
+        }
+        else if (result[0] < FAR_DISTANCE) {
+            accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * LOCATION_FACTOR*1/3)
+        }
 
+        // calc collar match
         if (lostPet.getHasCollar() == candidatePet.getHasCollar()) {
             accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * COLLAR_FACTOR)
         }
 
+        // calc breed match
         if (lostPet.getBreed() == candidatePet.getBreed()) {
             accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * BREED_FACTOR)
         }
 
+        // calc sex match
         if (candidatePet.getSex() != "" && lostPetHasSex && candidatePet.getSex() == lostPet.getSex()) {
             accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * SEX_FACTOR)
         }
 
+        // calc size match
         if (candidatePet.getSize() != "" && lostPetHasSize && candidatePet.getSize() == lostPet.getSize()) {
             accumulatedMatchScore += (missingAttrReminder + BASIC_FACTOR * SIZE_FACTOR)
         }
 
+        // calc colors match
         if (lostPetHasColor) {
             val numOfColors = lostPetColorList.size
             lostPetColorList.retainAll(candidatePet.getColors())

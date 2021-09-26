@@ -36,7 +36,7 @@ class HomeScreen : AppCompatActivity() {
         val feed = findViewById<Button>(R.id.feed)
         val loading = findViewById<ProgressBar>(R.id.loadingPanel)
         val lostPetButton = findViewById<Button>(R.id.myLostPets)
-        val spLostPets = getSharedPreferences("my_lost_pets", Context.MODE_PRIVATE)
+        val spLostPets = getSharedPreferences(AppPath2Pet.SP_MY_LOST, Context.MODE_PRIVATE)
         loading.visibility = View.INVISIBLE
 
         // Set UI
@@ -46,13 +46,9 @@ class HomeScreen : AppCompatActivity() {
         feed.isEnabled = false
 
         // load list of pet ids from sp
-        val userLostPetsIDsString =
-            spLostPets.getString(AppPath2Pet.SP_LOST_ID, "")
-
+        val userLostPetsIDsString = spLostPets.getString(AppPath2Pet.SP_LOST_ID, "")
         var userLostPetsIDsList = mutableListOf<String>()
-
-        if (userLostPetsIDsString != "")
-        {
+        if (userLostPetsIDsString != "") {
             userLostPetsIDsList = userLostPetsIDsString!!.split(AppPath2Pet.SP_DELIMITER) as MutableList<String>
         }
 
@@ -63,7 +59,6 @@ class HomeScreen : AppCompatActivity() {
                     setMyWorker(userLostPetsIDsList, userLostPetsIDsList.size - 1, 0)
                     AppPath2Pet.workerWorked = true
                 }
-
                 loading.visibility = View.GONE
                 lostPet.isEnabled = true
                 foundPet.isEnabled = true

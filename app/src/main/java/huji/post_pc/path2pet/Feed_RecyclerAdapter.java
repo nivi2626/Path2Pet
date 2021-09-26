@@ -1,6 +1,7 @@
 package huji.post_pc.path2pet;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,13 +87,14 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             TextView size = popupView.findViewById(R.id.size);
             TextView reportDate = popupView.findViewById(R.id.date_text);
             TextView comments = popupView.findViewById(R.id.comments_edit);
-            SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
             TextView nameText = popupView.findViewById(R.id.name_text);
             TextView nameEdit = popupView.findViewById(R.id.name_edit);
             TextView emailText = popupView.findViewById(R.id.email_text);
             TextView emailEdit = popupView.findViewById(R.id.email_edit);
             TextView phoneText = popupView.findViewById(R.id.phone_text);
             TextView phoneEdit = popupView.findViewById(R.id.phone_edit);
+            SliderView imageSlider = popupView.findViewById(R.id.imageSlider);
+            ImageView placeHolder =  popupView.findViewById(R.id.place_holder);
 
             //set popUp UI:
             // set pet's description, report date, and city
@@ -135,6 +137,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
             List<Uri> photos = pet.getImages();
             if (photos != null) {
                 if (photos.size() > 0) {
+                    placeHolder.setVisibility(View.INVISIBLE);
                     imageSlider.setVisibility(View.VISIBLE);
                     imageSlider.setSliderAdapter(adapter);
                     adapter.renewItems(photos);
@@ -211,9 +214,7 @@ public class Feed_RecyclerAdapter extends RecyclerView.Adapter<Feed_RecyclerAdap
         type.setText(pet.getPetType());
 
         // set pet's colors
-        if (pet.getColors().size() > 0) {
-            colors.setText(pet.getStringColors());
-        }
+        colors.setText(pet.getStringColors());
         // set pet's breed
         breed.setText(pet.getBreed());
 

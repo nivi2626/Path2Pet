@@ -26,7 +26,6 @@ class FoundPetProcess : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.sp = this.getSharedPreferences("local_found_db", Context.MODE_PRIVATE)
-        this.spFoundPets = this.getSharedPreferences("pets_I_found", Context.MODE_PRIVATE)
         sp.edit().clear().apply()
         setContentView(R.layout.activity_found_pet_process)
         // find views
@@ -61,7 +60,7 @@ class FoundPetProcess : AppCompatActivity() {
         dialogBuilder.setView(View.inflate(context, R.layout.alert_dialog, null))
 
         // set message of alert dialog
-        dialogBuilder.setMessage("Are you sure you want to leave?\nreport data will be lost")
+        dialogBuilder.setMessage("Are you sure you want to exit?\nAll data will be lost")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
