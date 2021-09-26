@@ -21,7 +21,6 @@ class Fragment_g_Details : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.found_fragment_g_details, container, false)
         foundPetActivityInstance = activity as FoundPetProcess
-        var allFilled : Boolean
 
         // find views
         val nextButton: Button = view.findViewById(R.id.next)
@@ -31,9 +30,9 @@ class Fragment_g_Details : Fragment() {
         val phoneTxt: EditText = view.findViewById(R.id.phone)
 
         // get data from sp
-        var name = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "").toString()
-        var email = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "").toString()
-        var phone = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "").toString()
+        val name = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_NAME, "").toString()
+        val email = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_EMAIL, "").toString()
+        val phone = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_PHONE, "").toString()
 
         // set UI by sp
         nameTxt.setText(name)
@@ -63,7 +62,6 @@ class Fragment_g_Details : Fragment() {
     }
 
     private fun nextButtonOnClick(view: View) {
-        // TODO - currently the lost fragment
         Navigation.findNavController(view).navigate(R.id.fragment_h_End)
     }
 

@@ -53,6 +53,7 @@ public class AppPath2Pet extends Application {
     final public static String SP_LOST = "Lost";
 
     // sp lost pets
+    final public static String SP_MY_LOST = "my_lost_pets";
     final public static String SP_LOST_ID = "ID";
 
     // pet data

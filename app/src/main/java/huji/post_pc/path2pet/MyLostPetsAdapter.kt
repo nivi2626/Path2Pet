@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.net.Uri
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,9 +41,7 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         val adapterContext: Context = holder.petType.context
         val adapter = photosAdapter()
         val lostPetSp:SharedPreferences = adapterContext.getSharedPreferences(
-            "my_lost_pets",
-            android.content.Context.MODE_PRIVATE
-        )
+            AppPath2Pet.SP_MY_LOST, android.content.Context.MODE_PRIVATE)
 
         // set UI
         holder.petType.text = curPet.getPetType()
@@ -67,13 +66,14 @@ class MyLostPetsAdapter : RecyclerView.Adapter<MyLostPetsViewHolder>() {
         // set photos
         val photos: MutableList<Uri> = curPet.getImages()
             if (photos.size > 0) {
-                holder.imageSlider.setVisibility(View.VISIBLE)
+                holder.imageSlider.visibility = View.VISIBLE
                 holder.imageSlider.setSliderAdapter(adapter)
                 adapter.renewItems(photos)
             }
             else {
-                holder.imageSlider.setVisibility(View.INVISIBLE)
+                holder.imageSlider.visibility = View.INVISIBLE
         }
+
         holder.foundButton.setOnClickListener {
             exitDialog(adapterContext, curPet, lostPetSp)
         }

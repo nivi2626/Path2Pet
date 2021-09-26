@@ -58,7 +58,6 @@ class Fragment_f_Comments : Fragment() {
         }
 
         return view
-
     }
 
     private fun nextButtonOnClick(view: View) {

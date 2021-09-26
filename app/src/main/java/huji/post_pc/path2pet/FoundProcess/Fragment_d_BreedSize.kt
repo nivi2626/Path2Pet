@@ -102,7 +102,7 @@ class Fragment_d_BreedSize : Fragment() {
 
             closeButton.setOnClickListener { v1: View? ->
                 selectedBreed = breed_adapter!!.selectedItem
-                breedText.setText(selectedBreed)
+                breedText.text = selectedBreed
                 foundPetActivityInstance.openPopUp = null
                 popupWindow.dismiss()
 

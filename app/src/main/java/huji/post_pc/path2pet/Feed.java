@@ -24,7 +24,7 @@ public class Feed extends AppCompatActivity {
     private RecyclerView recyclerView = null;
     private Feed_RecyclerAdapter adapter = null;
     private PopupWindow popupWindow = null;
-    private List<String> statusList = new ArrayList();
+    private ArrayList statusList = new ArrayList();
     private List<String> typeList = new ArrayList();
     private List<String> colorList = new ArrayList();
     private List<String> sizeList = new ArrayList();
@@ -46,8 +46,7 @@ public class Feed extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-
-
+        // filter listener
         filter.setOnClickListener(v ->{
             // set popup window
             View popupView = LayoutInflater.from(Feed.this).inflate(R.layout.filter_popup, null);

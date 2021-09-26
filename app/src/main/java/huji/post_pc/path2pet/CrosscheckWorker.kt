@@ -40,17 +40,13 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
         val userPetId =
             // on failure return empty map
             inputData.getString(currentNum.toString()) ?: return Result.failure(
-                workDataOf(
-                    AppPath2Pet.WM_ON_FAILURE to failurePet
-                )
+                workDataOf(AppPath2Pet.WM_ON_FAILURE to failurePet)
             )
 
         // get user pet from id
         val userPet = findPetByID(userPetId, allPets)
             ?: return Result.failure(
-                workDataOf(
-                    AppPath2Pet.WM_ON_FAILURE to failurePet
-                )
+                workDataOf(AppPath2Pet.WM_ON_FAILURE to failurePet)
             )
 
         // keep the best match
@@ -76,12 +72,8 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
         }
         // return the matching pets dictionary
         return Result.success(
-            workDataOf(
-                AppPath2Pet.WM_ON_SUCCESS to createJson(
-                    userPet.getId(),
-                    bestMatchedPetID,
-                    matchBestScore
-                )
+            workDataOf(AppPath2Pet.WM_ON_SUCCESS to createJson(userPet.getId(),
+                bestMatchedPetID, matchBestScore)
             )
         )
     }
@@ -89,9 +81,7 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
 
     private fun calcMatchPercentage(lostPet: Pet, candidatePet: Pet): Double {
         var accumulatedMatchScore = 0.0
-
         var missingAttributesScore = 0.0
-
         var lostPetHasColor = false
         var lostPetHasSize = false
         var lostPetHasSex = false
@@ -99,8 +89,7 @@ class CrosscheckWorker(context: Context, workerParams: WorkerParameters) :
         // count how many attributes given by user: location,
         // collar and breed are automatically counter for
         var countAttributes = 3.0
-
-        var lostPetColorList = lostPet.getColors()
+        val lostPetColorList = lostPet.getColors()
 
         if (lostPetColorList.size > 0) {
             countAttributes++
