@@ -31,7 +31,7 @@ class Fragment_h_End : Fragment() {
         val longitude = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_LONGITUDE, "")
         val type = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, "")
         val sex = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_SEX, "")
-        val breed = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, "")
+        val breed = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, AppPath2Pet.BREED_MIXED)
         val size = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, "")
         val color = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_COLORS, "")
         val collar = foundPetActivityInstance.sp.getBoolean(AppPath2Pet.SP_COLLAR, false)

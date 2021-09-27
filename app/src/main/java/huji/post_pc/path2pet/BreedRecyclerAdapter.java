@@ -42,13 +42,15 @@ public class BreedRecyclerAdapter extends RecyclerView.Adapter<BreedRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull BreedViewHolder holder, int position) {
+        int tempPosition = position;
         Breed breed = breedList.get(position);
         holder.bind(breedList.get(position));
-        int tempPosition = position;
         holder.breed_type.setText(breed.breedName);
         holder.breed_image.setImageResource(breed.imageNum);
-        if (breed.breedName == selectedItem) {
+
+        if (breed.breedName.equals(selectedItem)) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
+            checkedPosition = position;
         }
         else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
