@@ -23,7 +23,7 @@ import java.util.ArrayList
 class Fragment_d_BreedSize : Fragment() {
     private lateinit var lostPetActivityInstance: LostPetProcess
     private var breed_adapter: BreedRecyclerAdapter? = null
-    private val breedList = ArrayList<Breed>()
+    private lateinit var breedList: ArrayList<Breed>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -49,7 +49,7 @@ class Fragment_d_BreedSize : Fragment() {
 
         // get data from sp
         val petType: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, null)
-        var selectedBreed: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
+        var selectedBreed: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, AppPath2Pet.BREED_MIXED)
         var size: String? = lostPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, null)
 
         // get pet's type and set items for breed list
@@ -95,7 +95,7 @@ class Fragment_d_BreedSize : Fragment() {
             // find popUp views
             val closeButton = popupView.findViewById<Button>(R.id.close_breeds)
             val recycler = popupView.findViewById<RecyclerView>(R.id.recycler);
-            breed_adapter = BreedRecyclerAdapter(breedList)
+            breed_adapter = BreedRecyclerAdapter(breedList, selectedBreed)
 
             // set recycler view
             recycler!!.layoutManager = LinearLayoutManager(context)
@@ -156,6 +156,7 @@ class Fragment_d_BreedSize : Fragment() {
     }
 
     private fun initializeDogBreedList() {
+        breedList = ArrayList<Breed>()
         breedList.add(Breed("Mixed Breed", R.drawable.dog_mixed))
         breedList.add(Breed("German Shepherd", R.drawable.dog_german_shepherd))
         breedList.add(Breed("Akita", R.drawable.dog_akita))
@@ -180,6 +181,7 @@ class Fragment_d_BreedSize : Fragment() {
 
     private fun initializeCatBreedList()
     {
+        breedList = ArrayList<Breed>()
         breedList.add(Breed("Mixed Breed", R.drawable.cat_mixed))
         breedList.add(Breed("Asian", R.drawable.cat_asian))
         breedList.add(Breed("Balinese", R.drawable.cat_balinese))

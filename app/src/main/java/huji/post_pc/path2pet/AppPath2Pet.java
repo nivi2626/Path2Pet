@@ -72,6 +72,7 @@ public class AppPath2Pet extends Application {
     final public static String COLOR_BLOND = "Blond";
     final public static String COLLAR_WITH = "With";
     final public static String COLLAR_WITHOUT = "Without";
+    final public static String BREED_MIXED = "Mixed Breed";
 
     // others
     final public static String CHOSEN_COLOR = "#67CD8B";

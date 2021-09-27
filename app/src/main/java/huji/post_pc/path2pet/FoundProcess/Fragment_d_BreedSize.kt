@@ -46,7 +46,7 @@ class Fragment_d_BreedSize : Fragment() {
 
         // get data from sp
         val petType: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_TYPE, null)
-        var selectedBreed: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, null)
+        var selectedBreed: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_BREED, AppPath2Pet.BREED_MIXED)
         var size: String? = foundPetActivityInstance.sp.getString(AppPath2Pet.SP_SIZE, null)
 
         // get pet's type and set items for breed list
@@ -93,7 +93,7 @@ class Fragment_d_BreedSize : Fragment() {
             // find popUp views
             val closeButton = popupView.findViewById<Button>(R.id.close_breeds)
             val recycler = popupView.findViewById<RecyclerView>(R.id.recycler);
-            breed_adapter = BreedRecyclerAdapter(breedList)
+            breed_adapter = BreedRecyclerAdapter(breedList, selectedBreed)
 
             // set recycle viewer
             recycler!!.layoutManager = LinearLayoutManager(context)

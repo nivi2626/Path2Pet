@@ -22,16 +22,17 @@ import java.util.List;
 
 public class BreedRecyclerAdapter extends RecyclerView.Adapter<BreedRecyclerAdapter.BreedViewHolder>{
     private List<Breed> breedList = null;
-    private Context context;
     private String selectedItem = null;
     public int checkedPosition = 0;
 
-    public BreedRecyclerAdapter(List<Breed> breedList) {
+    public BreedRecyclerAdapter(List<Breed> breedList, String selectedBreed) {
         if (this.breedList == null) {
             this.breedList = breedList;
         }
+        this.selectedItem = selectedBreed;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public BreedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,9 +45,15 @@ public class BreedRecyclerAdapter extends RecyclerView.Adapter<BreedRecyclerAdap
         Breed breed = breedList.get(position);
         holder.bind(breedList.get(position));
         int tempPosition = position;
-        this.context = holder.breed_type.getContext();
         holder.breed_type.setText(breed.breedName);
         holder.breed_image.setImageResource(breed.imageNum);
+        if (breed.breedName == selectedItem) {
+            holder.checkedIcon.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.checkedIcon.setVisibility(View.INVISIBLE);
+        }
+
         holder.itemView.setOnClickListener(v ->
         {
             holder.bind(breed);
