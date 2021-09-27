@@ -20,7 +20,7 @@ import java.util.ArrayList
 class Fragment_d_BreedSize : Fragment() {
     private lateinit var foundPetActivityInstance: FoundPetProcess
     private var breed_adapter: BreedRecyclerAdapter? = null
-    private val breedList = ArrayList<Breed>()
+    private lateinit var breedList: ArrayList<Breed>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -155,6 +155,7 @@ class Fragment_d_BreedSize : Fragment() {
     }
 
     private fun initializeDogBreedList() {
+        breedList = ArrayList<Breed>()
         breedList.add(Breed("Mixed Breed", R.drawable.dog_mixed))
         breedList.add(Breed("German Shepherd", R.drawable.dog_german_shepherd))
         breedList.add(Breed("Akita", R.drawable.dog_akita))
@@ -179,6 +180,7 @@ class Fragment_d_BreedSize : Fragment() {
 
     private fun initializeCatBreedList()
     {
+        breedList = ArrayList<Breed>()
         breedList.add(Breed("Mixed Breed", R.drawable.cat_mixed))
         breedList.add(Breed("Asian", R.drawable.cat_asian))
         breedList.add(Breed("Balinese", R.drawable.cat_balinese))
