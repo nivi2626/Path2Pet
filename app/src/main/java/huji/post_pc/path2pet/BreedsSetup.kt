@@ -9,9 +9,6 @@ fun initializeDogBreedList(): ArrayList<Breed> {
 
     val uri_mixed: Uri = Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_mixed")
     breedList.add(Breed("Mixed Breed", uri_mixed))
-    val uri_german_shepherd: Uri =
-        Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_german_shepherd")
-    breedList.add(Breed("German Shepherd", uri_german_shepherd))
     val uri_dog_akita: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_akita")
     breedList.add(Breed("Akita", uri_dog_akita))
@@ -26,12 +23,18 @@ fun initializeDogBreedList(): ArrayList<Breed> {
     val uri_boxer: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_boxer")
     breedList.add(Breed("Boxer", uri_boxer))
+    val uri_canaan: Uri =
+        Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_canaan")
+    breedList.add(Breed("German Shepherd", uri_canaan))
     val uri_chihuahua: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_chihuahua")
     breedList.add(Breed("Chihuahua", uri_chihuahua))
     val uri_dalmatian: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_dalmatian")
     breedList.add(Breed("Dalmatian", uri_dalmatian))
+    val uri_german_shepherd: Uri =
+        Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_german_shepherd")
+    breedList.add(Breed("German Shepherd", uri_german_shepherd))
     val uri_greyhound: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/dog_greyhound")
     breedList.add(Breed("Greyhound", uri_greyhound))
