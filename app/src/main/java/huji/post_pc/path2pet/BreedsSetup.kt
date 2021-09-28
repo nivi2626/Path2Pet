@@ -79,9 +79,6 @@ fun initializeCatBreedList(): ArrayList<Breed> {
     val uri_cat_asian: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/cat_asian")
     breedList.add(Breed("Asian", uri_cat_asian))
-    val uri_cat_balinese: Uri =
-        Uri.parse("android.resource://huji.post_pc.path2pet/drawable/cat_balinese")
-    breedList.add(Breed("Balinese", uri_cat_balinese))
     val uri_cat_bengal: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/cat_bengal")
     breedList.add(Breed("Bengal", uri_cat_bengal))
@@ -94,6 +91,9 @@ fun initializeCatBreedList(): ArrayList<Breed> {
     val uri_cat_dwelf: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/cat_dwelf")
     breedList.add(Breed("Dwelf", uri_cat_dwelf))
+    val uri_cat_exotic: Uri =
+        Uri.parse("android.resource://huji.post_pc.path2pet/drawable/cat_exotic")
+    breedList.add(Breed("Exotic", uri_cat_exotic))
     val uri_cat_foldex: Uri =
         Uri.parse("android.resource://huji.post_pc.path2pet/drawable/cat_foldex")
     breedList.add(Breed("Foldex", uri_cat_foldex))
