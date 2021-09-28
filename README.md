@@ -5,8 +5,19 @@ Without any registration you can report a missing pet you lost/found, and use th
 <br />
 <br />
 <br />
-![Screenshot](app_images/home_screen.jpg)
-![Screenshot](app_images/map.jpg)
-![Screenshot](app_images/camera.jpg)
-![Screenshot](app_images/feed.jpg)
 
+<p align="center">
+  <img src="app_images/home_screen.jpg" width="200" title="hover text">
+</p>
+
+<p align="center">
+  <img src="app_images/map.jpg" width="200" title="hover text">
+</p>
+
+<p align="center">
+  <img src="app_images/camera.jpg" width="200" title="hover text">
+</p>
+
+<p align="center">
+  <img src="app_images/feed.jpg" width="200" title="hover text">
+</p>
