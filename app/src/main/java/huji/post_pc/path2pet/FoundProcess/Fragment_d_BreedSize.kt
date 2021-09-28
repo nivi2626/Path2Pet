@@ -52,10 +52,10 @@ class Fragment_d_BreedSize : Fragment() {
         // get pet's type and set items for breed list
         if (petType != null) {
             if (petType == AppPath2Pet.TYPE_DOG) {
-                initializeDogBreedList()
+                this.breedList = initializeDogBreedList()
             }
             else if (petType == AppPath2Pet.TYPE_CAT) {
-                initializeCatBreedList()
+                this.breedList = initializeCatBreedList()
             }
         }
 
